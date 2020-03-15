@@ -29,10 +29,9 @@ export const deriveECDHCompressedPublicKey = (publicKey, privateKey) => {
 };
 
 export const uncompressPublicKey = (publicKey) => {
-  debugger;
   const compressedKey = secp256k1.publicKeyConvert(keyToBuf(publicKey), false).slice(1);
 
-  return `0x${compressedKey.toString('hex')}`;
+  return `0x${Buffer.from(compressedKey).toString('hex')}`;
 };
 
 export const compressedPublicKeyToAddress = (publicKey) => {
