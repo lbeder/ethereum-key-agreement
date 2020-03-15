@@ -1,6 +1,6 @@
 {
-  "short_name": "Elliptic-curve Diffie–Hellman",
-  "name": "Elliptic-curve Diffie–Hellman",
+  "short_name": "Elliptic Curve Diffie–Hellman",
+  "name": "Elliptic Curve Diffie–Hellman",
   "icons": [
     {
       "src": "favicon.ico",
