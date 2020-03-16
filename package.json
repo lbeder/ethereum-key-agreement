@@ -31,7 +31,6 @@
     "react-detect-offline": "^2.4.0",
     "react-dom": "^16.13.0",
     "react-feather": "^2.0.3",
-    "react-helmet": "^5.2.1",
     "react-scripts": "3.4.0",
     "react-tooltip": "^4.1.2",
     "react-validation": "^3.0.7",
