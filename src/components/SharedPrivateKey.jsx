@@ -6,7 +6,7 @@ import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
 import { isPrivateKey } from '../utils/validators';
-import { multiplyPrivateKeys, privateKeyToCompressedPublicKey, compressedPublicKeyToAddress } from '../utils/crypto';
+import { ECDH } from '../utils/crypto';
 import CopyToClipboard from './CopyToClipboard';
 
 const SharedPrivateKey = () => {
@@ -29,16 +29,15 @@ const SharedPrivateKey = () => {
   const onSubmit = event => {
     event.preventDefault();
 
-    const sharedPrivateKey = multiplyPrivateKeys(inputData.privateKey1, inputData.privateKey2);
-    setPrivateKey(sharedPrivateKey);
+    const sharedPrivateKey = ECDH.derivePrivateKey(inputData.privateKey1, inputData.privateKey2);
+    setPrivateKey(sharedPrivateKey.toString());
 
     // Get the compressed shared public key.
-    const sharedPublicKey = privateKeyToCompressedPublicKey(sharedPrivateKey);
-    setPublicKey(sharedPublicKey);
+    const sharedPublicKey = sharedPrivateKey.toPublicKey();
+    setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
-    const sharedAddress = compressedPublicKeyToAddress(sharedPublicKey);
-    setAddress(sharedAddress);
+    setAddress(sharedPublicKey.toAddress());
   };
 
   return (
