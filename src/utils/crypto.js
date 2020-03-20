@@ -51,6 +51,12 @@ export class PrivateKey {
 
     return new PrivateKey(Buffer.from(secp256k1.privateKeyTweakMul(tmpKey, new PrivateKey(key).key)));
   }
+
+  addPrivateKey(key) {
+    const tmpKey = new Uint8Array(this.key);
+
+    return new PrivateKey(Buffer.from(secp256k1.privateKeyTweakAdd(tmpKey, new PrivateKey(key).key)));
+  }
 }
 
 export class PublicKey {
@@ -103,6 +109,12 @@ export class PublicKey {
 
   toString() {
     return `0x${Buffer.from(this.key).toString('hex')}`;
+  }
+
+  addPublicKey(key) {
+    const tmpKey = new Uint8Array(this.key);
+
+    return new PublicKey(Buffer.from(secp256k1.publicKeyCombine([tmpKey, new PublicKey(key).key], this.compressed)));
   }
 }
 
