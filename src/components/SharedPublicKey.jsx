@@ -77,14 +77,19 @@ const SharedPublicKey = () => {
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
+            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
+            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
           </Col>
         </FormGroup>
 
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared public key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared public key would be <i>abG</i>.
+              The shared public key is derived using the
+              <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
+              Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and
+              <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared public key would be
+              <i>abG</i>.
             </small>
           </Col>
         </FormGroup>

@@ -88,7 +88,11 @@ const SharedPrivateKey = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared private key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared private key would be <i>ab</i>.
+              The shared private key is derived using the
+              <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
+              Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and
+              <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared private key would be
+              <i>ab</i>.
             </small>
           </Col>
         </FormGroup>
