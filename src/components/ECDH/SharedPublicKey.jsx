@@ -5,9 +5,9 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPrivateKey, isPublicKey } from '../utils/validators';
-import { ECDH } from '../utils/crypto';
-import CopyToClipboard from './CopyToClipboard';
+import { isPrivateKey, isPublicKey } from '../../utils/validators';
+import { ECDH } from '../../utils/crypto';
+import CopyToClipboard from '../CopyToClipboard';
 
 const SharedPublicKey = () => {
   const [inputData, setInputData] = useState({
