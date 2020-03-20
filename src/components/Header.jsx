@@ -26,7 +26,7 @@ const Header = () => {
               </div>
             </Col>
             <Col md="auto">
-              <h1 className="header-title">Elliptic Curve Diffie–Hellman for Ethereum</h1>
+              <h1 className="header-title">Key Agreement for Ethereum</h1>
               <h6 className="header-version">{process.env.REACT_APP_VERSION}</h6>
             </Col>
             <Col className="network">
