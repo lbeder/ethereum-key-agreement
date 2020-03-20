@@ -121,6 +121,41 @@ describe('PrivateKey', () => {
       });
     });
   });
+
+  describe('addPrivateKey', () => {
+    [
+      {
+        key1: '0x42fc0028b60a5052de140b7b5bad25f01041ec306b1e59714963f38661ca1e7b',
+        key2: '0x2f9b3b0603e8af0f3e111beef5e0083a71856f9bf2260cdd73a89fb68240ea34',
+        res: '0x72973b2eb9f2ff621c25276a518d2e2a81c75bcc5d44664ebd0c933ce40b08af',
+      },
+      {
+        key1: '0x9c2044b4c7ee77b0d9a6105f0d50c0f397efd5317d47c21b8fab8fb2060dcdb6',
+        key2: '0x611bedf21d9069610df3f70553783f4e04a8ef1325e15123b1d435cb5bb484bd',
+        res: '0xfd3c32a6e57ee111e79a076460c900419c98c444a329133f417fc57d61c25273',
+      },
+      {
+        key1: '0x42fc0028b60a5052de140b7b5bad25f01041ec306b1e59714963f38661ca1e7b',
+        key2: '0x9c2044b4c7ee77b0d9a6105f0d50c0f397efd5317d47c21b8fab8fb2060dcdb6',
+        res: '0xdf1c44dd7df8c803b7ba1bda68fde6e3a831c161e8661b8cd90f833867d7ec31',
+      },
+      {
+        key1: '0x42fc0028b60a5052de140b7b5bad25f01041ec306b1e59714963f38661ca1e7b',
+        key2: '0x611bedf21d9069610df3f70553783f4e04a8ef1325e15123b1d435cb5bb484bd',
+        res: '0xa417ee1ad39ab9b3ec080280af25653e14eadb4390ffaa94fb382951bd7ea338',
+      }
+    ].forEach(spec => {
+      const { key1, key2, res } = spec;
+
+      it(`should add private keys ${key1.toString('hex')} and ${key2.toString('hex')}`, async () => {
+        const privateKey1 = new PrivateKey(key1);
+        const privateKey2 = new PrivateKey(key2);
+
+        expect(privateKey1.addPrivateKey(privateKey2).toString()).toEqual(res);
+        expect(privateKey2.addPrivateKey(privateKey1).toString()).toEqual(res);
+      });
+    });
+  });
 });
 
 describe('PublicKey', () => {
@@ -318,6 +353,41 @@ describe('PublicKey', () => {
         const publicKey = new PublicKey(key);
 
         expect(publicKey.toString()).toEqual(res);
+      });
+    });
+  });
+
+  describe('addPublicKey', () => {
+    [
+      {
+        key1: '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
+        key2: '0x0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8',
+        res: '0x0317571e5f18a9e7f584a49b876eef72a69585c1ca70d9704bd342879a11c43351',
+      },
+      {
+        key1: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
+        key2: '0x02d4d126793b4e653aa7fc4c9e40148d61dbe707085c3cf71fe4702ed36f999c26',
+        res: '0x02aa22479a661b72b89e9daa4f515d8c69c4cbbc4149d7658ecd09311b2217fb3e',
+      },
+      {
+        key1: '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
+        key2: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
+        res: '0x028a120ca4ba1fb807ac59d78296be0f1e8d11e1f792def8a96ec90b5707eeb4b1',
+      },
+      {
+        key1: '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
+        key2: '0x02d4d126793b4e653aa7fc4c9e40148d61dbe707085c3cf71fe4702ed36f999c26',
+        res: '0x03e2be09e6742dd3af9c23bb7c8745f1209f207f19e4fb937af4a17db09d2cc804',
+      }
+    ].forEach(spec => {
+      const { key1, key2, res } = spec;
+
+      it(`should add public keys ${key1.toString('hex')} and ${key2.toString('hex')}`, async () => {
+        const publicKey1 = new PublicKey(key1);
+        const publicKey2 = new PublicKey(key2);
+
+        expect(publicKey1.addPublicKey(publicKey2).toString()).toEqual(res);
+        expect(publicKey2.addPublicKey(publicKey1).toString()).toEqual(res);
       });
     });
   });
