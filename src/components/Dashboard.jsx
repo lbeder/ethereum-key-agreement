@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tab, Row, Col, Nav } from 'react-bootstrap';
 
-import SharedPublicKey from './SharedPublicKey';
-import SharedPrivateKey from './SharedPrivateKey';
+import SharedPublicKey from './ECDH/SharedPublicKey';
+import SharedPrivateKey from './ECDH/SharedPrivateKey';
 
 import './Dashboard.scss';
 
