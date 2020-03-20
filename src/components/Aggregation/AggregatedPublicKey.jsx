@@ -5,14 +5,14 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPrivateKey, isPublicKey } from '../utils/validators';
-import { deriveECDHCompressedPublicKey, compressedPublicKeyToAddress } from '../utils/crypto';
-import CopyToClipboard from './CopyToClipboard';
+import { isPublicKey } from '../../utils/validators';
+import { Aggregation } from '../../utils/crypto';
+import CopyToClipboard from '../CopyToClipboard';
 
-const SharedPublicKey = () => {
+const AggregatedPublicKey = () => {
   const [inputData, setInputData] = useState({
-    privateKey: '',
-    publicKey: ''
+    publicKey1: '',
+    publicKey2: ''
   });
 
   const [address, setAddress] = useState('');
@@ -29,12 +29,11 @@ const SharedPublicKey = () => {
     event.preventDefault();
 
     // Get the compressed shared public key.
-    const sharedPublicKey = deriveECDHCompressedPublicKey(inputData.publicKey, inputData.privateKey);
-    setPublicKey(sharedPublicKey);
+    const sharedPublicKey = Aggregation.derivePublicKey(inputData.publicKey1, inputData.publicKey2);
+    setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
-    const sharedAddress = compressedPublicKeyToAddress(sharedPublicKey);
-    setAddress(sharedAddress);
+    setAddress(sharedPublicKey.toChecksumAddress());
   };
 
   return (
@@ -47,44 +46,48 @@ const SharedPublicKey = () => {
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Your Private Key</FormLabel>
-          </Col>
-          <Col md={9}>
-            <Input
-              className="form-control key"
-              type="password"
-              name="privateKey"
-              placeholder="0x"
-              value={inputData.privateKey}
-              validations={[isPrivateKey]}
-              onChange={onChangeUpdateInput}
-            />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
-          </Col>
-        </FormGroup>
-
-        <FormGroup as={Row}>
-          <Col md={2}>
-            <FormLabel>Other Public Key</FormLabel>
+            <FormLabel>Public Key #1</FormLabel>
           </Col>
           <Col md={9}>
             <Input
               className="form-control key"
               type="text"
-              name="publicKey"
+              name="publicKey1"
               placeholder="0x"
-              value={inputData.publicKey}
+              value={inputData.publicKey1}
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
+            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
+            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
+          </Col>
+        </FormGroup>
+
+        <FormGroup as={Row}>
+          <Col md={2}>
+            <FormLabel>Public Key #2</FormLabel>
+          </Col>
+          <Col md={9}>
+            <Input
+              className="form-control key"
+              type="text"
+              name="publicKey2"
+              placeholder="0x"
+              value={inputData.publicKey2}
+              validations={[isPublicKey]}
+              onChange={onChangeUpdateInput}
+            />
+            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
+            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
           </Col>
         </FormGroup>
 
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared public key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared public key would be <i>abG</i>.
+              The shared public key is derived using the key aggregation key agreement protocol. If Alice and Bob have
+              private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the
+              shared public key would be <i>(a + b)G</i>.
             </small>
           </Col>
         </FormGroup>
@@ -138,7 +141,7 @@ const SharedPublicKey = () => {
         </FormGroup>
       </Form >
     </>
-  )
+  );
 };
 
-export default SharedPublicKey;
+export default AggregatedPublicKey;

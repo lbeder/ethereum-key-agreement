@@ -19,6 +19,6 @@ const CopyToClipboard = ({ text }) => {
       <ReactTooltip />
     </>
   );
-}
+};
 
 export default CopyToClipboard;

@@ -5,11 +5,11 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPrivateKey } from '../utils/validators';
-import { multiplyPrivateKeys, privateKeyToCompressedPublicKey, compressedPublicKeyToAddress } from '../utils/crypto';
-import CopyToClipboard from './CopyToClipboard';
+import { isPrivateKey } from '../../utils/validators';
+import { Aggregation } from '../../utils/crypto';
+import CopyToClipboard from '../CopyToClipboard';
 
-const SharedPrivateKey = () => {
+const AggregatedPrivateKey = () => {
   const [inputData, setInputData] = useState({
     privateKey1: '',
     privateKey2: ''
@@ -18,7 +18,6 @@ const SharedPrivateKey = () => {
   const [address, setAddress] = useState('');
   const [publicKey, setPublicKey] = useState('');
   const [privateKey, setPrivateKey] = useState('');
-
 
   const onChangeUpdateInput = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -30,16 +29,15 @@ const SharedPrivateKey = () => {
   const onSubmit = event => {
     event.preventDefault();
 
-    const sharedPrivateKey = multiplyPrivateKeys(inputData.privateKey1, inputData.privateKey2);
-    setPrivateKey(sharedPrivateKey);
+    const sharedPrivateKey = Aggregation.derivePrivateKey(inputData.privateKey1, inputData.privateKey2);
+    setPrivateKey(sharedPrivateKey.toString());
 
     // Get the compressed shared public key.
-    const sharedPublicKey = privateKeyToCompressedPublicKey(sharedPrivateKey);
-    setPublicKey(sharedPublicKey);
+    const sharedPublicKey = sharedPrivateKey.toPublicKey();
+    setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
-    const sharedAddress = compressedPublicKeyToAddress(sharedPublicKey);
-    setAddress(sharedAddress);
+    setAddress(sharedPublicKey.toChecksumAddress());
   };
 
   return (
@@ -89,7 +87,9 @@ const SharedPrivateKey = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared private key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared private key would be <i>ab</i>.
+              The shared public key is derived using the key aggregation key agreement protocol. If Alice and Bob have
+              private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the
+              shared public key would be <i>(a + b)G</i>.
             </small>
           </Col>
         </FormGroup>
@@ -162,7 +162,7 @@ const SharedPrivateKey = () => {
         </FormGroup>
       </Form >
     </>
-  )
+  );
 };
 
-export default SharedPrivateKey;
+export default AggregatedPrivateKey;
