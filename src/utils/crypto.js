@@ -38,6 +38,7 @@ export class PrivateKey {
 
   toPublicKey() {
     const tmpKey = new Uint8Array(this.key);
+
     return new PublicKey(Buffer.from(secp256k1.publicKeyCreate(tmpKey, true)));
   };
 
@@ -47,6 +48,7 @@ export class PrivateKey {
 
   mulPrivateKey(key) {
     const tmpKey = new Uint8Array(this.key);
+
     return new PrivateKey(Buffer.from(secp256k1.privateKeyTweakMul(tmpKey, new PrivateKey(key).key)));
   }
 }
@@ -74,6 +76,7 @@ export class PublicKey {
 
     // Uncompress the public key and remove the first 0x04 byte indicating the previous uncompressed form.
     const tmpKey = new Uint8Array([UNCOMPRESSED_PUBLIC_KEY_PREFIX, ...this.key]);
+
     return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, true)));
   };
 
@@ -83,6 +86,7 @@ export class PublicKey {
     }
 
     const tmpKey = new Uint8Array(this.key);
+
     return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, false)));
   }
 
@@ -115,6 +119,7 @@ export class ECDH {
     };
 
     const tmpPublicKey = new Uint8Array(new PublicKey(publicKey).key);
+
     return new PublicKey(Buffer.from(secp256k1.ecdh(tmpPublicKey, new PrivateKey(privateKey).key, { hashfn },
       Buffer.alloc(COMPRESSED_PUBLIC_KEY_LENGTH))));
   }
