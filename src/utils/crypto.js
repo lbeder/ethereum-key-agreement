@@ -143,3 +143,15 @@ export class ECDH {
     return tmpPrivateKey.mulPrivateKey(privateKey2);
   }
 }
+
+export class Aggregation {
+  // Derives a shared public key by combining both of the public keys.
+  static derivePublicKey(publicKey1, publicKey2) {
+    return new PublicKey(publicKey1).addPublicKey(publicKey2);
+  }
+
+  // Derives a shared private key by combining both of the private keys.
+  static derivePrivateKey(privateKey1, privateKey2) {
+    return new PrivateKey(privateKey1).addPrivateKey(privateKey2);
+  }
+}
