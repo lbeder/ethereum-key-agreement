@@ -1,8 +1,12 @@
 {
+    "env": {
+        "jest/globals": true
+    },
     "extends": "standard",
     "plugins": [
         "standard",
-        "react"
+        "react",
+        "jest"
     ],
     "rules": {
         "no-var": "error", // optional, recommended when using es6+
