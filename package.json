@@ -1,5 +1,5 @@
 {
-  "name": "ecdh-ethereum",
+  "name": "ethereum-key-agreement",
   "version": "0.2.0",
   "homepage": ".",
   "private": true,
