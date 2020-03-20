@@ -138,7 +138,7 @@ const SharedPublicKey = () => {
         </FormGroup>
       </Form >
     </>
-  )
+  );
 };
 
 export default SharedPublicKey;
