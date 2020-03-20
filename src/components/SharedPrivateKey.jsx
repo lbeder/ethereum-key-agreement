@@ -19,7 +19,6 @@ const SharedPrivateKey = () => {
   const [publicKey, setPublicKey] = useState('');
   const [privateKey, setPrivateKey] = useState('');
 
-
   const onChangeUpdateInput = ({ target }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -162,7 +161,7 @@ const SharedPrivateKey = () => {
         </FormGroup>
       </Form >
     </>
-  )
+  );
 };
 
 export default SharedPrivateKey;
