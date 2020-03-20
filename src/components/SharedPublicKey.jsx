@@ -33,7 +33,7 @@ const SharedPublicKey = () => {
     setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
-    setAddress(sharedPublicKey.toAddress());
+    setAddress(sharedPublicKey.toChecksumAddress());
   };
 
   return (
