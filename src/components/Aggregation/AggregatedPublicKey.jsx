@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import React, { useState } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
@@ -29,7 +31,8 @@ const AggregatedPublicKey = () => {
     event.preventDefault();
 
     // Get the compressed shared public key.
-    const sharedPublicKey = Aggregation.derivePublicKey(inputData.publicKey1, inputData.publicKey2);
+    const { publicKey1, publicKey2 } = inputData;
+    const sharedPublicKey = Aggregation.derivePublicKey(publicKey1, publicKey2);
     setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
@@ -82,16 +85,6 @@ const AggregatedPublicKey = () => {
           </Col>
         </FormGroup>
 
-        <FormGroup as={Row}>
-          <Col md={12}>
-            <small className="form-text text-muted">
-              The shared public key is derived using the key aggregation key agreement protocol. If Alice and Bob have
-              private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the
-              shared public key would be <i>(a + b)G</i>.
-            </small>
-          </Col>
-        </FormGroup>
-
         <Button
           className="btn btn-primary"
           type="submit"
@@ -139,7 +132,26 @@ const AggregatedPublicKey = () => {
             </InputGroup>
           </Col>
         </FormGroup>
-      </Form >
+      </Form>
+
+      <Form className="web3-component-notes">
+        <FormGroup as={Row}>
+          <Col md={12}>
+            <small className="form-text text-muted">
+              The shared public key is derived using the key aggregation key agreement protocol.
+            </small>
+
+            <small className="form-text text-muted">
+              If Alice and Bob have
+              private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
+              <ul>
+                <li>The shared public key would be <strong><i>(a + b)G</i></strong>.</li>
+                <li>The shared private key would be <strong><i>a + b</i></strong>.</li>
+              </ul>
+            </small>
+          </Col>
+        </FormGroup>
+      </Form>
     </>
   );
 };
