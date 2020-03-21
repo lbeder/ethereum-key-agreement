@@ -165,8 +165,8 @@ const PoPVerify = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              <strong>Proof of Possession</strong> is a critical technique of proving that a party sending a message owns
-              a specific cryptographic key. This is used as aproof that the correct party is sending the message, under
+              <strong>Proof of Possession</strong> is an important technique of proving that a party sending a message owns
+              a specific cryptographic key. This is used as a proof that the correct party is sending the message, under
               the assumption that only that sender has possession of the key. It is typically demonstrated by having the
               presenter/counterparty sign a value determined by the recipient using the key possessed by the
               presenter/counterparty.
@@ -183,8 +183,8 @@ const PoPVerify = () => {
               We recommend that:
               <ol>
                 <li>The message shouldn't have been chosen by the presenter/counterparty itself and should contain some data that is hard to determine ahead of time (e.g., some random data provided by you).</li>
-                <li>The message can include a commitment to the actual public key (e.g., having the public key or its hash appear in its contents).</li>
-                <li>A recent timestamp (to reduce key grinding attacks).</li>
+                <li>The message should include a commitment to the actual public key (e.g., having the public key or its hash appear in its contents).</li>
+                <li>The message should include a recent timestamp (to reduce key grinding attacks).</li>
               </ol>
             </small>
           </Col>
