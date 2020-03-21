@@ -1,6 +1,7 @@
 {
   "name": "ethereum-key-agreement",
   "version": "0.2.0",
+  "description": "Key Agreement Protocols for Ethereum",
   "homepage": ".",
   "private": true,
   "scripts": {
