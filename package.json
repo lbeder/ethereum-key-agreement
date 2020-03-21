@@ -24,7 +24,7 @@
   "dependencies": {
     "bignumber.js": "^9.0.0",
     "bootstrap": "^4.4.1",
-    "js-sha3": "^0.8.0",
+    "ethereumjs-utils": "^5.2.5",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
