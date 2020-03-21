@@ -159,7 +159,7 @@ export class Aggregation {
 
 export class ECDSA {
   // Verifies ECDSA signature on a given message. Please note, that this method assumes that:
-  // 1. The message was properly prefixed before signing (with "\x19Ethereum Signed Message:\n" + length of the message).
+  // 1. The message was prefixed before signing (with "\x19Ethereum Signed Message:\n" + length of the message).
   // 2. The prefixed message was keccak256 hashed before signing.
   static verifySignature(message, signature, publicKey) {
     const prefixedMessageHash = util.keccak256(Buffer.concat([
