@@ -1,11 +1,12 @@
 import secp256k1 from 'secp256k1';
-import { keccak256 } from 'js-sha3';
-import { utils } from 'web3';
+import util from 'ethereumjs-utils';
 
 export const COMPRESSED_PUBLIC_KEY_LENGTH = 33;
 export const UNCOMPRESSED_PUBLIC_KEY_LENGTH = 64;
 export const COMPRESSED_PRIVATE_KEY_LENGTH = 32;
 const UNCOMPRESSED_PUBLIC_KEY_PREFIX = 0x04;
+
+const MESSAGE_SIGNATURE_PREFIX = Buffer.from('\x19Ethereum Signed Message:\n');
 
 const keyToBuf = key => {
   let tmp = key;
@@ -98,13 +99,13 @@ export class PublicKey {
 
   toAddress() {
     const tmpKey = this.toUncompressed();
-    const address = keccak256(tmpKey.key).slice(-40);
+    const address = util.keccak256(tmpKey.key).slice(-20);
 
-    return `0x${address}`;
+    return `0x${address.toString('hex')}`;
   };
 
   toChecksumAddress() {
-    return utils.toChecksumAddress(this.toAddress());
+    return util.toChecksumAddress(this.toAddress());
   }
 
   toString() {
@@ -153,5 +154,29 @@ export class Aggregation {
   // Derives a shared private key by combining both of the private keys.
   static derivePrivateKey(privateKey1, privateKey2) {
     return new PrivateKey(privateKey1).addPrivateKey(privateKey2);
+  }
+}
+
+export class ECDSA {
+  // Verifies ECDSA signature on a given message. Please note, that this method assumes that:
+  // 1. The message was properly prefixed before signing (with "\x19Ethereum Signed Message:\n" + length of the message).
+  // 2. The prefixed message was keccak256 hashed before signing.
+  static verifySignature(message, signature, publicKey) {
+    const prefixedMessageHash = util.keccak256(Buffer.concat([
+      MESSAGE_SIGNATURE_PREFIX, Buffer.from(String(message.length)), Buffer.from(message)
+    ]));
+
+    let rawSignerPublicKey;
+    try {
+      const sig = util.fromRpcSig(signature);
+      rawSignerPublicKey = util.ecrecover(prefixedMessageHash, sig.v, sig.r, sig.s);
+    } catch {
+      return false;
+    }
+
+    const signerPublicKey = new PublicKey(rawSignerPublicKey).toCompressed();
+    const expectedPublicKey = new PublicKey(publicKey).toCompressed();
+
+    return signerPublicKey.key.equals(expectedPublicKey.key);
   }
 }
