@@ -89,8 +89,9 @@ const PoPVerify = () => {
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
-            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
+            <small className="form-text text-muted">
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
+            </small>
           </Col>
         </FormGroup>
 
@@ -107,7 +108,7 @@ const PoPVerify = () => {
               value={inputData.message}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">The message that used for signing.</small>
+            <small className="form-text text-muted">The message that used for signing</small>
           </Col>
         </FormGroup>
 
@@ -129,7 +130,7 @@ const PoPVerify = () => {
               130 characters long hexadecimal signature proving the ownership of
               the public key. We assume that the signature was generated using one of the popular Ethereum clients
               (e.g., MyCrypto, MyEtherWallet, geth, etc.), therefore assuming that the message was prefixed before
-              signing (with "\x19Ethereum Signed Message:\n" + length of the message).
+              signing (with "\x19Ethereum Signed Message:\n" + length of the message)
             </small>
           </Col>
         </FormGroup>
