@@ -29,7 +29,6 @@
     ]
   },
   "dependencies": {
-    "bignumber.js": "^9.0.0",
     "bootstrap": "^4.4.1",
     "ethereumjs-utils": "^5.2.5",
     "node-sass": "^4.13.1",
