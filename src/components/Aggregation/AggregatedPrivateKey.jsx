@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import React, { useState } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
@@ -29,7 +31,9 @@ const AggregatedPrivateKey = () => {
   const onSubmit = event => {
     event.preventDefault();
 
-    const sharedPrivateKey = Aggregation.derivePrivateKey(inputData.privateKey1, inputData.privateKey2);
+    // Get the compressed shared private key.
+    const { privateKey1, privateKey2 } = inputData;
+    const sharedPrivateKey = Aggregation.derivePrivateKey(privateKey1, privateKey2);
     setPrivateKey(sharedPrivateKey.toString());
 
     // Get the compressed shared public key.
@@ -81,16 +85,6 @@ const AggregatedPrivateKey = () => {
               onChange={onChangeUpdateInput}
             />
             <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
-          </Col>
-        </FormGroup>
-
-        <FormGroup as={Row}>
-          <Col md={12}>
-            <small className="form-text text-muted">
-              The shared public key is derived using the key aggregation key agreement protocol. If Alice and Bob have
-              private keys <i>a</i>, and <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the
-              shared public key would be <i>(a + b)G</i>.
-            </small>
           </Col>
         </FormGroup>
 
@@ -160,7 +154,26 @@ const AggregatedPrivateKey = () => {
             </InputGroup>
           </Col>
         </FormGroup>
-      </Form >
+      </Form>
+
+      <Form className="web3-component-notes">
+        <FormGroup as={Row}>
+          <Col md={12}>
+            <small className="form-text text-muted">
+              The shared public key is derived using the key aggregation key agreement protocol.
+            </small>
+
+            <small className="form-text text-muted">
+              If Alice and Bob have
+              private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
+              <ul>
+                <li>The shared public key would be <strong><i>(a + b)G</i></strong>.</li>
+                <li>The shared private key would be <strong><i>a + b</i></strong>.</li>
+              </ul>
+            </small>
+          </Col>
+        </FormGroup>
+      </Form>
     </>
   );
 };

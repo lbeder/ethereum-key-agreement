@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab, Row, Col, Nav } from 'react-bootstrap';
 
+import PoPVerify from './PoP/PoPVerify';
 import ECDHPublicKey from './ECDH/ECDHPublicKey';
 import ECDHPrivateKey from './ECDH/ECDHPrivateKey';
 import AggregatedPublicKey from './Aggregation/AggregatedPublicKey';
@@ -11,11 +12,23 @@ import './Dashboard.scss';
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <Tab.Container defaultActiveKey="ecdh-public-key">
+      <Tab.Container defaultActiveKey="verify-keys">
         <Row>
           <Col md={2}>
 
             <Nav variant="pills" className="flex-column">
+              <div className="section">
+                <Nav.Item>
+                  <Nav.Link className="title" eventKey="disabled" disabled>
+                    Proof of Possession
+                  </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey="verify-keys">Verify Keys</Nav.Link>
+                </Nav.Item>
+              </div>
+
               <div className="section">
                 <Nav.Item>
                   <Nav.Link className="title" eventKey="disabled" disabled>
@@ -52,6 +65,10 @@ const Dashboard = () => {
 
           <Col md={10} className="web3-component">
             <Tab.Content>
+              <Tab.Pane eventKey="verify-keys">
+                <PoPVerify />
+              </Tab.Pane>
+
               <Tab.Pane eventKey="ecdh-public-key">
                 <ECDHPublicKey />
               </Tab.Pane>
