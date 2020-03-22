@@ -61,8 +61,9 @@ const AggregatedPublicKey = () => {
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
-            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
+            <small className="form-text text-muted">
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
+            </small>
           </Col>
         </FormGroup>
 
