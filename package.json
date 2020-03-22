@@ -2,8 +2,13 @@
   "name": "ethereum-key-agreement",
   "version": "0.2.0",
   "description": "Key Agreement Protocols for Ethereum",
+  "author": "leonid.beder@gmail.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lbeder/ethereum-key-agreement.git"
+  },
   "homepage": ".",
-  "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
