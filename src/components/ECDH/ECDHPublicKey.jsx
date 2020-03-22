@@ -79,8 +79,9 @@ const ECDHPublicKey = () => {
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
-            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
+            <small className="form-text text-muted">
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.
+            </small>
           </Col>
         </FormGroup>
 
@@ -147,6 +148,10 @@ const ECDHPublicKey = () => {
                 <li>The shared public key would be <strong><i>abG</i></strong>.</li>
                 <li>The shared private key would be <strong><i>ab</i></strong>.</li>
               </ul>
+            </small>
+
+            <small className="form-text text-muted">
+              Please make sure to verify the ownerships of the public keys using the  <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and <strong>Rouge Key Attacks</strong>.
             </small>
           </Col>
         </FormGroup>
