@@ -1,6 +1,7 @@
 import React from 'react';
 import validator from 'validator';
 import secp256k1 from 'secp256k1';
+import util from 'ethereumjs-utils';
 
 export const isNumber = value => {
   if (value === null || value === undefined || !validator.isNumeric(value)) {
@@ -69,6 +70,18 @@ export const isPublicKey = value => {
     return (
       <div className="invalid-feedback">
         Not a valid public key
+      </div>
+    );
+  }
+};
+
+export const isValidSignature = value => {
+  try {
+    util.fromRpcSig(value);
+  } catch (err) {
+    return (
+      <div className="invalid-feedback">
+        {err.message}
       </div>
     );
   }

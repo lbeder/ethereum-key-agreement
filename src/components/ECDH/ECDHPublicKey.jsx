@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import React, { useState } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
@@ -29,7 +31,8 @@ const ECDHPublicKey = () => {
     event.preventDefault();
 
     // Get the compressed shared public key.
-    const sharedPublicKey = ECDH.derivePublicKey(inputData.publicKey, inputData.privateKey);
+    const { publicKey, privateKey } = inputData;
+    const sharedPublicKey = ECDH.derivePublicKey(publicKey, privateKey);
     setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
@@ -76,19 +79,8 @@ const ECDHPublicKey = () => {
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">66 characters long hexadecimal <strong>compressed</strong> public
-            key (1+32 bytes). The key should start with either 0x02 or 0x03.</small>
-          </Col>
-        </FormGroup>
-
-        <FormGroup as={Row}>
-          <Col md={12}>
             <small className="form-text text-muted">
-              The shared public key is derived using the
-              <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
-              Diffie–Hellman (ECDH)</a> key agreement protocol. If Alice and Bob have private keys <i>a</i>, and
-              <i>b</i> and corresponding public keys <i>aG</i>, and <i>bG</i>, then the shared public key would be
-              <i>abG</i>.
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.
             </small>
           </Col>
         </FormGroup>
@@ -140,7 +132,30 @@ const ECDHPublicKey = () => {
             </InputGroup>
           </Col>
         </FormGroup>
-      </Form >
+      </Form>
+
+      <Form className="web3-component-notes">
+        <FormGroup as={Row}>
+          <Col md={12}>
+            <small className="form-text text-muted">
+              The shared public key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
+              Diffie–Hellman (ECDH)</a> key agreement protocol.
+            </small>
+
+            <small className="form-text text-muted">
+              If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
+              <ul>
+                <li>The shared public key would be <strong><i>abG</i></strong>.</li>
+                <li>The shared private key would be <strong><i>ab</i></strong>.</li>
+              </ul>
+            </small>
+
+            <small className="form-text text-muted">
+              Please make sure to verify the ownerships of the public keys using the  <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and <strong>Rouge Key Attacks</strong>.
+            </small>
+          </Col>
+        </FormGroup>
+      </Form>
     </>
   );
 };
