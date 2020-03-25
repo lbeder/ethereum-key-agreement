@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
-
-import React, { useState } from 'react';
+import React, { useState, MouseEvent, ChangeEvent } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
 import Form from 'react-validation/build/form';
@@ -8,10 +6,10 @@ import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
 import { isPrivateKey } from '../../utils/validators';
-import { ECDH } from '../../utils/crypto';
+import { Aggregation } from '../../utils/Aggregation';
 import CopyToClipboard from '../CopyToClipboard';
 
-const ECDHPrivateKey = () => {
+const AggregatedPrivateKey = () => {
   const [inputData, setInputData] = useState({
     privateKey1: '',
     privateKey2: ''
@@ -21,19 +19,20 @@ const ECDHPrivateKey = () => {
   const [publicKey, setPublicKey] = useState('');
   const [privateKey, setPrivateKey] = useState('');
 
-  const onChangeUpdateInput = ({ target }) => {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const value = element.type === 'checkbox' ? element.checked : element.value;
+    const name = element.name;
 
     setInputData({ ...inputData, [name]: value });
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
     // Get the compressed shared private key.
     const { privateKey1, privateKey2 } = inputData;
-    const sharedPrivateKey = ECDH.derivePrivateKey(privateKey1, privateKey2);
+    const sharedPrivateKey = Aggregation.derivePrivateKey(privateKey1, privateKey2);
     setPrivateKey(sharedPrivateKey.toString());
 
     // Get the compressed shared public key.
@@ -108,7 +107,7 @@ const ECDHPrivateKey = () => {
                 className="address"
                 type="text"
                 value={address}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={address} />
@@ -127,7 +126,7 @@ const ECDHPrivateKey = () => {
                 className="key"
                 type="text"
                 value={publicKey}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={publicKey} />
@@ -146,7 +145,7 @@ const ECDHPrivateKey = () => {
                 className="key"
                 type="text"
                 value={privateKey}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={privateKey} />
@@ -160,15 +159,15 @@ const ECDHPrivateKey = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared public key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
-              Diffie–Hellman (ECDH)</a> key agreement protocol.
+              The shared public key is derived using the key aggregation key agreement protocol.
             </small>
 
             <small className="form-text text-muted">
-              If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
+              If Alice and Bob have
+              private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
               <ul>
-                <li>The shared public key would be <strong><i>abG</i></strong>.</li>
-                <li>The shared private key would be <strong><i>ab</i></strong>.</li>
+                <li>The shared public key would be <strong><i>(a + b)G</i></strong>.</li>
+                <li>The shared private key would be <strong><i>a + b</i></strong>.</li>
               </ul>
             </small>
           </Col>
@@ -178,4 +177,4 @@ const ECDHPrivateKey = () => {
   );
 };
 
-export default ECDHPrivateKey;
+export default AggregatedPrivateKey;
