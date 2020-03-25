@@ -1,38 +1,36 @@
-/* eslint-disable max-len */
-
-import React, { useState } from 'react';
+import React, { useState, MouseEvent, ChangeEvent } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPublicKey } from '../../utils/validators';
-import { Aggregation } from '../../utils/crypto';
+import { isPrivateKey, isPublicKey } from '../../utils/validators';
+import { ECDH } from '../../utils/ECDH';
 import CopyToClipboard from '../CopyToClipboard';
 
-const AggregatedPublicKey = () => {
+const ECDHPublicKey = () => {
   const [inputData, setInputData] = useState({
-    publicKey1: '',
-    publicKey2: ''
+    privateKey: '',
+    publicKey: ''
   });
 
   const [address, setAddress] = useState('');
   const [publicKey, setPublicKey] = useState('');
 
-  const onChangeUpdateInput = ({ target }) => {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const value = element.type === 'checkbox' ? element.checked : element.value;
+    const name = element.name;
 
     setInputData({ ...inputData, [name]: value });
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
     // Get the compressed shared public key.
-    const { publicKey1, publicKey2 } = inputData;
-    const sharedPublicKey = Aggregation.derivePublicKey(publicKey1, publicKey2);
+    const sharedPublicKey = ECDH.derivePublicKey(inputData.publicKey, inputData.privateKey);
     setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
@@ -49,40 +47,38 @@ const AggregatedPublicKey = () => {
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Public Key #1</FormLabel>
+            <FormLabel>Your Private Key</FormLabel>
           </Col>
           <Col md={9}>
             <Input
               className="form-control key"
-              type="text"
-              name="publicKey1"
+              type="password"
+              name="privateKey"
               placeholder="0x"
-              value={inputData.publicKey1}
-              validations={[isPublicKey]}
+              value={inputData.privateKey}
+              validations={[isPrivateKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">
-              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
-            </small>
+            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
           </Col>
         </FormGroup>
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Public Key #2</FormLabel>
+            <FormLabel>Other Public Key</FormLabel>
           </Col>
           <Col md={9}>
             <Input
               className="form-control key"
               type="text"
-              name="publicKey2"
+              name="publicKey"
               placeholder="0x"
-              value={inputData.publicKey2}
+              value={inputData.publicKey}
               validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
             <small className="form-text text-muted">
-              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
             </small>
           </Col>
         </FormGroup>
@@ -107,7 +103,7 @@ const AggregatedPublicKey = () => {
                 className="address"
                 type="text"
                 value={address}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={address} />
@@ -126,7 +122,7 @@ const AggregatedPublicKey = () => {
                 className="key"
                 type="text"
                 value={publicKey}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={publicKey} />
@@ -140,15 +136,15 @@ const AggregatedPublicKey = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared public key is derived using the key aggregation key agreement protocol.
+              The shared public key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
+              Diffie–Hellman (ECDH)</a> key agreement protocol.
             </small>
 
             <small className="form-text text-muted">
-              If Alice and Bob have
-              private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
+              If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
               <ul>
-                <li>The shared public key would be <strong><i>(a + b)G</i></strong>.</li>
-                <li>The shared private key would be <strong><i>a + b</i></strong>.</li>
+                <li>The shared public key would be <strong><i>abG</i></strong>.</li>
+                <li>The shared private key would be <strong><i>ab</i></strong>.</li>
               </ul>
             </small>
 
@@ -162,4 +158,4 @@ const AggregatedPublicKey = () => {
   );
 };
 
-export default AggregatedPublicKey;
+export default ECDHPublicKey;

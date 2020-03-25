@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
-
-import React, { useState } from 'react';
+import React, { useState, MouseEvent, ChangeEvent } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
 import Form from 'react-validation/build/form';
@@ -8,7 +6,7 @@ import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
 import { isPublicKey, isValidSignature } from '../../utils/validators';
-import { ECDSA } from '../../utils/crypto';
+import { ECDSA } from '../../utils/ECDSA';
 
 const STATUSES = {
   OK: 'ok',
@@ -29,14 +27,15 @@ const PoPVerify = () => {
     message: ''
   });
 
-  const onChangeUpdateInput = ({ target }) => {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const value = element.type === 'checkbox' ? element.checked : element.value;
+    const name = element.name;
 
     setInputData({ ...inputData, [name]: value });
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
     try {
@@ -155,7 +154,7 @@ const PoPVerify = () => {
                 type="text"
                 className={statusClassName()}
                 value={status.message}
-                readOnly
+                readOnly={true}
               />
             </InputGroup>
           </Col>

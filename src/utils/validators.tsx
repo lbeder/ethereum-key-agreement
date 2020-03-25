@@ -1,9 +1,9 @@
 import React from 'react';
 import validator from 'validator';
 import secp256k1 from 'secp256k1';
-import util from 'ethereumjs-utils';
+import util from 'ethereumjs-util';
 
-export const isNumber = value => {
+export const isNumber = (value: string) => {
   if (value === null || value === undefined || !validator.isNumeric(value)) {
     return (
       <div className="invalid-feedback">
@@ -13,13 +13,14 @@ export const isNumber = value => {
   }
 };
 
-export const isHex = value => {
+export const isHex = (value: string) => {
   let hex = false;
-  if (value) {
-    if (value.startsWith('0x')) {
-      value = value.slice(2) || '0';
+  let tmp = value;
+  if (tmp) {
+    if (tmp.startsWith('0x')) {
+      tmp = tmp.slice(2) || '0';
     }
-    hex = validator.isHexadecimal(value);
+    hex = validator.isHexadecimal(tmp);
   }
 
   if (!hex) {
@@ -31,14 +32,15 @@ export const isHex = value => {
   }
 };
 
-export const isPrivateKey = value => {
+export const isPrivateKey = (value: string) => {
   let key;
-  if (value) {
-    if (value.startsWith('0x')) {
-      value = value.slice(2) || '0';
+  let tmp = value;
+  if (tmp) {
+    if (tmp.startsWith('0x')) {
+      tmp = tmp.slice(2) || '0';
     }
     try {
-      key = validator.isHexadecimal(value) && secp256k1.privateKeyVerify(Buffer.from(value, 'hex'));
+      key = validator.isHexadecimal(tmp) && secp256k1.privateKeyVerify(Buffer.from(tmp, 'hex'));
     } catch {
       key = false;
     }
@@ -53,14 +55,15 @@ export const isPrivateKey = value => {
   }
 };
 
-export const isPublicKey = value => {
+export const isPublicKey = (value: string) => {
   let key;
-  if (value) {
-    if (value.startsWith('0x')) {
-      value = value.slice(2) || '0';
+  let tmp = value;
+  if (tmp) {
+    if (tmp.startsWith('0x')) {
+      tmp = tmp.slice(2) || '0';
     }
     try {
-      key = validator.isHexadecimal(value) && secp256k1.publicKeyVerify(Buffer.from(value, 'hex'));
+      key = validator.isHexadecimal(tmp) && secp256k1.publicKeyVerify(Buffer.from(tmp, 'hex'));
     } catch {
       key = false;
     }
@@ -75,7 +78,7 @@ export const isPublicKey = value => {
   }
 };
 
-export const isValidSignature = value => {
+export const isValidSignature = (value: string) => {
   try {
     util.fromRpcSig(value);
   } catch (err) {

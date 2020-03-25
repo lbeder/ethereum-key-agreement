@@ -4,6 +4,46 @@
 
 A tool for various `secp2561k` key agreement protocols for Ethereum.
 
+## Building
+
+You can build the app for production to the `build` folder by running:
+
+```bash
+yarn build
+```
+
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.
+
+## Running
+
+You can run he app in the development mode by running:
+
+```bash
+yarn start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Testing
+
+You can launch the test runner in the interactive watch mode by running:
+
+```bash
+yarn test
+```
+
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+## Linting
+
+You can lint the whole project by running:
+
+```bash
+yarn lint
+```
+
 ## License
 
 MIT License

@@ -1,43 +1,37 @@
-/* eslint-disable max-len */
-
-import React, { useState } from 'react';
+import React, { useState, MouseEvent, ChangeEvent } from 'react';
 
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPrivateKey } from '../../utils/validators';
-import { Aggregation } from '../../utils/crypto';
+import { isPublicKey } from '../../utils/validators';
+import { Aggregation } from '../../utils/Aggregation';
 import CopyToClipboard from '../CopyToClipboard';
 
-const AggregatedPrivateKey = () => {
+const AggregatedPublicKey = () => {
   const [inputData, setInputData] = useState({
-    privateKey1: '',
-    privateKey2: ''
+    publicKey1: '',
+    publicKey2: ''
   });
 
   const [address, setAddress] = useState('');
   const [publicKey, setPublicKey] = useState('');
-  const [privateKey, setPrivateKey] = useState('');
 
-  const onChangeUpdateInput = ({ target }) => {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const value = element.type === 'checkbox' ? element.checked : element.value;
+    const name = element.name;
 
     setInputData({ ...inputData, [name]: value });
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
-    // Get the compressed shared private key.
-    const { privateKey1, privateKey2 } = inputData;
-    const sharedPrivateKey = Aggregation.derivePrivateKey(privateKey1, privateKey2);
-    setPrivateKey(sharedPrivateKey.toString());
-
     // Get the compressed shared public key.
-    const sharedPublicKey = sharedPrivateKey.toPublicKey();
+    const { publicKey1, publicKey2 } = inputData;
+    const sharedPublicKey = Aggregation.derivePublicKey(publicKey1, publicKey2);
     setPublicKey(sharedPublicKey.toString());
 
     // Derive the shared address.
@@ -54,37 +48,41 @@ const AggregatedPrivateKey = () => {
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Private Key #1</FormLabel>
+            <FormLabel>Public Key #1</FormLabel>
           </Col>
           <Col md={9}>
             <Input
               className="form-control key"
-              type="password"
-              name="privateKey1"
+              type="text"
+              name="publicKey1"
               placeholder="0x"
-              value={inputData.privateKey1}
-              validations={[isPrivateKey]}
+              value={inputData.publicKey1}
+              validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+            <small className="form-text text-muted">
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
+            </small>
           </Col>
         </FormGroup>
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Private Key #2</FormLabel>
+            <FormLabel>Public Key #2</FormLabel>
           </Col>
           <Col md={9}>
             <Input
               className="form-control key"
-              type="password"
-              name="privateKey2"
+              type="text"
+              name="publicKey2"
               placeholder="0x"
-              value={inputData.privateKey2}
-              validations={[isPrivateKey]}
+              value={inputData.publicKey2}
+              validations={[isPublicKey]}
               onChange={onChangeUpdateInput}
             />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+            <small className="form-text text-muted">
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.
+            </small>
           </Col>
         </FormGroup>
 
@@ -108,7 +106,7 @@ const AggregatedPrivateKey = () => {
                 className="address"
                 type="text"
                 value={address}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={address} />
@@ -127,29 +125,10 @@ const AggregatedPrivateKey = () => {
                 className="key"
                 type="text"
                 value={publicKey}
-                readOnly
+                readOnly={true}
               />
               <InputGroup.Append>
                 <CopyToClipboard text={publicKey} />
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </FormGroup>
-
-        <FormGroup as={Row}>
-          <Col md={2}>
-            <FormLabel>Shared Private Key</FormLabel>
-          </Col>
-          <Col md={9}>
-            <InputGroup className="mb-3">
-              <FormControl
-                className="key"
-                type="text"
-                value={privateKey}
-                readOnly
-              />
-              <InputGroup.Append>
-                <CopyToClipboard text={privateKey} />
               </InputGroup.Append>
             </InputGroup>
           </Col>
@@ -171,6 +150,10 @@ const AggregatedPrivateKey = () => {
                 <li>The shared private key would be <strong><i>a + b</i></strong>.</li>
               </ul>
             </small>
+
+            <small className="form-text text-muted">
+              Please make sure to verify the ownerships of the public keys using the  <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and <strong>Rouge Key Attacks</strong>.
+            </small>
           </Col>
         </FormGroup>
       </Form>
@@ -178,4 +161,4 @@ const AggregatedPrivateKey = () => {
   );
 };
 
-export default AggregatedPrivateKey;
+export default AggregatedPublicKey;
