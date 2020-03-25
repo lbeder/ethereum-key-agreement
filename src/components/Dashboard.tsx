@@ -19,7 +19,7 @@ const Dashboard = () => {
             <Nav variant="pills" className="flex-column">
               <div className="section">
                 <Nav.Item>
-                  <Nav.Link className="title" eventKey="disabled" disabled>
+                  <Nav.Link className="title" eventKey="disabled" disabled={true}>
                     Proof of Possession
                   </Nav.Link>
                 </Nav.Item>
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
               <div className="section">
                 <Nav.Item>
-                  <Nav.Link className="title" eventKey="disabled" disabled>
+                  <Nav.Link className="title" eventKey="disabled" disabled={true}>
                     ECDH
                   </Nav.Link>
                 </Nav.Item>
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
               <div className="section">
                 <Nav.Item>
-                  <Nav.Link className="title" eventKey="disabled" disabled>
+                  <Nav.Link className="title" eventKey="disabled" disabled={true}>
                     Aggregation
                   </Nav.Link>
                 </Nav.Item>
