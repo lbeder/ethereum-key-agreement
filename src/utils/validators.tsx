@@ -63,7 +63,7 @@ export const isPublicKey = (value: string) => {
       tmp = tmp.slice(2) || '0';
     }
     try {
-      key = validator.isHexadecimal(tmp) && secp256k1.publicKeyVerify(Buffer.from(value, 'hex'));
+      key = validator.isHexadecimal(tmp) && secp256k1.publicKeyVerify(Buffer.from(tmp, 'hex'));
     } catch {
       key = false;
     }
