@@ -9,8 +9,8 @@
     margin-bottom: 1rem;
     background: white;
     border: 1px solid #edf2f9;
-    border-radius: .5rem;
-    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
 
     .title {
       font-weight: 700;
@@ -53,16 +53,16 @@
   .web3-component-form {
     background-color: white;
     border: 1px solid #edf2f9;
-    border-radius: .5rem;
-    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     padding: 1rem;
   }
 
   .web3-component-result {
     background-color: white;
     border: 1px solid #edf2f9;
-    border-radius: .5rem;
-    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     padding: 1rem;
     margin-top: 1rem;
   }
@@ -70,8 +70,8 @@
   .web3-component-notes {
     background-color: white;
     border: 1px solid #edf2f9;
-    border-radius: .5rem;
-    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     padding: 0.5rem 1rem;
     margin-top: 1rem;
 
@@ -84,7 +84,8 @@
       }
     }
 
-    ul, ol {
+    ul,
+    ol {
       margin-bottom: 0;
     }
   }

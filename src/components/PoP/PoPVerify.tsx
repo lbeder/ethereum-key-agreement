@@ -41,7 +41,10 @@ const PoPVerify = () => {
     try {
       const { publicKey, message, signature } = inputData;
       if (ECDSA.verifySignature(message, signature, publicKey)) {
-        setStatus({ status: STATUSES.OK, message: 'Message signature verified' });
+        setStatus({
+          status: STATUSES.OK,
+          message: 'Message signature verified'
+        });
       } else {
         setStatus({ status: STATUSES.INVALID, message: 'Invalid signature' });
       }
@@ -68,10 +71,7 @@ const PoPVerify = () => {
 
   return (
     <>
-      <Form
-        className="web3-component-form"
-        onSubmit={onSubmit}
-      >
+      <Form className="web3-component-form" onSubmit={onSubmit}>
         <h5>Input</h5>
 
         <FormGroup as={Row}>
@@ -89,7 +89,8 @@ const PoPVerify = () => {
               onChange={onChangeUpdateInput}
             />
             <small className="form-text text-muted">
-              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
+              with either 0x02 or 0x03
             </small>
           </Col>
         </FormGroup>
@@ -126,18 +127,16 @@ const PoPVerify = () => {
               onChange={onChangeUpdateInput}
             />
             <small className="form-text text-muted">
-              130 characters long hexadecimal signature proving the ownership of
-              the public key. We assume that the signature was generated using one of the popular Ethereum clients
-              (e.g., MyCrypto, MyEtherWallet, geth, etc.), therefore assuming that the message was prefixed before
-              signing (with "\x19Ethereum Signed Message:\n" + length of the message)
+              130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
+              signature was generated using one of the popular Ethereum clients (e.g., MyCrypto, MyEtherWallet, geth,
+              etc.), therefore assuming that the message was prefixed before signing (with "\x19Ethereum Signed
+              Message:\n" + length of the message)
             </small>
           </Col>
         </FormGroup>
 
-        <Button
-          className="btn btn-primary"
-          type="submit"
-        >Verify
+        <Button className="btn btn-primary" type="submit">
+          Verify
         </Button>
       </Form>
 
@@ -150,12 +149,7 @@ const PoPVerify = () => {
           </Col>
           <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl
-                type="text"
-                className={statusClassName()}
-                value={status.message}
-                readOnly={true}
-              />
+              <FormControl type="text" className={statusClassName()} value={status.message} readOnly={true} />
             </InputGroup>
           </Col>
         </FormGroup>
@@ -165,10 +159,10 @@ const PoPVerify = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              <strong>Proof of Possession</strong> is an important technique of proving that a party sending a message owns
-              a specific cryptographic key. This is used as a proof that the correct party is sending the message, under
-              the assumption that only that sender has possession of the key. It is typically demonstrated by having the
-              presenter/counterparty sign a value determined by the recipient using the key possessed by the
+              <strong>Proof of Possession</strong> is an important technique of proving that a party sending a message
+              owns a specific cryptographic key. This is used as a proof that the correct party is sending the message,
+              under the assumption that only that sender has possession of the key. It is typically demonstrated by
+              having the presenter/counterparty sign a value determined by the recipient using the key possessed by the
               presenter/counterparty.
             </small>
 
@@ -182,8 +176,14 @@ const PoPVerify = () => {
             <small className="form-text text-muted">
               We recommend that:
               <ol>
-                <li>The message shouldn't have been chosen by the presenter/counterparty itself and should contain some data that is hard to determine ahead of time (e.g., some random data provided by you).</li>
-                <li>The message should include a commitment to the actual public key (e.g., having the public key or its hash appear in its contents).</li>
+                <li>
+                  The message shouldn't have been chosen by the presenter/counterparty itself and should contain some
+                  data that is hard to determine ahead of time (e.g., some random data provided by you).
+                </li>
+                <li>
+                  The message should include a commitment to the actual public key (e.g., having the public key or its
+                  hash appear in its contents).
+                </li>
                 <li>The message should include a recent timestamp (to reduce key grinding attacks).</li>
               </ol>
             </small>

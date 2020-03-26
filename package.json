@@ -1,6 +1,6 @@
 {
   "name": "ethereum-key-agreement",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Key Agreement Protocols for Ethereum",
   "author": "leonid.beder@gmail.com",
   "license": "MIT",
@@ -14,7 +14,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "tslint --project tsconfig.json"
+    "lint": "tslint --project tsconfig.json",
+    "format": "prettier --check --write src/**/* --config .prettierrc"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -63,6 +64,8 @@
     "web3": "^1.2.6"
   },
   "devDependencies": {
+    "prettier": "^2.0.2",
+    "prettier-tslint": "^0.4.2",
     "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.2",
     "tslint-config-prettier": "^1.18.0",
