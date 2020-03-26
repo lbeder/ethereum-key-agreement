@@ -40,10 +40,7 @@ const AggregatedPublicKey = () => {
 
   return (
     <>
-      <Form
-        className="web3-component-form"
-        onSubmit={onSubmit}
-      >
+      <Form className="web3-component-form" onSubmit={onSubmit}>
         <h5>Input</h5>
 
         <FormGroup as={Row}>
@@ -61,7 +58,8 @@ const AggregatedPublicKey = () => {
               onChange={onChangeUpdateInput}
             />
             <small className="form-text text-muted">
-              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
+              with either 0x02 or 0x03
             </small>
           </Col>
         </FormGroup>
@@ -81,15 +79,14 @@ const AggregatedPublicKey = () => {
               onChange={onChangeUpdateInput}
             />
             <small className="form-text text-muted">
-              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start with either 0x02 or 0x03.
+              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
+              with either 0x02 or 0x03.
             </small>
           </Col>
         </FormGroup>
 
-        <Button
-          className="btn btn-primary"
-          type="submit"
-        >Derive Shared Key
+        <Button className="btn btn-primary" type="submit">
+          Derive Shared Key
         </Button>
       </Form>
 
@@ -102,12 +99,7 @@ const AggregatedPublicKey = () => {
           </Col>
           <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl
-                className="address"
-                type="text"
-                value={address}
-                readOnly={true}
-              />
+              <FormControl className="address" type="text" value={address} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={address} />
               </InputGroup.Append>
@@ -121,12 +113,7 @@ const AggregatedPublicKey = () => {
           </Col>
           <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl
-                className="key"
-                type="text"
-                value={publicKey}
-                readOnly={true}
-              />
+              <FormControl className="key" type="text" value={publicKey} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={publicKey} />
               </InputGroup.Append>
@@ -142,6 +129,7 @@ const AggregatedPublicKey = () => {
               The shared public key is derived using the key aggregation key agreement protocol.
             </small>
 
+            { /* prettier-ignore */ }
             <small className="form-text text-muted">
               If Alice and Bob have
               private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
@@ -152,7 +140,9 @@ const AggregatedPublicKey = () => {
             </small>
 
             <small className="form-text text-muted">
-              Please make sure to verify the ownerships of the public keys using the  <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and <strong>Rouge Key Attacks</strong>.
+              Please make sure to verify the ownerships of the public keys using the{' '}
+              <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and{' '}
+              <strong>Rouge Key Attacks</strong>.
             </small>
           </Col>
         </FormGroup>

@@ -11,7 +11,7 @@
       "allow-leading-underscore",
       "allow-pascal-case"
     ],
-    "semicolon": "always"
+    "semicolon": true
   },
   "extends": [
     "tslint-react",

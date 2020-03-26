@@ -4,7 +4,10 @@ $link-color: #3d6989 !default;
 
 @import '~bootstrap/scss/bootstrap';
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
   background-color: #3d6989 !important;
   border-color: #3d6989 !important;
 }

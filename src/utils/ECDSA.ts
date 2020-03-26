@@ -9,9 +9,9 @@ export class ECDSA {
   // 1. The message was prefixed before signing (with "\x19Ethereum Signed Message:\n" + length of the message).
   // 2. The prefixed message was keccak256 hashed before signing.
   static verifySignature(message: string, signature: string, publicKey: RawPublicKey): boolean {
-    const prefixedMessageHash = keccak256(Buffer.concat([
-      MESSAGE_SIGNATURE_PREFIX, Buffer.from(String(message.length)), Buffer.from(message)
-    ]));
+    const prefixedMessageHash = keccak256(
+      Buffer.concat([MESSAGE_SIGNATURE_PREFIX, Buffer.from(String(message.length)), Buffer.from(message)])
+    );
 
     let rawSignerPublicKey;
     try {

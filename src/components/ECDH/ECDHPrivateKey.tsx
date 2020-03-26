@@ -45,10 +45,7 @@ const ECDHPrivateKey = () => {
 
   return (
     <>
-      <Form
-        className="web3-component-form"
-        onSubmit={onSubmit}
-      >
+      <Form className="web3-component-form" onSubmit={onSubmit}>
         <h5>Input</h5>
 
         <FormGroup as={Row}>
@@ -87,10 +84,8 @@ const ECDHPrivateKey = () => {
           </Col>
         </FormGroup>
 
-        <Button
-          className="btn btn-primary"
-          type="submit"
-        >Derive Shared Key
+        <Button className="btn btn-primary" type="submit">
+          Derive Shared Key
         </Button>
       </Form>
 
@@ -103,12 +98,7 @@ const ECDHPrivateKey = () => {
           </Col>
           <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl
-                className="address"
-                type="text"
-                value={address}
-                readOnly={true}
-              />
+              <FormControl className="address" type="text" value={address} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={address} />
               </InputGroup.Append>
@@ -122,12 +112,7 @@ const ECDHPrivateKey = () => {
           </Col>
           <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl
-                className="key"
-                type="text"
-                value={publicKey}
-                readOnly={true}
-              />
+              <FormControl className="key" type="text" value={publicKey} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={publicKey} />
               </InputGroup.Append>
@@ -141,12 +126,7 @@ const ECDHPrivateKey = () => {
           </Col>
           <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl
-                className="key"
-                type="text"
-                value={privateKey}
-                readOnly={true}
-              />
+              <FormControl className="key" type="text" value={privateKey} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={privateKey} />
               </InputGroup.Append>
@@ -159,10 +139,14 @@ const ECDHPrivateKey = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text text-muted">
-              The shared public key is derived using the <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">Elliptic Curve
-              Diffie–Hellman (ECDH)</a> key agreement protocol.
+              The shared public key is derived using the{' '}
+              <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">
+                Elliptic Curve Diffie–Hellman (ECDH)
+              </a>{' '}
+              key agreement protocol.
             </small>
 
+            { /* prettier-ignore */ }
             <small className="form-text text-muted">
               If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
               <ul>

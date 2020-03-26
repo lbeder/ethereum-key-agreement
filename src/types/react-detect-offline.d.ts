@@ -1,4 +1,4 @@
-declare module "react-detect-offline" {
+declare module 'react-detect-offline' {
   export interface PollingConfig {
     url: string;
     enabled: boolean;
@@ -19,19 +19,13 @@ declare module "react-detect-offline" {
   export interface DetectorProps extends BaseProps {
     render: ({ online: boolean }) => JSX.Element | null;
   }
-  export interface DetectorState extends BaseState { }
-  export const Detector: React.ComponentClass<
-    DetectorProps,
-    DetectorState
-  >;
+  export interface DetectorState extends BaseState {}
+  export const Detector: React.ComponentClass<DetectorProps, DetectorState>;
 
-  export interface OnlineProps extends BaseProps { }
-  export interface OnlineState extends BaseState { }
+  export interface OnlineProps extends BaseProps {}
+  export interface OnlineState extends BaseState {}
   export const Online: React.ComponentClass<OnlineProps, OnlineState>;
-  export interface OfflineProps extends BaseProps { }
-  export interface OfflineState extends BaseState { }
-  export const Offline: React.ComponentClass<
-    OfflineProps,
-    OfflineState
-  >;
+  export interface OfflineProps extends BaseProps {}
+  export interface OfflineState extends BaseState {}
+  export const Offline: React.ComponentClass<OfflineProps, OfflineState>;
 }
