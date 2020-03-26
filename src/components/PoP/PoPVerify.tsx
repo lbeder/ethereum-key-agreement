@@ -5,7 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPublicKey, isValidSignature } from '../../utils/validators';
+import { isPublicKey, isValidSignature } from '../../utils/Validators';
 import { ECDSA } from '../../utils/ECDSA';
 
 const STATUSES = {
