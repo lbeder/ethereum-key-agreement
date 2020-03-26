@@ -63,7 +63,7 @@ const PoPVerify = () => {
 
       default:
         return;
-    };
+    }
   };
 
   return (

@@ -37,7 +37,7 @@ export class PublicKey {
     const tmpKey = new Uint8Array([UNCOMPRESSED_PUBLIC_KEY_PREFIX, ...this.key]);
 
     return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, true)));
-  };
+  }
 
   toUncompressed(): PublicKey {
     if (!this.compressed) {
@@ -54,7 +54,7 @@ export class PublicKey {
     const address = keccak256(tmpKey.key).slice(-20);
 
     return `0x${address.toString('hex')}`;
-  };
+  }
 
   toChecksumAddress(): string {
     return toChecksumAddress(this.toAddress());
