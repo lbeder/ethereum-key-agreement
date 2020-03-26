@@ -16,7 +16,7 @@ describe('PrivateKey', () => {
     });
 
     [
-      { key: '0x42fc0028b60a5052de140b7b5bad25f01041ec306b1e59714963f38661ca1e7b' },
+      { data: '0x42fc0028b60a5052de140b7b5bad25f01041ec306b1e59714963f38661ca1e7b' },
       Array(5),
       12345
     ].forEach((key: any) => {

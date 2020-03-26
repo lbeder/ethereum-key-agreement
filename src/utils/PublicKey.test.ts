@@ -16,7 +16,7 @@ describe('PublicKey', () => {
     });
 
     [
-      { key: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868' },
+      { data: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868' },
       Array(5),
       12345
     ].forEach((key: any) => {
