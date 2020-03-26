@@ -10,7 +10,8 @@
       "check-format",
       "allow-leading-underscore",
       "allow-pascal-case"
-    ]
+    ],
+    "semicolon": "always"
   },
   "extends": [
     "tslint-react",
