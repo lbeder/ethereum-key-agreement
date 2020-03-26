@@ -5,11 +5,7 @@ import { fromRpcSig } from 'ethereumjs-util';
 
 export const isNumber = (value: string) => {
   if (value === null || value === undefined || !validator.isNumeric(value)) {
-    return (
-      <div className="invalid-feedback">
-        Not a valid number
-      </div>
-    );
+    return <div className="invalid-feedback">Not a valid number</div>;
   }
 };
 
@@ -24,11 +20,7 @@ export const isHex = (value: string) => {
   }
 
   if (!hex) {
-    return (
-      <div className="invalid-feedback">
-        Not a valid hexadecimal data
-      </div>
-    );
+    return <div className="invalid-feedback">Not a valid hexadecimal data</div>;
   }
 };
 
@@ -47,11 +39,7 @@ export const isPrivateKey = (value: string) => {
   }
 
   if (!key) {
-    return (
-      <div className="invalid-feedback">
-        Not a valid private key
-      </div>
-    );
+    return <div className="invalid-feedback">Not a valid private key</div>;
   }
 };
 
@@ -70,11 +58,7 @@ export const isPublicKey = (value: string) => {
   }
 
   if (!key) {
-    return (
-      <div className="invalid-feedback">
-        Not a valid public key
-      </div>
-    );
+    return <div className="invalid-feedback">Not a valid public key</div>;
   }
 };
 
@@ -87,10 +71,6 @@ export const isValidSignature = (value: string) => {
 
     fromRpcSig(tmp);
   } catch {
-    return (
-      <div className="invalid-feedback">
-        Not a valid signature
-      </div>
-    );
+    return <div className="invalid-feedback">Not a valid signature</div>;
   }
 };

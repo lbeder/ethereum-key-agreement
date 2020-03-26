@@ -15,7 +15,6 @@ const Dashboard = () => {
       <Tab.Container defaultActiveKey="verify-keys">
         <Row>
           <Col md={2}>
-
             <Nav variant="pills" className="flex-column">
               <div className="section">
                 <Nav.Item>
