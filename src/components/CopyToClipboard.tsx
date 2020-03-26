@@ -6,7 +6,7 @@ import { Copy } from 'react-feather';
 import ReactTooltip from 'react-tooltip';
 
 interface IProps {
-  text: string
+  text: string;
 }
 
 const CopyClipboard = ({ text }: IProps) => {

@@ -1,7 +1,7 @@
 import secp256k1 from 'secp256k1';
 import { keccak256, toChecksumAddress } from 'ethereumjs-util';
 
-import { keyToBuf } from './buffer';
+import { BaseKey } from './BaseKey';
 
 export type RawPublicKey = string | Buffer | PublicKey;
 
@@ -9,12 +9,11 @@ export const COMPRESSED_PUBLIC_KEY_LENGTH = 33;
 export const UNCOMPRESSED_PUBLIC_KEY_LENGTH = 64;
 const UNCOMPRESSED_PUBLIC_KEY_PREFIX = 0x04;
 
-export class PublicKey {
-  public key: Buffer;
+export class PublicKey extends BaseKey {
   public compressed: boolean;
 
-  constructor(rawKey: RawPublicKey) {
-    this.key = keyToBuf(rawKey);
+  constructor(key: RawPublicKey) {
+    super(key);
 
     if (this.key[0] === UNCOMPRESSED_PUBLIC_KEY_PREFIX) {
       this.key = this.key.slice(1);
@@ -37,7 +36,7 @@ export class PublicKey {
     const tmpKey = new Uint8Array([UNCOMPRESSED_PUBLIC_KEY_PREFIX, ...this.key]);
 
     return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, true)));
-  };
+  }
 
   toUncompressed(): PublicKey {
     if (!this.compressed) {
@@ -54,14 +53,10 @@ export class PublicKey {
     const address = keccak256(tmpKey.key).slice(-20);
 
     return `0x${address.toString('hex')}`;
-  };
+  }
 
   toChecksumAddress(): string {
     return toChecksumAddress(this.toAddress());
-  }
-
-  toString() {
-    return `0x${Buffer.from(this.key).toString('hex')}`;
   }
 
   addPublicKey(key: RawPublicKey): PublicKey {

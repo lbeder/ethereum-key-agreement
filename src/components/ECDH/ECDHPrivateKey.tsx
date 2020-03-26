@@ -5,7 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPrivateKey } from '../../utils/validators';
+import { isPrivateKey } from '../../utils/Validators';
 import { ECDH } from '../../utils/ECDH';
 import CopyToClipboard from '../CopyToClipboard';
 
