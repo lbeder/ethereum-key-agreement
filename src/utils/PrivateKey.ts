@@ -1,17 +1,15 @@
 import secp256k1 from 'secp256k1';
 
-import { keyToBuf } from './buffer';
+import { BaseKey } from './BaseKey';
 import { PublicKey } from './PublicKey';
 
 export type RawPrivateKey = string | Buffer | PrivateKey;
 
 export const COMPRESSED_PRIVATE_KEY_LENGTH = 32;
 
-export class PrivateKey {
-  public key: Buffer;
-
-  constructor(rawKey: RawPrivateKey) {
-    this.key = keyToBuf(rawKey);
+export class PrivateKey extends BaseKey {
+  constructor(key: RawPrivateKey) {
+    super(key);
 
     const keyLength = this.key.length;
     if (keyLength !== COMPRESSED_PRIVATE_KEY_LENGTH) {
@@ -23,10 +21,6 @@ export class PrivateKey {
     const tmpKey = new Uint8Array(this.key);
 
     return new PublicKey(Buffer.from(secp256k1.publicKeyCreate(tmpKey, true)));
-  };
-
-  toString(): string {
-    return `0x${Buffer.from(this.key).toString('hex')}`;
   }
 
   mulPrivateKey(key: RawPrivateKey): PrivateKey {

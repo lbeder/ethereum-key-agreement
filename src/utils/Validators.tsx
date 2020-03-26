@@ -80,11 +80,16 @@ export const isPublicKey = (value: string) => {
 
 export const isValidSignature = (value: string) => {
   try {
-    fromRpcSig(value);
-  } catch (err) {
+    let tmp = value;
+    if (!tmp.startsWith('0x')) {
+      tmp = `0x${tmp}`;
+    }
+
+    fromRpcSig(tmp);
+  } catch {
     return (
       <div className="invalid-feedback">
-        {err.message}
+        Not a valid signature
       </div>
     );
   }

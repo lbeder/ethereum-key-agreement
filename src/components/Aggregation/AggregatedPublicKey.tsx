@@ -5,7 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Button from 'react-validation/build/button';
 
-import { isPublicKey } from '../../utils/validators';
+import { isPublicKey } from '../../utils/Validators';
 import { Aggregation } from '../../utils/Aggregation';
 import CopyToClipboard from '../CopyToClipboard';
 
