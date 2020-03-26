@@ -2,66 +2,29 @@ import React from 'react';
 import { isNumber, isHex, isPrivateKey, isPublicKey, isValidSignature } from './Validators';
 
 describe('isNumber', () => {
-  [
-    '12345',
-    '0',
-    '1.1',
-    '100000',
-    '-50.5'
-  ].forEach((num: string) => {
+  ['12345', '0', '1.1', '100000', '-50.5'].forEach((num: string) => {
     it(`should validate ${num}`, async () => {
       expect(isNumber(num)).toBeUndefined();
     });
   });
 
-  [
-    '',
-    '123a',
-    'abcd',
-    'dsfsdfsdfdsf',
-    '100$',
-    '***   12',
-    '   1000'
-  ].forEach((num: string) => {
+  ['', '123a', 'abcd', 'dsfsdfsdfdsf', '100$', '***   12', '   1000'].forEach((num: string) => {
     it(`should return invalid element on ${num}`, async () => {
-      expect(isNumber(num)).toEqual(
-        <div className="invalid-feedback">
-          Not a valid number
-        </div>
-      );
+      expect(isNumber(num)).toEqual(<div className="invalid-feedback">Not a valid number</div>);
     });
   });
 });
 
 describe('isHex', () => {
-  [
-    '12345',
-    '0',
-    '0x12345',
-    '0x0',
-    'ffff',
-    'FFFF',
-    '0xFFFF'
-  ].forEach((num: string) => {
+  ['12345', '0', '0x12345', '0x0', 'ffff', 'FFFF', '0xFFFF'].forEach((num: string) => {
     it(`should validate ${num}`, async () => {
       expect(isHex(num)).toBeUndefined();
     });
   });
 
-  [
-    '',
-    '123G',
-    'dsfsdfsdfdsf',
-    '100$',
-    '***   0x12',
-    '   0x1000'
-  ].forEach((num: string) => {
+  ['', '123G', 'dsfsdfsdfdsf', '100$', '***   0x12', '   0x1000'].forEach((num: string) => {
     it(`should return invalid element on ${num}`, async () => {
-      expect(isHex(num)).toEqual(
-        <div className="invalid-feedback">
-          Not a valid hexadecimal data
-        </div>
-      );
+      expect(isHex(num)).toEqual(<div className="invalid-feedback">Not a valid hexadecimal data</div>);
     });
   });
 });
@@ -94,11 +57,7 @@ describe('isPrivateKey', () => {
     '   1000'
   ].forEach((key: string) => {
     it(`should return invalid element on ${key}`, async () => {
-      expect(isPrivateKey(key)).toEqual(
-        <div className="invalid-feedback">
-          Not a valid private key
-        </div>
-      );
+      expect(isPrivateKey(key)).toEqual(<div className="invalid-feedback">Not a valid private key</div>);
     });
   });
 });
@@ -139,11 +98,7 @@ describe('isPublicKey', () => {
     '   1000'
   ].forEach((key: string) => {
     it(`should return invalid element on ${key}`, async () => {
-      expect(isPublicKey(key)).toEqual(
-        <div className="invalid-feedback">
-          Not a valid public key
-        </div>
-      );
+      expect(isPublicKey(key)).toEqual(<div className="invalid-feedback">Not a valid public key</div>);
     });
   });
 });
@@ -176,11 +131,7 @@ describe('isValidSignature', () => {
     '   1000'
   ].forEach((sig: string) => {
     it(`should return invalid element on ${sig}`, async () => {
-      expect(isValidSignature(sig)).toEqual(
-        <div className="invalid-feedback">
-          Not a valid signature
-        </div>
-      );
+      expect(isValidSignature(sig)).toEqual(<div className="invalid-feedback">Not a valid signature</div>);
     });
   });
 });

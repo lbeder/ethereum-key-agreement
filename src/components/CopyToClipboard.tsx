@@ -15,10 +15,8 @@ const CopyClipboard = ({ text }: IProps) => {
   return (
     <>
       <CopyToClipboard text={text}>
-        <Button
-          variant="secondary"
-          data-tip="Copy to clipboard"
-          onClick={preventDefault}><Copy size={16} />
+        <Button variant="secondary" data-tip="Copy to clipboard" onClick={preventDefault}>
+          <Copy size={16} />
         </Button>
       </CopyToClipboard>
 
