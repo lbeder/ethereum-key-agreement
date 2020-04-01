@@ -18,7 +18,7 @@ const ECDHPublicKey = () => {
   const [address, setAddress] = useState('');
   const [publicKey, setPublicKey] = useState('');
 
-  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+  const onChangeInput = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
     const value = element.type === 'checkbox' ? element.checked : element.value;
     const name = element.name;
@@ -54,7 +54,7 @@ const ECDHPublicKey = () => {
               placeholder="0x"
               value={inputData.privateKey}
               validations={[isPrivateKey]}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
           </Col>
@@ -72,7 +72,7 @@ const ECDHPublicKey = () => {
               placeholder="0x"
               value={inputData.publicKey}
               validations={[isPublicKey]}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">
               66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
