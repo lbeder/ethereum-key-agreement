@@ -18,6 +18,8 @@ const Dashboard = () => {
         <Row>
           <Col md={2}>
             <Nav variant="pills" className="flex-column">
+              <h6>Key Agreement</h6>
+
               <div className="section">
                 <Nav.Item>
                   <Nav.Link className="title" eventKey="disabled" disabled={true}>
@@ -61,6 +63,8 @@ const Dashboard = () => {
                   <Nav.Link eventKey="aggregated-private-key">Shared Private Key</Nav.Link>
                 </Nav.Item>
               </div>
+
+              <h6 className="tools">Additional Tools</h6>
 
               <div className="section">
                 <Nav.Item>
