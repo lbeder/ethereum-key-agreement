@@ -18,7 +18,7 @@ const AggregatedPublicKey = () => {
   const [address, setAddress] = useState('');
   const [publicKey, setPublicKey] = useState('');
 
-  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+  const onChangeInput = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
     const value = element.type === 'checkbox' ? element.checked : element.value;
     const name = element.name;
@@ -55,7 +55,7 @@ const AggregatedPublicKey = () => {
               placeholder="0x"
               value={inputData.publicKey1}
               validations={[isPublicKey]}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">
               66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
@@ -76,7 +76,7 @@ const AggregatedPublicKey = () => {
               placeholder="0x"
               value={inputData.publicKey2}
               validations={[isPublicKey]}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">
               66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
