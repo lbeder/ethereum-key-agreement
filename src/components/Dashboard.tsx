@@ -6,6 +6,8 @@ import ECDHPublicKey from './ECDH/ECDHPublicKey';
 import ECDHPrivateKey from './ECDH/ECDHPrivateKey';
 import AggregatedPublicKey from './Aggregation/AggregatedPublicKey';
 import AggregatedPrivateKey from './Aggregation/AggregatedPrivateKey';
+import PrivateKeyConversion from './Conversion/PrivateKeyConversion';
+import PublicKeyConversion from './Conversion/PublicKeyConversion';
 
 import './Dashboard.scss';
 
@@ -59,6 +61,22 @@ const Dashboard = () => {
                   <Nav.Link eventKey="aggregated-private-key">Shared Private Key</Nav.Link>
                 </Nav.Item>
               </div>
+
+              <div className="section">
+                <Nav.Item>
+                  <Nav.Link className="title" eventKey="disabled" disabled={true}>
+                    Key Conversion
+                  </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey="private-key-conversion">Private Key</Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey="public-key-conversion">Public Key</Nav.Link>
+                </Nav.Item>
+              </div>
             </Nav>
           </Col>
 
@@ -67,19 +85,23 @@ const Dashboard = () => {
               <Tab.Pane eventKey="verify-keys">
                 <PoPVerify />
               </Tab.Pane>
-
               <Tab.Pane eventKey="ecdh-public-key">
                 <ECDHPublicKey />
               </Tab.Pane>
               <Tab.Pane eventKey="ecdh-private-key">
                 <ECDHPrivateKey />
               </Tab.Pane>
-
               <Tab.Pane eventKey="aggregated-public-key">
                 <AggregatedPublicKey />
               </Tab.Pane>
               <Tab.Pane eventKey="aggregated-private-key">
                 <AggregatedPrivateKey />
+              </Tab.Pane>
+              <Tab.Pane eventKey="private-key-conversion">
+                <PrivateKeyConversion />
+              </Tab.Pane>
+              <Tab.Pane eventKey="public-key-conversion">
+                <PublicKeyConversion />
               </Tab.Pane>
             </Tab.Content>
           </Col>
