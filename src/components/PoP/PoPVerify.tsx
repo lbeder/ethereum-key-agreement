@@ -27,7 +27,7 @@ const PoPVerify = () => {
     message: ''
   });
 
-  const onChangeUpdateInput = ({ target }: ChangeEvent) => {
+  const onChangeInput = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
     const value = element.type === 'checkbox' ? element.checked : element.value;
     const name = element.name;
@@ -86,7 +86,7 @@ const PoPVerify = () => {
               placeholder="0x"
               value={inputData.publicKey}
               validations={[isPublicKey]}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">
               66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
@@ -106,7 +106,7 @@ const PoPVerify = () => {
               name="message"
               placeholder=""
               value={inputData.message}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">The message that used for signing</small>
           </Col>
@@ -124,7 +124,7 @@ const PoPVerify = () => {
               placeholder="0x"
               value={inputData.signature}
               validations={[isValidSignature]}
-              onChange={onChangeUpdateInput}
+              onChange={onChangeInput}
             />
             <small className="form-text text-muted">
               130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
