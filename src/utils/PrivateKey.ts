@@ -17,6 +17,17 @@ export class PrivateKey extends BaseKey {
     }
   }
 
+  static isValid(key: RawPrivateKey): boolean {
+    try {
+      // tslint:disable-next-line: no-unused-expression
+      new PrivateKey(key);
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   toPublicKey(): PublicKey {
     const tmpKey = new Uint8Array(this.key);
 
