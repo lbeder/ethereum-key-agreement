@@ -3,71 +3,59 @@ import React, { useState, MouseEvent, ChangeEvent } from 'react';
 import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import Textarea from 'react-validation/build/textarea';
 import Button from 'react-validation/build/button';
+import { format } from 'date-fns';
 
-import { isPublicKey, isValidSignature } from '../../utils/Validators';
+import { isPrivateKey, isPresent } from '../../utils/Validators';
+import { PrivateKey } from '../../utils/PrivateKey';
 import { ECDSA } from '../../utils/ECDSA';
+import CopyToClipboard from '../CopyToClipboard';
 
-const STATUSES = {
-  OK: 'ok',
-  INVALID: 'invalid',
-  WARNING: 'warning',
-  UNDEFINED: 'undefined'
-};
+const PoPProve = () => {
+  const [privateKey, setPrivateKey] = useState('');
+  const [publicKey, setPublicKey] = useState('');
+  const [challenge, setChallenge] = useState('');
+  const [message, setMessage] = useState('');
+  const [signature, setSignature] = useState('');
 
-const PoPVerify = () => {
-  const [inputData, setInputData] = useState({
-    publicKey: '',
-    message: '',
-    signature: ''
-  });
-
-  const [status, setStatus] = useState({
-    status: STATUSES.UNDEFINED,
-    message: ''
-  });
-
-  const onChangeInput = ({ target }: ChangeEvent) => {
+  const onChangePrivateKey = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
-    const value = element.type === 'checkbox' ? element.checked : element.value;
-    const name = element.name;
+    const value = element.value;
 
-    setInputData({ ...inputData, [name]: value });
+    setPrivateKey(value);
+
+    updateData(value);
+  };
+
+  const onChangeChallenge = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const value = element.value;
+
+    setChallenge(value);
+
+    updateData(privateKey);
+  };
+
+  const updateData = (privKey: string) => {
+    if (!PrivateKey.isValid(privKey)) {
+      return;
+    }
+
+    const pubKey = new PrivateKey(privKey).toPublicKey().toString();
+    const timestamp = format(new Date(), 'yyyy-MMM-dd');
+    let msg = `I herby certify that on ${timestamp} I owned the corresponding private key for public key ${pubKey}.`;
+    if (challenge.length > 0) {
+      msg = `${msg}\n\nI acknowledge the received "${challenge}" challenge.`;
+    }
+
+    setPublicKey(pubKey);
+    setMessage(msg);
   };
 
   const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
-    try {
-      const { publicKey, message, signature } = inputData;
-      if (ECDSA.verify(message, signature, publicKey)) {
-        setStatus({
-          status: STATUSES.OK,
-          message: 'Message signature verified'
-        });
-      } else {
-        setStatus({ status: STATUSES.INVALID, message: 'Invalid signature' });
-      }
-    } catch (err) {
-      setStatus({ status: STATUSES.INVALID, message: err.message });
-    }
-  };
-
-  const statusClassName = () => {
-    switch (status.status) {
-      case STATUSES.OK:
-        return 'is-valid';
-
-      case STATUSES.INVALID:
-        return 'is-invalid';
-
-      case STATUSES.WARNING:
-        return 'is-invalid';
-
-      default:
-        return;
-    }
+    setSignature(ECDSA.sign(message, privateKey));
   };
 
   return (
@@ -77,22 +65,53 @@ const PoPVerify = () => {
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Public Key</FormLabel>
+            <FormLabel>Private Key</FormLabel>
           </Col>
           <Col md={9}>
             <Input
               className="form-control key"
-              type="text"
-              name="publicKey"
+              type="password"
+              name="privateKey"
               placeholder="0x"
-              value={inputData.publicKey}
-              validations={[isPublicKey]}
-              onChange={onChangeInput}
+              value={privateKey}
+              validations={[isPrivateKey]}
+              onChange={onChangePrivateKey}
+            />
+            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+          </Col>
+        </FormGroup>
+
+        <FormGroup as={Row}>
+          <Col md={2}>
+            <FormLabel>Challenge</FormLabel>
+          </Col>
+          <Col md={9}>
+            <Input
+              className="form-control"
+              type="text"
+              name="challenge"
+              placeholder=""
+              value={challenge}
+              validations={[isPresent]}
+              onChange={onChangeChallenge}
             />
             <small className="form-text text-muted">
-              66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
-              with either 0x02 or 0x03
+              The hard to determine challenge which was provided to you by the counterparty
             </small>
+          </Col>
+        </FormGroup>
+
+        <FormGroup as={Row}>
+          <Col md={2}>
+            <FormLabel>Public Key</FormLabel>
+          </Col>
+          <Col md={9}>
+            <InputGroup className="mb-3">
+              <FormControl className="key" type="text" value={publicKey} readOnly={true} />
+              <InputGroup.Append>
+                <CopyToClipboard text={publicKey} />
+              </InputGroup.Append>
+            </InputGroup>
           </Col>
         </FormGroup>
 
@@ -101,57 +120,33 @@ const PoPVerify = () => {
             <FormLabel>Message</FormLabel>
           </Col>
           <Col md={9}>
-            <Textarea
-              className="form-control"
-              type="text"
-              name="message"
-              placeholder=""
-              rows={4}
-              value={inputData.message}
-              onChange={onChangeInput}
-            />
-            <small className="form-text text-muted">The message that used for signing</small>
+            <InputGroup className="mb-3">
+              <FormControl as="textarea" rows={4} value={message} readOnly={true} />
+              <InputGroup.Append>
+                <CopyToClipboard text={message} />
+              </InputGroup.Append>
+            </InputGroup>
           </Col>
         </FormGroup>
+
+        <Button className="btn btn-primary" type="submit">
+          Sign
+        </Button>
+      </Form>
+
+      <Form className="web3-component-result">
+        <h5>Output</h5>
 
         <FormGroup as={Row}>
           <Col md={2}>
             <FormLabel>Signature</FormLabel>
           </Col>
           <Col md={9}>
-            <Input
-              className="form-control signature"
-              type="text"
-              name="signature"
-              placeholder="0x"
-              value={inputData.signature}
-              validations={[isValidSignature]}
-              onChange={onChangeInput}
-            />
-            <small className="form-text text-muted">
-              130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
-              signature was generated using one of the popular Ethereum clients (e.g., MyCrypto, MyEtherWallet, geth,
-              etc.), therefore assuming that the message was prefixed before signing (with "\x19Ethereum Signed
-              Message:\n" + length of the message)
-            </small>
-          </Col>
-        </FormGroup>
-
-        <Button className="btn btn-primary" type="submit">
-          Verify
-        </Button>
-      </Form>
-
-      <Form className="web3-component-result">
-        <h5>Status</h5>
-
-        <FormGroup as={Row}>
-          <Col md={2}>
-            <FormLabel>Result</FormLabel>
-          </Col>
-          <Col md={9}>
             <InputGroup className="mb-3">
-              <FormControl type="text" className={statusClassName()} value={status.message} readOnly={true} />
+              <FormControl className="signature" type="text" value={signature} readOnly={true} />
+              <InputGroup.Append>
+                <CopyToClipboard text={signature} />
+              </InputGroup.Append>
             </InputGroup>
           </Col>
         </FormGroup>
@@ -196,4 +191,4 @@ const PoPVerify = () => {
   );
 };
 
-export default PoPVerify;
+export default PoPProve;

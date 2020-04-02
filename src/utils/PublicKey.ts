@@ -27,6 +27,17 @@ export class PublicKey extends BaseKey {
     this.compressed = keyLength === COMPRESSED_PUBLIC_KEY_LENGTH;
   }
 
+  static isValid(key: RawPublicKey): boolean {
+    try {
+      // tslint:disable-next-line: no-unused-expression
+      new PublicKey(key);
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   toCompressed(): PublicKey {
     if (this.compressed) {
       return new PublicKey(this.key);
