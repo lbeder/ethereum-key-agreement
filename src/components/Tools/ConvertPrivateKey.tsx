@@ -9,7 +9,7 @@ import { isPrivateKey } from '../../utils/Validators';
 import { PrivateKey } from '../../utils/PrivateKey';
 import CopyToClipboard from '../CopyToClipboard';
 
-const PrivateKeyConversion = () => {
+const ConvertPrivateKey = () => {
   const [privateKey, setPrivateKey] = useState('');
   const [publicKey, setPublicKey] = useState('');
   const [address, setAddress] = useState('');
@@ -115,4 +115,4 @@ const PrivateKeyConversion = () => {
   );
 };
 
-export default PrivateKeyConversion;
+export default ConvertPrivateKey;
