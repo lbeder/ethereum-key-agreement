@@ -1,5 +1,6 @@
-import React from 'react';
-import { Tab, Row, Col, Nav } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Tab, Row, Col, Nav, Button } from 'react-bootstrap';
+import { HelpCircle } from 'react-feather';
 
 import PoPProve from './PoP/PoPProve';
 import PoPVerify from './PoP/PoPVerify';
@@ -10,15 +11,29 @@ import AggregatedPrivateKey from './Aggregation/AggregatedPrivateKey';
 import ConvertPrivateKey from './Tools/ConvertPrivateKey';
 import ConvertPublicKey from './Tools/ConvertPublicKey';
 
+import TutorialModal, { tutorialHasBeenOpened } from './TutorialModal';
+
 import './Dashboard.scss';
 
 const Dashboard = () => {
+  const [tutorial, setTutorial] = useState(!tutorialHasBeenOpened());
+
+  const onCloseTutorial = () => setTutorial(false);
+  const onShowTutorial = () => setTutorial(true);
+
   return (
     <div className="dashboard">
       <Tab.Container defaultActiveKey="prove-keys">
         <Row>
           <Col md={2}>
             <Nav variant="pills" className="flex-column">
+              <div className="section">
+                <Button variant="info" onClick={onShowTutorial}>
+                  Tutorial
+                  <HelpCircle size={24} className="float-right" />
+                </Button>
+              </div>
+
               <div className="section">
                 <Nav.Item>
                   <Nav.Link className="title" eventKey="disabled" disabled={true}>
@@ -115,6 +130,8 @@ const Dashboard = () => {
           </Col>
         </Row>
       </Tab.Container>
+
+      <TutorialModal show={tutorial} onHide={onCloseTutorial} />
     </div>
   );
 };
