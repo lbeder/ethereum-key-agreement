@@ -62,6 +62,31 @@ describe('PublicKey', () => {
     });
   });
 
+  describe('isValid', () => {
+    [
+      '0x123',
+      '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37ab',
+      '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb',
+      Buffer.from('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8ab', 'hex'),
+      Buffer.from('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6', 'hex')
+    ].forEach((key) => {
+      it(`should invalidate key ${key.toString('hex')}`, async () => {
+        expect(PublicKey.isValid(key)).toBeFalsy();
+      });
+    });
+
+    [
+      '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
+      '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
+      Buffer.from('0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37', 'hex'),
+      Buffer.from('03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868', 'hex')
+    ].forEach((key) => {
+      it(`should validate key ${key.toString('hex')}`, async () => {
+        expect(PublicKey.isValid(key)).toBeTruthy();
+      });
+    });
+  });
+
   describe('toCompressed', () => {
     [
       {

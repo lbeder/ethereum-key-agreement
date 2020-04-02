@@ -9,7 +9,7 @@ import { isPublicKey } from '../../utils/Validators';
 import { PublicKey } from '../../utils/PublicKey';
 import CopyToClipboard from '../CopyToClipboard';
 
-const PublicKeyConversion = () => {
+const ConvertPublicKey = () => {
   const [publicKey, setPublicKey] = useState('');
   const [address, setAddress] = useState('');
 
@@ -100,4 +100,4 @@ const PublicKeyConversion = () => {
   );
 };
 
-export default PublicKeyConversion;
+export default ConvertPublicKey;

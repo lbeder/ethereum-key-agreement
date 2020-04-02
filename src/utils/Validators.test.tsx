@@ -1,5 +1,19 @@
 import React from 'react';
-import { isNumber, isHex, isPrivateKey, isPublicKey, isValidSignature } from './Validators';
+import { isPresent, isNumber, isHex, isPrivateKey, isPublicKey, isValidSignature } from './Validators';
+
+describe('isPresent', () => {
+  ['12345', 'sdfsfdsfdsfdsf', '100000', '      a'].forEach((str: string) => {
+    it(`should validate "${str}"`, async () => {
+      expect(isPresent(str)).toBeUndefined();
+    });
+  });
+
+  ['', '  ', '       '].forEach((str: string) => {
+    it(`should return invalid element on "${str}"`, async () => {
+      expect(isPresent(str)).toEqual(<div className="invalid-feedback">Can't be blank</div>);
+    });
+  });
+});
 
 describe('isNumber', () => {
   ['12345', '0', '1.1', '100000', '-50.5'].forEach((num: string) => {
@@ -83,8 +97,6 @@ describe('isPublicKey', () => {
     '0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37aa',
     '0x04ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
     '04ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
-    '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
-    'ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
     '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358a',
     'ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358a',
     '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7aa',
