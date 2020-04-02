@@ -34,6 +34,27 @@ declare module 'react-validation/build/input' {
   export = Input;
 }
 
+declare module 'react-validation/build/textarea' {
+  declare namespace Textarea {
+    interface Props {
+      className: string;
+      type: string;
+      name: string;
+      placeholder: string;
+      rows: number;
+      value: string;
+      validations?: ((value: string) => JSX.Element | undefined)[];
+      onChange: (event: MouseEvent<Element, MouseEvent>) => void;
+    }
+  }
+
+  declare class Input extends React.Component<Input.Props> {}
+
+  export as namespace Input;
+
+  export = Input;
+}
+
 declare module 'react-validation/build/button' {
   declare namespace Button {
     interface Props {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab, Row, Col, Nav } from 'react-bootstrap';
 
+import PoPProve from './PoP/PoPProve';
 import PoPVerify from './PoP/PoPVerify';
 import ECDHPublicKey from './ECDH/ECDHPublicKey';
 import ECDHPrivateKey from './ECDH/ECDHPrivateKey';
@@ -14,7 +15,7 @@ import './Dashboard.scss';
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <Tab.Container defaultActiveKey="verify-keys">
+      <Tab.Container defaultActiveKey="prove-keys">
         <Row>
           <Col md={2}>
             <Nav variant="pills" className="flex-column">
@@ -23,6 +24,10 @@ const Dashboard = () => {
                   <Nav.Link className="title" eventKey="disabled" disabled={true}>
                     Proof of Possession
                   </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey="prove-keys">Prove Keys</Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
@@ -82,6 +87,9 @@ const Dashboard = () => {
 
           <Col md={10} className="web3-component">
             <Tab.Content>
+              <Tab.Pane eventKey="prove-keys">
+                <PoPProve />
+              </Tab.Pane>
               <Tab.Pane eventKey="verify-keys">
                 <PoPVerify />
               </Tab.Pane>
@@ -97,11 +105,11 @@ const Dashboard = () => {
               <Tab.Pane eventKey="aggregated-private-key">
                 <AggregatedPrivateKey />
               </Tab.Pane>
-              <Tab.Pane eventKey="private-key-conversion">
-                <PrivateKeyConversion />
+              <Tab.Pane eventKey="convert-private-key">
+                <ConvertPrivateKey />
               </Tab.Pane>
-              <Tab.Pane eventKey="public-key-conversion">
-                <PublicKeyConversion />
+              <Tab.Pane eventKey="convert-public-key">
+                <ConvertPublicKey />
               </Tab.Pane>
             </Tab.Content>
           </Col>
