@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Offline, Online } from 'react-detect-offline';
 import { Row, Col, Image, Button } from 'react-bootstrap';
+import ReactTooltip from 'react-tooltip';
 
 import avatar from '../images/puzzle.png';
 
@@ -32,11 +33,26 @@ const Header = () => {
             <Col className="network">
               <Row className="justify-content-end">
                 <Online polling={polling}>
-                  <Button variant="success">Internet</Button>
+                  <Button
+                    variant="success"
+                    data-place="left"
+                    data-tip="Connected to the internet. We recommend running this tool in offline mode instead"
+                  >
+                    Online
+                  </Button>
                 </Online>
+
                 <Offline polling={polling}>
-                  <Button variant="danger">Offline</Button>
+                  <Button
+                    variant="danger"
+                    data-place="left"
+                    data-tip="Not connected to the internet. This is the recommended way to run this tool"
+                  >
+                    Offline
+                  </Button>
                 </Offline>
+
+                <ReactTooltip />
               </Row>
             </Col>
           </Row>
