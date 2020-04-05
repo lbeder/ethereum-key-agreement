@@ -38,6 +38,12 @@ describe('ECDSA', () => {
         signature:
           '0x6fde986f059f7d60c3fbb9948aba47f7997d98654cff35f7cd2b494558c478610674b4d8d5cae9c0e8b4f4b82974e4aed8499b31c9dd49613f27ef8716eccaf31b',
         privateKey: '0x2f9b3b0603e8af0f3e111beef5e0083a71856f9bf2260cdd73a89fb68240ea34'
+      },
+      {
+        message: 'Line 1\nLine 2\nLine 3',
+        signature:
+          '0xef7eaae737608c643d4ceb774d12a0412d5c0ae7e943958d22a4cda6dcb5d1335a65957108ca90a55108b26003f98257158bfa37b16e09b9ba76522c27a9b3371c',
+        privateKey: '0x2f9b3b0603e8af0f3e111beef5e0083a71856f9bf2260cdd73a89fb68240ea34'
       }
     ].forEach((spec) => {
       const { message, signature, privateKey } = spec;
@@ -84,6 +90,12 @@ describe('ECDSA', () => {
         message: '',
         signature:
           '0x6fde986f059f7d60c3fbb9948aba47f7997d98654cff35f7cd2b494558c478610674b4d8d5cae9c0e8b4f4b82974e4aed8499b31c9dd49613f27ef8716eccaf31b',
+        publicKey: '0x0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8'
+      },
+      {
+        message: 'Line 1\nLine 2\nLine 3',
+        signature:
+          '0xef7eaae737608c643d4ceb774d12a0412d5c0ae7e943958d22a4cda6dcb5d1335a65957108ca90a55108b26003f98257158bfa37b16e09b9ba76522c27a9b3371c',
         publicKey: '0x0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8'
       }
     ].forEach((spec) => {

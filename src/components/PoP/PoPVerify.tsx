@@ -19,11 +19,9 @@ const STATUSES = {
 };
 
 const PoPVerify = () => {
-  const [inputData, setInputData] = useState({
-    publicKey: '',
-    message: '',
-    signature: ''
-  });
+  const [publicKey, setPublicKey] = useState('');
+  const [message, setMessage] = useState('');
+  const [signature, setSignature] = useState('');
 
   const [status, setStatus] = useState({
     status: STATUSES.UNDEFINED,
@@ -32,19 +30,32 @@ const PoPVerify = () => {
 
   const [address, setAddress] = useState('');
 
-  const onChangeInput = ({ target }: ChangeEvent) => {
+  const onChangePublicKey = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
-    const value = element.type === 'checkbox' ? element.checked : element.value;
-    const name = element.name;
+    const { value } = element;
 
-    setInputData({ ...inputData, [name]: value });
+    setPublicKey(value);
+  };
+
+  const onChangeMessage = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const { value } = element;
+
+    // Replace "\n" with a new line in order to comply with MyCrypto and MEW.
+    setMessage(value.replace(/\\n/g, '\n'));
+  };
+
+  const onChangeSignature = ({ target }: ChangeEvent) => {
+    const element = target as HTMLInputElement;
+    const { value } = element;
+
+    setSignature(value);
   };
 
   const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
     try {
-      const { publicKey, message, signature } = inputData;
       if (ECDSA.verify(message, signature, publicKey)) {
         setStatus({
           status: STATUSES.OK,
@@ -91,9 +102,9 @@ const PoPVerify = () => {
               type="text"
               name="publicKey"
               placeholder="0x"
-              value={inputData.publicKey}
+              value={publicKey}
               validations={[isPublicKey]}
-              onChange={onChangeInput}
+              onChange={onChangePublicKey}
             />
             <small className="form-text text-muted">
               66 characters long hexadecimal <strong>compressed</strong> public key (1+32 bytes). The key should start
@@ -113,10 +124,12 @@ const PoPVerify = () => {
               name="message"
               placeholder=""
               rows={4}
-              value={inputData.message}
-              onChange={onChangeInput}
+              value={message}
+              onChange={onChangeMessage}
             />
-            <small className="form-text text-muted">The message that used for signing</small>
+            <small className="form-text text-muted">
+              The message that used for signing. Please note that the "\n" literal will be replaced with a new line
+            </small>
           </Col>
         </FormGroup>
 
@@ -130,9 +143,9 @@ const PoPVerify = () => {
               type="text"
               name="signature"
               placeholder="0x"
-              value={inputData.signature}
+              value={signature}
               validations={[isValidSignature]}
-              onChange={onChangeInput}
+              onChange={onChangeSignature}
             />
             <small className="form-text text-muted">
               130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
