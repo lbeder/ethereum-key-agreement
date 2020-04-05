@@ -15,8 +15,8 @@ const ECDHPrivateKey = () => {
     privateKey2: ''
   });
 
-  const [address, setAddress] = useState('');
   const [publicKey, setPublicKey] = useState('');
+  const [address, setAddress] = useState('');
   const [privateKey, setPrivateKey] = useState('');
 
   const onChangeInput = ({ target }: ChangeEvent) => {
@@ -29,16 +29,13 @@ const ECDHPrivateKey = () => {
   const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
-    // Get the compressed shared private key.
     const { privateKey1, privateKey2 } = inputData;
     const sharedPrivateKey = ECDH.derivePrivateKey(privateKey1, privateKey2);
     setPrivateKey(sharedPrivateKey.toString());
 
-    // Get the compressed shared public key.
     const sharedPublicKey = sharedPrivateKey.toPublicKey();
     setPublicKey(sharedPublicKey.toString());
 
-    // Derive the shared address.
     setAddress(sharedPublicKey.toChecksumAddress());
   };
 
@@ -93,20 +90,6 @@ const ECDHPrivateKey = () => {
 
         <FormGroup as={Row}>
           <Col md={2}>
-            <FormLabel>Shared Address</FormLabel>
-          </Col>
-          <Col md={9}>
-            <InputGroup className="mb-3">
-              <FormControl className="address" type="text" value={address} readOnly={true} />
-              <InputGroup.Append>
-                <CopyToClipboard text={address} />
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-        </FormGroup>
-
-        <FormGroup as={Row}>
-          <Col md={2}>
             <FormLabel>Shared Public Key</FormLabel>
           </Col>
           <Col md={9}>
@@ -114,6 +97,20 @@ const ECDHPrivateKey = () => {
               <FormControl className="key" type="text" value={publicKey} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={publicKey} />
+              </InputGroup.Append>
+            </InputGroup>
+          </Col>
+        </FormGroup>
+
+        <FormGroup as={Row}>
+          <Col md={2}>
+            <FormLabel>Shared Address</FormLabel>
+          </Col>
+          <Col md={9}>
+            <InputGroup className="mb-3">
+              <FormControl className="address" type="text" value={address} readOnly={true} />
+              <InputGroup.Append>
+                <CopyToClipboard text={address} />
               </InputGroup.Append>
             </InputGroup>
           </Col>
