@@ -25,7 +25,7 @@ const ConvertPrivateKey = () => {
 
   const onChangePrivateKey = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
-    const value = element.value;
+    const { value } = element;
 
     setPrivateKey(value);
   };
