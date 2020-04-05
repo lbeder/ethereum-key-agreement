@@ -8,6 +8,8 @@ import Button from 'react-validation/build/button';
 
 import { isPublicKey, isValidSignature } from '../../utils/Validators';
 import { ECDSA } from '../../utils/ECDSA';
+import CopyToClipboard from '../CopyToClipboard';
+import { PublicKey } from 'src/utils/PublicKey';
 
 const STATUSES = {
   OK: 'ok',
@@ -28,6 +30,8 @@ const PoPVerify = () => {
     message: ''
   });
 
+  const [address, setAddress] = useState('');
+
   const onChangeInput = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
     const value = element.type === 'checkbox' ? element.checked : element.value;
@@ -46,6 +50,8 @@ const PoPVerify = () => {
           status: STATUSES.OK,
           message: 'Message signature verified'
         });
+
+        setAddress(new PublicKey(publicKey).toChecksumAddress());
       } else {
         setStatus({ status: STATUSES.INVALID, message: 'Invalid signature' });
       }
@@ -152,6 +158,20 @@ const PoPVerify = () => {
           <Col md={9}>
             <InputGroup className="mb-3">
               <FormControl type="text" className={statusClassName()} value={status.message} readOnly={true} />
+            </InputGroup>
+          </Col>
+        </FormGroup>
+
+        <FormGroup as={Row}>
+          <Col md={2}>
+            <FormLabel>Address</FormLabel>
+          </Col>
+          <Col md={9}>
+            <InputGroup className="mb-3">
+              <FormControl className="address" type="text" value={address} readOnly={true} />
+              <InputGroup.Append>
+                <CopyToClipboard text={address} />
+              </InputGroup.Append>
             </InputGroup>
           </Col>
         </FormGroup>
