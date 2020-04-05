@@ -4,7 +4,7 @@ import { Offline, Online } from 'react-detect-offline';
 import { Row, Col, Image, Button } from 'react-bootstrap';
 import ReactTooltip from 'react-tooltip';
 
-import avatar from '../images/puzzle.png';
+import puzzle from '../images/puzzle.png';
 
 import './Header.scss';
 
@@ -23,7 +23,7 @@ const Header = () => {
           <Row>
             <Col md="auto">
               <div className="avatar">
-                <Image src={avatar} className="avatar-img" />
+                <Image src={puzzle} className="avatar-img" />
               </div>
             </Col>
             <Col md="auto">

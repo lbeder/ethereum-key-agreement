@@ -126,6 +126,9 @@ const PoPProve = () => {
                 <CopyToClipboard text={message} />
               </InputGroup.Append>
             </InputGroup>
+            <small className="form-text text-muted">
+              The message that used for signing. Please note that the "\n" literal will be replaced with a new line
+            </small>
           </Col>
         </FormGroup>
 

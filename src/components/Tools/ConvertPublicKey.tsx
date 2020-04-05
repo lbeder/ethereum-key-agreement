@@ -22,7 +22,7 @@ const ConvertPublicKey = () => {
 
   const onChangePublicKey = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
-    const value = element.value;
+    const { value } = element;
 
     setPublicKey(value);
   };
