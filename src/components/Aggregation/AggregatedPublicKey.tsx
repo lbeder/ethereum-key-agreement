@@ -20,8 +20,7 @@ const AggregatedPublicKey = () => {
 
   const onChangeInput = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
-    const value = element.type === 'checkbox' ? element.checked : element.value;
-    const name = element.name;
+    const { value, name } = element;
 
     setInputData({ ...inputData, [name]: value });
   };
