@@ -120,13 +120,13 @@ const PoPProve = () => {
             <FormLabel>Message</FormLabel>
           </Col>
           <Col md={9}>
-            <InputGroup className="mb-3">
+            <InputGroup>
               <FormControl as="textarea" rows={4} value={message} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={message} />
               </InputGroup.Append>
             </InputGroup>
-            <small className="form-text text-muted">
+            <small className="mb-3 form-text text-muted">
               The message that used for signing. Please note that the "\n" literal will be replaced with a new line
             </small>
           </Col>
