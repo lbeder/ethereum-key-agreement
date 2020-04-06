@@ -1,44 +1,52 @@
-import { keccak256, ecsign, ecrecover, toRpcSig, fromRpcSig } from 'ethereumjs-util';
+import { keccak256, ecsign, ecrecover, toRpcSig, fromRpcSig, hashPersonalMessage } from 'ethereumjs-util';
+import { Transaction } from 'ethereumjs-tx';
 
 import { PublicKey, RawPublicKey } from './PublicKey';
 import { PrivateKey, RawPrivateKey } from './PrivateKey';
 
-const MESSAGE_SIGNATURE_PREFIX = Buffer.from('\x19Ethereum Signed Message:\n');
-
 export class ECDSA {
-  // ECDSA signs a given message. Please note, that the during the generation of the signature:
-  // 1. The message was prefixed (with "\x19Ethereum Signed Message:\n" + length of the message).
-  // 2. The prefixed message was keccak256 hashed before signing.
-  static sign(message: string, privateKey: RawPrivateKey) {
-    const prefixedMessageHash = keccak256(
-      Buffer.concat([MESSAGE_SIGNATURE_PREFIX, Buffer.from(String(message.length)), Buffer.from(message)])
-    );
+  // Recovers the public key from a signature. The method supports prefixing the message according to EIP712.
+  static recoverFromMessage(message: string, signature: string, prefix: boolean = true): PublicKey | null {
+    const messageBuf = Buffer.from(message);
+    const messageHash = prefix ? hashPersonalMessage(messageBuf) : keccak256(messageBuf);
+
+    try {
+      const sig = fromRpcSig(signature);
+      const rawSignerPublicKey = ecrecover(messageHash, sig.v, sig.r, sig.s);
+
+      return new PublicKey(rawSignerPublicKey).toCompressed();
+    } catch {
+      return null;
+    }
+  }
+
+  // Recovers the public key from a signed transaction.
+  static recoverFromSignedTransation(txData: string): PublicKey | null {
+    try {
+      const rawSignerPublicKey = new Transaction(txData).getSenderPublicKey();
+
+      return new PublicKey(rawSignerPublicKey).toCompressed();
+    } catch {
+      return null;
+    }
+  }
+
+  // ECDSA signs a given message. The method supports prefixing the message according to EIP712.
+  static sign(message: string, privateKey: RawPrivateKey, prefix: boolean = true) {
+    const messageBuf = Buffer.from(message);
+    const messageHash = prefix ? hashPersonalMessage(messageBuf) : keccak256(messageBuf);
 
     const privKey = new PrivateKey(privateKey);
-    const sig = ecsign(prefixedMessageHash, privKey.key);
+    const sig = ecsign(messageHash, privKey.key);
 
     return toRpcSig(sig.v, sig.r, sig.s);
   }
 
-  // Verifies ECDSA signature on a given message. Please note, that this method assumes that:
-  // 1. The message was prefixed before signing (with "\x19Ethereum Signed Message:\n" + length of the message).
-  // 2. The prefixed message was keccak256 hashed before signing.
-  static verify(message: string, signature: string, publicKey: RawPublicKey): boolean {
-    const prefixedMessageHash = keccak256(
-      Buffer.concat([MESSAGE_SIGNATURE_PREFIX, Buffer.from(String(message.length)), Buffer.from(message)])
-    );
-
-    let rawSignerPublicKey;
-    try {
-      const sig = fromRpcSig(signature);
-      rawSignerPublicKey = ecrecover(prefixedMessageHash, sig.v, sig.r, sig.s);
-    } catch {
-      return false;
-    }
-
-    const signerPublicKey = new PublicKey(rawSignerPublicKey).toCompressed();
+  // Verifies ECDSA signature on a given message. The method supports prefixing the message according to EIP712.
+  static verify(message: string, signature: string, publicKey: RawPublicKey, prefix: boolean = true): boolean {
+    const signerPublicKey = ECDSA.recoverFromMessage(message, signature, prefix);
     const expectedPublicKey = new PublicKey(publicKey).toCompressed();
 
-    return signerPublicKey.key.equals(expectedPublicKey.key);
+    return signerPublicKey ? signerPublicKey.key.equals(expectedPublicKey.key) : false;
   }
 }
