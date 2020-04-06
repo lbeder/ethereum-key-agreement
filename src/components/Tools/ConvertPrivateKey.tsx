@@ -99,7 +99,7 @@ const ConvertPrivateKey = () => {
 
             { /* prettier-ignore */ }
             <small className="form-text text-muted">
-              Given a privste key <strong><i>a</i></strong>:
+              Given a private key <strong><i>a</i></strong>:
               <ul>
                 <li>The derived public key would be <strong><i>aG</i></strong>.</li>
                 <li>The derived public address would be the <strong>rightmost 160-bits</strong> of the{' '}
