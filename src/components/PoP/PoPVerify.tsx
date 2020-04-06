@@ -150,8 +150,7 @@ const PoPVerify = () => {
             <small className="form-text text-muted">
               130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
               signature was generated using one of the popular Ethereum clients (e.g., MyCrypto, MyEtherWallet, geth,
-              etc.), therefore assuming that the message was prefixed before signing (with "\x19Ethereum Signed
-              Message:\n" + length of the message)
+              etc.), therefore assuming that the message was prefixed according to the EIP712 standard before signing
             </small>
           </Col>
         </FormGroup>

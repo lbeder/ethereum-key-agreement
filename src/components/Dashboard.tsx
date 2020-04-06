@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import { Tab, Row, Col, Nav, Button } from 'react-bootstrap';
 import { HelpCircle } from 'react-feather';
 
-import PoPProve from './PoP/PoPProve';
-import PoPVerify from './PoP/PoPVerify';
-import ECDHPublicKey from './ECDH/ECDHPublicKey';
-import ECDHPrivateKey from './ECDH/ECDHPrivateKey';
-import AggregatedPublicKey from './Aggregation/AggregatedPublicKey';
-import AggregatedPrivateKey from './Aggregation/AggregatedPrivateKey';
-import ConvertPrivateKey from './Tools/ConvertPrivateKey';
-import ConvertPublicKey from './Tools/ConvertPublicKey';
-
+import { PoPProve, PoPVerify } from './PoP';
+import { ECDHPublicKey, ECDHPrivateKey } from './ECDH';
+import { AggregatedPublicKey, AggregatedPrivateKey } from './Aggregation';
+import { ConvertPrivateKey, ConvertPublicKey, ConvertMessage, ConvertTransaction } from './Tools';
 import TutorialModal, { tutorialHasBeenOpened } from './TutorialModal';
 
 import './Dashboard.scss';
@@ -96,6 +91,14 @@ const Dashboard = () => {
                 <Nav.Item>
                   <Nav.Link eventKey="convert-public-key">Convert Public Key</Nav.Link>
                 </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey="convert-message">Convert Message</Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey="convert-transaction">Convert Transaction</Nav.Link>
+                </Nav.Item>
               </div>
             </Nav>
           </Col>
@@ -125,6 +128,12 @@ const Dashboard = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="convert-public-key">
                 <ConvertPublicKey />
+              </Tab.Pane>
+              <Tab.Pane eventKey="convert-message">
+                <ConvertMessage />
+              </Tab.Pane>
+              <Tab.Pane eventKey="convert-transaction">
+                <ConvertTransaction />
               </Tab.Pane>
             </Tab.Content>
           </Col>
