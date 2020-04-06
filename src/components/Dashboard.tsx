@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import { Tab, Row, Col, Nav, Button } from 'react-bootstrap';
 import { HelpCircle } from 'react-feather';
 
-import PoPProve from './PoP/PoPProve';
-import PoPVerify from './PoP/PoPVerify';
-import ECDHPublicKey from './ECDH/ECDHPublicKey';
-import ECDHPrivateKey from './ECDH/ECDHPrivateKey';
-import AggregatedPublicKey from './Aggregation/AggregatedPublicKey';
-import AggregatedPrivateKey from './Aggregation/AggregatedPrivateKey';
-import ConvertPrivateKey from './Tools/ConvertPrivateKey';
-import ConvertPublicKey from './Tools/ConvertPublicKey';
-
+import { PoPProve, PoPVerify } from './PoP';
+import { ECDHPublicKey, ECDHPrivateKey } from './ECDH';
+import { AggregatedPublicKey, AggregatedPrivateKey } from './Aggregation';
+import { ConvertPrivateKey, ConvertPublicKey } from './Tools';
 import TutorialModal, { tutorialHasBeenOpened } from './TutorialModal';
 
 import './Dashboard.scss';
