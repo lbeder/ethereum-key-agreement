@@ -173,7 +173,11 @@ const TutorialModal = (props: TutorialModalProps) => {
 
                   <p>
                     The shared public key is derived using the{' '}
-                    <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">
+                    <a
+                      href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Elliptic Curve Diffie–Hellman (ECDH)
                     </a>{' '}
                     key agreement protocol.

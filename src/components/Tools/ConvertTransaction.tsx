@@ -107,7 +107,11 @@ const ConvertTransaction = () => {
                 <li>The derived public key would be <strong><i>r<sup>-1</sup>(sR-zG)</i></strong> where <strong><i>z</i></strong> is the lowest <strong><i>n</i></strong> bits of the hash of the message{' '}
                 (where <strong><i>n</i></strong> is the bit size of the curve) and <strong><i>v</i></strong> is used for selecting one of the possible two <strong><i>R</i></strong> points).</li>
                 <li>The derived public address would be the <strong>rightmost 160-bits</strong> of the{' '}
-                <a href="https://en.wikipedia.org/wiki/SHA-3">
+                 <a
+                  href="https://en.wikipedia.org/wiki/SHA-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Keccak-256 Hash Function
                 </a> of the corresponding public key.</li>
               </ul>
