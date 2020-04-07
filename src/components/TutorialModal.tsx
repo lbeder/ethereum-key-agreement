@@ -6,12 +6,25 @@ import puzzle from '../images/puzzle-l.png';
 
 import './TutorialModal.scss';
 
+export interface TutorialModalProps extends ModalProps {
+  slide: string;
+}
+
 const TUTORIAL_OPENED_FLAG_NAME = 'eka:tutorial-opened';
 export const tutorialHasBeenOpened = (): boolean => {
   return localStorage.getItem(TUTORIAL_OPENED_FLAG_NAME) !== null;
 };
 
-const TutorialModal = (props: ModalProps) => {
+export const SLIDE_KEYS = {
+  POP_PROVE_KEYS: 'pop-prove-keys',
+  POP_VERIFY_KEYS: 'pop-verify-keys',
+  ECDH_PUBLIC_KEY: 'ecdh-public-key',
+  ECDH_PRIVATE_KEY: 'ecdh-private-key',
+  AGGREGATED_PUBLIC_KEY: 'aggregated-public-key',
+  AGGREGATED_PRIVATE_KEY: 'aggregated-private-key'
+};
+
+const TutorialModal = (props: TutorialModalProps) => {
   const slider = useRef<Slider>(null);
 
   const onClickNext = () => {
@@ -20,6 +33,30 @@ const TutorialModal = (props: ModalProps) => {
     }
 
     slider.current.slickNext();
+  };
+
+  const initialSlide = (): number => {
+    // If this is the first time that the tutorial is opened - show the "Welcome" slide.
+    if (!tutorialHasBeenOpened()) {
+      return 0;
+    }
+
+    switch (props.slide) {
+      case SLIDE_KEYS.POP_PROVE_KEYS:
+      case SLIDE_KEYS.POP_VERIFY_KEYS:
+        return 1;
+
+      case SLIDE_KEYS.ECDH_PUBLIC_KEY:
+      case SLIDE_KEYS.ECDH_PRIVATE_KEY:
+        return 2;
+
+      case SLIDE_KEYS.AGGREGATED_PUBLIC_KEY:
+      case SLIDE_KEYS.AGGREGATED_PRIVATE_KEY:
+        return 3;
+
+      default:
+        return 0;
+    }
   };
 
   if (!props.show && !tutorialHasBeenOpened()) {
@@ -46,6 +83,7 @@ const TutorialModal = (props: ModalProps) => {
             <Col md={9} className="right-panel">
               <Slider
                 ref={slider}
+                initialSlide={initialSlide()}
                 dots={true}
                 arrows={false}
                 infinite={false}
@@ -95,7 +133,7 @@ const TutorialModal = (props: ModalProps) => {
                 </div>
 
                 <div>
-                  <h3>Proof of Posession</h3>
+                  <h3>Proof of Possession</h3>
 
                   <p>
                     <strong>Proof of Possession</strong> is an important technique of proving that a party sending a
