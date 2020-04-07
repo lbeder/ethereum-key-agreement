@@ -66,7 +66,7 @@ const TutorialModal = (props: TutorialModalProps) => {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="xl"
       centered={true}
       className="tutorial-modal"
       aria-labelledby="contained-modal-title-vcenter"
