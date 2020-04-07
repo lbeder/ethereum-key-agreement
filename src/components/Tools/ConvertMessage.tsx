@@ -101,7 +101,7 @@ const ConvertMessage = () => {
           <Col md={9}>
             <FormCheck type="checkbox" name="prefix" checked={prefix} onChange={onChangePrefix} />
             <small className="form-text text-muted">
-              Please check if the message was prefixed according to the{' '}
+              Please check if the message was prefixed according to{' '}
               <a
                 href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md"
                 target="_blank"
@@ -109,7 +109,7 @@ const ConvertMessage = () => {
               >
                 EIP712
               </a>{' '}
-              standard (e.g., MyCrypto, MyEtherWallet)
+              (e.g., MyCrypto, MyEtherWallet, geth)
             </small>
           </Col>
         </FormGroup>
