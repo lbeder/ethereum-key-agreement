@@ -150,7 +150,7 @@ const PoPVerify = () => {
             <small className="form-text text-muted">
               130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
               signature was generated using one of the popular Ethereum clients (e.g., MyCrypto, MyEtherWallet, geth,
-              etc.), therefore assuming that the message was prefixed according to the{' '}
+              etc.), therefore assuming that the message was prefixed according to{' '}
               <a
                 href=" https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md"
                 target="_blank"
@@ -158,7 +158,7 @@ const PoPVerify = () => {
               >
                 EIP712
               </a>{' '}
-              standard before signing
+              before signing
             </small>
           </Col>
         </FormGroup>
