@@ -108,7 +108,6 @@ const TutorialModal = (props: TutorialModalProps) => {
                   </p>
 
                   <p>The project currently supports the following protocols:</p>
-
                   <ul>
                     <li>
                       <strong>Proof of Possession</strong>
@@ -126,7 +125,6 @@ const TutorialModal = (props: TutorialModalProps) => {
                     an air-gapped machine or without internet access), as plaintext private keys are being used. We have
                     added an online/offline state detection widget just for that.
                   </p>
-
                   <Button className="tutorial-next" onClick={onClickNext}>
                     Next
                   </Button>
