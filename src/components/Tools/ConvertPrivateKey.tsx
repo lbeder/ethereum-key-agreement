@@ -103,7 +103,11 @@ const ConvertPrivateKey = () => {
               <ul>
                 <li>The derived public key would be <strong><i>aG</i></strong>.</li>
                 <li>The derived public address would be the <strong>rightmost 160-bits</strong> of the{' '}
-                <a href="https://en.wikipedia.org/wiki/SHA-3">
+                <a
+                  href="https://en.wikipedia.org/wiki/SHA-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Keccak-256 Hash Function
                 </a> of the corresponding public key <strong><i>aG</i></strong>.</li>
               </ul>

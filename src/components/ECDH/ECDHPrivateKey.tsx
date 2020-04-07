@@ -136,7 +136,11 @@ const ECDHPrivateKey = () => {
           <Col md={12}>
             <small className="form-text text-muted">
               The shared public key is derived using the{' '}
-              <a href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman">
+              <a
+                href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Elliptic Curve Diffie–Hellman (ECDH)
               </a>{' '}
               key agreement protocol.
