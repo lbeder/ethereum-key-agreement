@@ -102,19 +102,27 @@ const Dashboard = () => {
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link eventKey="convert-private-key">Convert Private Key</Nav.Link>
+                  <Nav.Link eventKey={SLIDE_KEYS.CONVERT_PRIVATE_KEY} onSelect={onSelectNavLink}>
+                    Convert Private Key
+                  </Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link eventKey="convert-public-key">Convert Public Key</Nav.Link>
+                  <Nav.Link eventKey={SLIDE_KEYS.CONVERT_PUBLIC_KEY} onSelect={onSelectNavLink}>
+                    Convert Public Key
+                  </Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link eventKey="convert-message">Convert Message</Nav.Link>
+                  <Nav.Link eventKey={SLIDE_KEYS.EXTRACT_FROM_MESSAGE} onSelect={onSelectNavLink}>
+                    Extract Public Key from Message
+                  </Nav.Link>
                 </Nav.Item>
 
                 <Nav.Item>
-                  <Nav.Link eventKey="convert-transaction">Convert Transaction</Nav.Link>
+                  <Nav.Link eventKey={SLIDE_KEYS.EXTRACT_FROM_TRANSACTION} onSelect={onSelectNavLink}>
+                    Extract Public Key from Transaction
+                  </Nav.Link>
                 </Nav.Item>
               </div>
             </Nav>
@@ -140,16 +148,16 @@ const Dashboard = () => {
               <Tab.Pane eventKey={SLIDE_KEYS.AGGREGATED_PRIVATE_KEY}>
                 <AggregatedPrivateKey />
               </Tab.Pane>
-              <Tab.Pane eventKey="convert-private-key">
+              <Tab.Pane eventKey={SLIDE_KEYS.CONVERT_PRIVATE_KEY}>
                 <ConvertPrivateKey />
               </Tab.Pane>
-              <Tab.Pane eventKey="convert-public-key">
+              <Tab.Pane eventKey={SLIDE_KEYS.CONVERT_PUBLIC_KEY}>
                 <ConvertPublicKey />
               </Tab.Pane>
-              <Tab.Pane eventKey="convert-message">
+              <Tab.Pane eventKey={SLIDE_KEYS.EXTRACT_FROM_MESSAGE}>
                 <ConvertMessage />
               </Tab.Pane>
-              <Tab.Pane eventKey="convert-transaction">
+              <Tab.Pane eventKey={SLIDE_KEYS.EXTRACT_FROM_TRANSACTION}>
                 <ConvertTransaction />
               </Tab.Pane>
             </Tab.Content>

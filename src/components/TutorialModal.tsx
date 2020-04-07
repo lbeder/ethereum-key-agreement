@@ -21,7 +21,11 @@ export const SLIDE_KEYS = {
   ECDH_PUBLIC_KEY: 'ecdh-public-key',
   ECDH_PRIVATE_KEY: 'ecdh-private-key',
   AGGREGATED_PUBLIC_KEY: 'aggregated-public-key',
-  AGGREGATED_PRIVATE_KEY: 'aggregated-private-key'
+  AGGREGATED_PRIVATE_KEY: 'aggregated-private-key',
+  CONVERT_PRIVATE_KEY: 'convert-private-key',
+  CONVERT_PUBLIC_KEY: 'convert-public-key',
+  EXTRACT_FROM_MESSAGE: 'extract-from-message',
+  EXTRACT_FROM_TRANSACTION: 'extract-from-transaction'
 };
 
 const TutorialModal = (props: TutorialModalProps) => {
@@ -53,6 +57,12 @@ const TutorialModal = (props: TutorialModalProps) => {
       case SLIDE_KEYS.AGGREGATED_PUBLIC_KEY:
       case SLIDE_KEYS.AGGREGATED_PRIVATE_KEY:
         return 3;
+
+      case SLIDE_KEYS.CONVERT_PRIVATE_KEY:
+      case SLIDE_KEYS.CONVERT_PUBLIC_KEY:
+      case SLIDE_KEYS.EXTRACT_FROM_MESSAGE:
+      case SLIDE_KEYS.EXTRACT_FROM_TRANSACTION:
+        return 4;
 
       default:
         return 0;
@@ -221,6 +231,20 @@ const TutorialModal = (props: TutorialModalProps) => {
                     <strong>Rouge Key Attacks</strong>.
                   </p>
 
+                  <p>
+                    Please be aware that if you are using a public key sourced from a hardware wallet, you will require
+                    your seed in order to recover your aggregated shared private key (by first extracting the relevant
+                    private key using a{' '}
+                    <a
+                      href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      BIP39
+                    </a>{' '}
+                    tool, preferably in a cold storage environment).
+                  </p>
+
                   <Button className="tutorial-next" onClick={onClickNext}>
                     Next
                   </Button>
@@ -248,6 +272,63 @@ const TutorialModal = (props: TutorialModalProps) => {
                     <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and{' '}
                     <strong>Rouge Key Attacks</strong>.
                   </p>
+
+                  <p>
+                    Please be aware that if you are using a public key sourced from a hardware wallet, you will require
+                    your seed in order to recover your aggregated shared private key (by first extracting the relevant
+                    private key using a{' '}
+                    <a
+                      href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      BIP39
+                    </a>{' '}
+                    tool, preferably in a cold storage environment).
+                  </p>
+
+                  <Button className="tutorial-next" onClick={onClickNext}>
+                    Next
+                  </Button>
+                </div>
+
+                <div>
+                  <h3>Public Key and Address Extraction</h3>
+                  <p>
+                    For your convenience, we have also provided the following tools to help you with public key
+                    extraction and address conversion:
+                  </p>
+                  <ul>
+                    <li>Convert a private key to a public key and an address</li>
+                    <li>Convert a public key to an address</li>
+                  </ul>
+
+                  <p>
+                    If you are using a hardware device such as a{' '}
+                    <a href="https://www.ledger.com/" target="_blank" rel="noopener noreferrer">
+                      Ledger
+                    </a>{' '}
+                    or{' '}
+                    <a href="https://trezor.io/" target="_blank" rel="noopener noreferrer">
+                      Trezor
+                    </a>
+                    , or prefer not to input your private key into this app you may extract your public key and Ethereum
+                    address using one of the following methods:
+                  </p>
+                  <ul>
+                    <li>
+                      Extract a public key from a signed message (with or without an{' '}
+                      <a
+                        href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        EIP712
+                      </a>{' '}
+                      prefix) and convert it to an address
+                    </li>
+                    <li>Extract a public key from a signed transaction and convert it to an address</li>
+                  </ul>
                 </div>
               </Slider>
             </Col>
