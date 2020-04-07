@@ -121,6 +121,27 @@ const TutorialModal = (props: TutorialModalProps) => {
                   </ul>
 
                   <p>
+                    For your convenience, we have also provided the following tools to help you with public key
+                    extraction and address conversion:
+                  </p>
+                  <ul>
+                    <li>Convert a private key to a public key and an address</li>
+                    <li>Convert a public key to an address</li>
+                    <li>
+                      Extract a public key from a signed message (with or without an{' '}
+                      <a
+                        href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        EIP712
+                      </a>{' '}
+                      prefix) and convert it to an address
+                    </li>
+                    <li>Extract a public key from a signed transaction and convert it to an address</li>
+                  </ul>
+
+                  <p>
                     <strong>CAUTION:</strong> We recommend running the tool in <strong>offline mode</strong> (e.g., on
                     an air-gapped machine or without internet access), as plaintext private keys are being used. We have
                     added an online/offline state detection widget just for that.
