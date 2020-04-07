@@ -25,7 +25,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <Tab.Container defaultActiveKey={SLIDE_KEYS.POP_PROVE_KEYS}>
         <Row>
-          <Col md={2}>
+          <Col md={3}>
             <Nav variant="pills" className="flex-column">
               <div className="section">
                 <Button variant="info" onClick={onShowTutorial}>
@@ -120,7 +120,7 @@ const Dashboard = () => {
             </Nav>
           </Col>
 
-          <Col md={10} className="web3-component">
+          <Col md={9} className="web3-component">
             <Tab.Content>
               <Tab.Pane eventKey={SLIDE_KEYS.POP_PROVE_KEYS}>
                 <PoPProve />
