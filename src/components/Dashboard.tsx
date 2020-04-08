@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tab, Row, Col, Nav, Button } from 'react-bootstrap';
 import { HelpCircle } from 'react-feather';
 
@@ -12,13 +12,17 @@ import './Dashboard.scss';
 
 const Dashboard = () => {
   const [tutorial, setTutorial] = useState(!tutorialHasBeenOpened());
-  const [slide, setSlide] = useState(SLIDE_KEYS.POP_PROVE_KEYS);
+  const [eventKey, setEventKey] = useState(SLIDE_KEYS.POP_PROVE_KEYS);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [eventKey]);
 
   const onCloseTutorial = () => setTutorial(false);
   const onShowTutorial = () => setTutorial(true);
 
-  const onSelectNavLink = (eventKey: string) => {
-    setSlide(eventKey);
+  const onSelectNavLink = (key: string) => {
+    setEventKey(key);
   };
 
   return (
@@ -165,7 +169,7 @@ const Dashboard = () => {
         </Row>
       </Tab.Container>
 
-      <TutorialModal show={tutorial} slide={slide} onHide={onCloseTutorial} />
+      <TutorialModal show={tutorial} slide={eventKey} onHide={onCloseTutorial} />
     </div>
   );
 };
