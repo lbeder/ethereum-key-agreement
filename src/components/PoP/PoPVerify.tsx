@@ -106,7 +106,7 @@ const PoPVerify = () => {
               validations={[isPublicKey]}
               onChange={onChangePublicKey}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               66 characters long hexadecimal compressed/uncompressed public key (1+32 bytes or 1+64 bytes). The key
               should start with either 0x02, 0x03, or 0x04
             </small>
@@ -127,7 +127,7 @@ const PoPVerify = () => {
               value={message}
               onChange={onChangeMessage}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               The message that used for signing. Please note that the "\n" literal will be replaced with a new line
             </small>
           </Col>
@@ -147,10 +147,18 @@ const PoPVerify = () => {
               validations={[isValidSignature]}
               onChange={onChangeSignature}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               130 characters long hexadecimal signature proving the ownership of the public key. We assume that the
               signature was generated using one of the popular Ethereum clients (e.g., MyCrypto, MyEtherWallet, geth,
-              etc.), therefore assuming that the message was prefixed according to the EIP712 standard before signing
+              etc.), therefore assuming that the message was prefixed according to{' '}
+              <a
+                href=" https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                EIP712
+              </a>{' '}
+              before signing
             </small>
           </Col>
         </FormGroup>
@@ -192,7 +200,7 @@ const PoPVerify = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               <strong>Proof of Possession</strong> is an important technique of proving that a party sending a message
               owns a specific cryptographic key. This is used as a proof that the correct party is sending the message,
               under the assumption that only that sender has possession of the key. It is typically demonstrated by
@@ -200,14 +208,14 @@ const PoPVerify = () => {
               presenter/counterparty.
             </small>
 
-            <small className="form-text text-muted">
+            <small className="form-text">
               In addition for preventing the counterparty from <strong>DoS</strong> the shared key by providing a key it
               doesn't possess, this is one of the possible mitigations against the <strong>Rouge Key Attack</strong>,
               where the counterparty will choose a specially crafted public key to either try to "cancel" your public
               key, during the shared key generation phase or to weaken its security.
             </small>
 
-            <small className="form-text text-muted">
+            <small className="form-text">
               We recommend that:
               <ol>
                 <li>
