@@ -70,7 +70,7 @@ const ConvertMessage = () => {
               value={message}
               onChange={onChangeMessage}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               The message that used for signing. Please note that the "\n" literal will be replaced with a new line
             </small>
           </Col>
@@ -90,7 +90,7 @@ const ConvertMessage = () => {
               validations={[isValidSignature]}
               onChange={onChangeSignature}
             />
-            <small className="form-text text-muted">130 characters long hexadecimal signature</small>
+            <small className="form-text">130 characters long hexadecimal signature</small>
           </Col>
         </FormGroup>
 
@@ -100,8 +100,16 @@ const ConvertMessage = () => {
           </Col>
           <Col md={9}>
             <FormCheck type="checkbox" name="prefix" checked={prefix} onChange={onChangePrefix} />
-            <small className="form-text text-muted">
-              Please check if the message was prefixed according to EIP712 (e.g., MyCrypto, MyEtherWallet)
+            <small className="form-text">
+              Please check if the message was prefixed according to{' '}
+              <a
+                href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                EIP712
+              </a>{' '}
+              (e.g., MyCrypto, MyEtherWallet, geth)
             </small>
           </Col>
         </FormGroup>
@@ -146,18 +154,22 @@ const ConvertMessage = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               Please use this section carefully to derive your public key and address from a private key.
             </small>
 
             { /* prettier-ignore */ }
-            <small className="form-text text-muted">
+            <small className="form-text">
               Given a message <strong><i>M</i></strong> and an ECDSA signature <strong><i>S=[v,r,s]</i></strong>:
               <ul>
                 <li>The derived public key would be <strong><i>r<sup>-1</sup>(sR-zG)</i></strong> where <strong><i>z</i></strong> is the lowest <strong><i>n</i></strong> bits of the hash of the message{' '}
                 (where <strong><i>n</i></strong> is the bit size of the curve) and <strong><i>v</i></strong> is used for selecting one of the possible two <strong><i>R</i></strong> points).</li>
                 <li>The derived public address would be the <strong>rightmost 160-bits</strong> of the{' '}
-                <a href="https://en.wikipedia.org/wiki/SHA-3">
+                <a
+                  href="https://en.wikipedia.org/wiki/SHA-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Keccak-256 Hash Function
                 </a> of the corresponding public key.</li>
               </ul>

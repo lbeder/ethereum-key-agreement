@@ -49,7 +49,7 @@ const ConvertPrivateKey = () => {
               validations={[isPrivateKey]}
               onChange={onChangePrivateKey}
             />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+            <small className="form-text">64 characters long hexadecimal private key (32 bytes)</small>
           </Col>
         </FormGroup>
 
@@ -93,17 +93,21 @@ const ConvertPrivateKey = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               Please use this section carefully to derive your public key and address from a private key.
             </small>
 
             { /* prettier-ignore */ }
-            <small className="form-text text-muted">
+            <small className="form-text">
               Given a private key <strong><i>a</i></strong>:
               <ul>
                 <li>The derived public key would be <strong><i>aG</i></strong>.</li>
                 <li>The derived public address would be the <strong>rightmost 160-bits</strong> of the{' '}
-                <a href="https://en.wikipedia.org/wiki/SHA-3">
+                <a
+                  href="https://en.wikipedia.org/wiki/SHA-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Keccak-256 Hash Function
                 </a> of the corresponding public key <strong><i>aG</i></strong>.</li>
               </ul>
