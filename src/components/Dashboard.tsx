@@ -6,6 +6,7 @@ import { PoPProve, PoPVerify } from './PoP';
 import { ECDHPublicKey, ECDHPrivateKey } from './ECDH';
 import { AggregatedPublicKey, AggregatedPrivateKey } from './Aggregation';
 import { ConvertPrivateKey, ConvertPublicKey, ConvertMessage, ConvertTransaction } from './Tools';
+import SMPC from './SMPC/SMPC';
 import TutorialModal, { SLIDE_KEYS, tutorialHasBeenOpened } from './TutorialModal';
 
 import './Dashboard.scss';
@@ -101,6 +102,26 @@ const Dashboard = () => {
               <div className="section">
                 <Nav.Item>
                   <Nav.Link className="title" eventKey="disabled" disabled={true}>
+                    SMPC <span className="tbd">coming soon</span>
+                  </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey={SLIDE_KEYS.SMPC_PUBLIC_KEY} onSelect={onSelectNavLink}>
+                    Shared Public Key
+                  </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link eventKey={SLIDE_KEYS.SMPC_PRIVATE_KEY} onSelect={onSelectNavLink}>
+                    Shared Private Key
+                  </Nav.Link>
+                </Nav.Item>
+              </div>
+
+              <div className="section">
+                <Nav.Item>
+                  <Nav.Link className="title" eventKey="disabled" disabled={true}>
                     Tools
                   </Nav.Link>
                 </Nav.Item>
@@ -151,6 +172,12 @@ const Dashboard = () => {
               </Tab.Pane>
               <Tab.Pane eventKey={SLIDE_KEYS.AGGREGATED_PRIVATE_KEY}>
                 <AggregatedPrivateKey />
+              </Tab.Pane>
+              <Tab.Pane eventKey={SLIDE_KEYS.SMPC_PUBLIC_KEY}>
+                <SMPC />
+              </Tab.Pane>
+              <Tab.Pane eventKey={SLIDE_KEYS.SMPC_PRIVATE_KEY}>
+                <SMPC />
               </Tab.Pane>
               <Tab.Pane eventKey={SLIDE_KEYS.CONVERT_PRIVATE_KEY}>
                 <ConvertPrivateKey />

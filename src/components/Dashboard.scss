@@ -70,6 +70,7 @@
     box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
     padding: 1rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .web3-component-notes {
@@ -77,16 +78,20 @@
     border: 1px solid #edf2f9;
     border-radius: 0.5rem;
     box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
+    padding: 1rem;
 
     .form-group {
       margin-bottom: 0;
 
       small {
+        padding-top: 0;
         padding-bottom: 0.5rem;
         line-height: 1.5;
         color: $text-muted;
+      }
+
+      .form-text {
+        margin-top: 0;
       }
     }
 
@@ -94,5 +99,14 @@
     ol {
       margin-bottom: 0;
     }
+  }
+
+  .tbd {
+    padding: 0.2rem 0.3rem;
+    font-size: 0.7rem;
+    color: white;
+    background: indianred;
+    border-radius: 6px;
+    text-transform: lowercase;
   }
 }
