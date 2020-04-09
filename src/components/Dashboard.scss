@@ -26,6 +26,12 @@
     height: 100%;
   }
 
+  .col,
+  [class*='col-'] {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
   .web3-component {
     padding-left: 0;
 
