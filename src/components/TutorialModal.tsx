@@ -25,7 +25,9 @@ export const SLIDE_KEYS = {
   CONVERT_PRIVATE_KEY: 'convert-private-key',
   CONVERT_PUBLIC_KEY: 'convert-public-key',
   EXTRACT_FROM_MESSAGE: 'extract-from-message',
-  EXTRACT_FROM_TRANSACTION: 'extract-from-transaction'
+  EXTRACT_FROM_TRANSACTION: 'extract-from-transaction',
+  SMPC_PUBLIC_KEY: 'smpc-public-key',
+  SMPC_PRIVATE_KEY: 'smpc-private-key'
 };
 
 const TutorialModal = (props: TutorialModalProps) => {
