@@ -58,7 +58,7 @@ const ECDHPrivateKey = () => {
               validations={[isPrivateKey]}
               onChange={onChangeInput}
             />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+            <small className="form-text">64 characters long hexadecimal private key (32 bytes)</small>
           </Col>
         </FormGroup>
 
@@ -76,7 +76,7 @@ const ECDHPrivateKey = () => {
               validations={[isPrivateKey]}
               onChange={onChangeInput}
             />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+            <small className="form-text">64 characters long hexadecimal private key (32 bytes)</small>
           </Col>
         </FormGroup>
 
@@ -134,7 +134,7 @@ const ECDHPrivateKey = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               The shared public key is derived using the{' '}
               <a
                 href="https://en.wikipedia.org/wiki/Elliptic Curve_Diffie%E2%80%93Hellman"
@@ -147,7 +147,7 @@ const ECDHPrivateKey = () => {
             </small>
 
             { /* prettier-ignore */ }
-            <small className="form-text text-muted">
+            <small className="form-text">
               If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
               <ul>
                 <li>The shared public key would be <strong><i>abG</i></strong>.</li>

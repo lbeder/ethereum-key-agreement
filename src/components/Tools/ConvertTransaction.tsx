@@ -96,12 +96,12 @@ const ConvertTransaction = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               Please use this section carefully to derive your public key and address from a private key.
             </small>
 
             { /* prettier-ignore */ }
-            <small className="form-text text-muted">
+            <small className="form-text">
               Given a signed transaction <strong><i>T=[0xf8, ... v, r, s]</i></strong> with an embedded ECDSA signature <strong><i>S=[v,r,s]</i></strong>:
               <ul>
                 <li>The derived public key would be <strong><i>r<sup>-1</sup>(sR-zG)</i></strong> where <strong><i>z</i></strong> is the lowest <strong><i>n</i></strong> bits of the hash of the message{' '}

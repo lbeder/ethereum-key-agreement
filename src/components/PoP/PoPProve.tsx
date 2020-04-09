@@ -77,7 +77,7 @@ const PoPProve = () => {
               validations={[isPrivateKey]}
               onChange={onChangePrivateKey}
             />
-            <small className="form-text text-muted">64 characters long hexadecimal private key (32 bytes)</small>
+            <small className="form-text">64 characters long hexadecimal private key (32 bytes)</small>
           </Col>
         </FormGroup>
 
@@ -95,7 +95,7 @@ const PoPProve = () => {
               validations={[isPresent]}
               onChange={onChangeChallenge}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               The hard to determine challenge which was provided to you by the counterparty
             </small>
           </Col>
@@ -126,7 +126,7 @@ const PoPProve = () => {
                 <CopyToClipboard text={message} />
               </InputGroup.Append>
             </InputGroup>
-            <small className="mb-3 form-text text-muted">
+            <small className="mb-3 form-text">
               The message that used for signing. Please note that the "\n" literal will be replaced with a new line
             </small>
           </Col>
@@ -158,7 +158,7 @@ const PoPProve = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               <strong>Proof of Possession</strong> is an important technique of proving that a party sending a message
               owns a specific cryptographic key. This is used as a proof that the correct party is sending the message,
               under the assumption that only that sender has possession of the key. It is typically demonstrated by
@@ -166,14 +166,14 @@ const PoPProve = () => {
               presenter/counterparty.
             </small>
 
-            <small className="form-text text-muted">
+            <small className="form-text">
               In addition for preventing the counterparty from <strong>DoS</strong> the shared key by providing a key it
               doesn't possess, this is one of the possible mitigations against the <strong>Rouge Key Attack</strong>,
               where the counterparty will choose a specially crafted public key to either try to "cancel" your public
               key, during the shared key generation phase or to weaken its security.
             </small>
 
-            <small className="form-text text-muted">
+            <small className="form-text">
               We recommend that:
               <ol>
                 <li>
