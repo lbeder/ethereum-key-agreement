@@ -54,7 +54,7 @@ const AggregatedPublicKey = () => {
               validations={[isPublicKey]}
               onChange={onChangeInput}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               66 characters long hexadecimal compressed/uncompressed public key (1+32 bytes or 1+64 bytes). The key
               should start with either 0x02, 0x03, or 0x04
             </small>
@@ -75,7 +75,7 @@ const AggregatedPublicKey = () => {
               validations={[isPublicKey]}
               onChange={onChangeInput}
             />
-            <small className="form-text text-muted">
+            <small className="form-text">
               66 characters long hexadecimal compressed/uncompressed public key (1+32 bytes or 1+64 bytes). The key
               should start with either 0x02, 0x03, or 0x04
             </small>
@@ -122,12 +122,12 @@ const AggregatedPublicKey = () => {
       <Form className="web3-component-notes">
         <FormGroup as={Row}>
           <Col md={12}>
-            <small className="form-text text-muted">
+            <small className="form-text">
               The shared public key is derived using the key aggregation key agreement protocol.
             </small>
 
             { /* prettier-ignore */ }
-            <small className="form-text text-muted">
+            <small className="form-text">
               If Alice and Bob have
               private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
               <ul>
@@ -136,7 +136,7 @@ const AggregatedPublicKey = () => {
               </ul>
             </small>
 
-            <small className="form-text text-muted">
+            <small className="form-text">
               Please make sure to verify the ownerships of the public keys using the{' '}
               <strong>Proof of Possession</strong> method above to avoid <strong>DoS</strong> and{' '}
               <strong>Rouge Key Attacks</strong>.
