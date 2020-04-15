@@ -1,6 +1,6 @@
 {
   "name": "ethereum-key-agreement",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Key Agreement Protocols for Ethereum",
   "author": "leonid.beder@gmail.com",
   "license": "MIT",
