@@ -97,7 +97,7 @@ const ConvertTransaction = () => {
         <FormGroup as={Row}>
           <Col md={12}>
             <small className="form-text">
-              Please use this section carefully to derive your public key and address from a private key.
+              Please use this section carefully to derive your public key and address from a signed transaction.
             </small>
 
             { /* prettier-ignore */ }

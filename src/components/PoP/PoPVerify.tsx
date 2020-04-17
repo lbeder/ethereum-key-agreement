@@ -209,10 +209,24 @@ const PoPVerify = () => {
             </small>
 
             <small className="form-text">
-              In addition for preventing the counterparty from <strong>DoS</strong> the shared key by providing a key it
-              doesn't possess, this is one of the possible mitigations against the <strong>Rouge Key Attack</strong>,
-              where the counterparty will choose a specially crafted public key to either try to "cancel" your public
-              key, during the shared key generation phase or to weaken its security.
+              In addition to preventing <strong>human errors</strong> or the counterparty from <strong>DoS</strong> the
+              shared key by providing a key it doesn't possess, this is one of the possible mitigations against the{' '}
+              <strong>Rouge Key Attack</strong>, where the counterparty will choose a specially crafted public key to
+              either try to "cancel" your public key, during the shared key generation phase or to weaken its security.
+            </small>
+
+            <small className="form-text">
+              As another complementary counter-measure for <strong>Rouge Key Attack</strong>, you can use a{' '}
+              <a href="https://en.wikipedia.org/wiki/Commitment_scheme" target="_blank" rel="noopener noreferrer">
+                Commit-Reveal
+              </a>{' '}
+              scheme to split the exchange of the public keys into a <strong>Commit</strong> phase (e.g., providing a
+              hash/
+              <a href="https://en.wikipedia.org/wiki/HMAC" target="_blank" rel="noopener noreferrer">
+                HMAC
+              </a>{' '}
+              of the public keys) and a <strong>Reveal</strong> phase (providing the actual public keys and verifying
+              that they conform to the previous commitments).
             </small>
 
             <small className="form-text">
