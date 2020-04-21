@@ -29,6 +29,17 @@ const Aggregated = ({ onClickNext }: IProps) => {
         method above to avoid <strong>DoS</strong> and <strong>Rouge Key Attacks</strong>.
       </p>
 
+      { /* prettier-ignore */ }
+      <p>
+        This scheme can be easily extended to an <strong>n-out-of-n</strong> scheme as well:
+        For example, if Alice, Bob, and Carol have private keys <strong><i>a</i></strong>, <strong><i>b</i></strong>, and <strong><i>c</i></strong> and corresponding public keys <strong><i>aG</i></strong>, <strong><i>bG</i></strong>, and <strong><i>cG</i></strong>, then:
+      </p>
+      { /* prettier-ignore */ }
+      <ul>
+        <li>The shared public key would be <strong><i>(a + b + c)G</i></strong>.</li>
+        <li>The shared private key would be <strong><i>a + b + c</i></strong>.</li>
+      </ul>
+
       <p>
         Please be aware that if you are using a public key sourced from a hardware wallet, you will require your seed in
         order to recover your aggregated shared private key (by first extracting the relevant private key using a{' '}

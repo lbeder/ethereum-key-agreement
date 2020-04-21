@@ -24,19 +24,30 @@ const ECDH = ({ onClickNext }: IProps) => {
 
       { /* prettier-ignore */ }
       <p>
-                    If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
-                  </p>
+        If Alice and Bob have private keys <strong><i>a</i></strong>, and <strong><i>b</i></strong> and corresponding public keys <strong><i>aG</i></strong>, and <strong><i>bG</i></strong>, then:
+      </p>
 
       { /* prettier-ignore */ }
       <ul>
-                    <li>The shared public key would be <strong><i>abG</i></strong>.</li>
-                    <li>The shared private key would be <strong><i>ab</i></strong>.</li>
-                  </ul>
+        <li>The shared public key would be <strong><i>abG</i></strong>.</li>
+        <li>The shared private key would be <strong><i>ab</i></strong>.</li>
+      </ul>
 
       <p>
         Please make sure to verify the ownerships of the public keys using the <strong>Proof of Possession</strong>{' '}
         method above to avoid <strong>DoS</strong> and <strong>Rouge Key Attacks</strong>.
       </p>
+
+      { /* prettier-ignore */ }
+      <p>
+        This scheme can be easily extended to an <strong>n-out-of-n</strong> scheme as well:
+        For example, if Alice, Bob, and Carol have private keys <strong><i>a</i></strong>, <strong><i>b</i></strong>, and <strong><i>c</i></strong> and corresponding public keys <strong><i>aG</i></strong>, <strong><i>bG</i></strong>, and <strong><i>cG</i></strong>, then:
+      </p>
+      { /* prettier-ignore */ }
+      <ul>
+        <li>The shared public key would be <strong><i>abcG</i></strong>.</li>
+        <li>The shared private key would be <strong><i>abc</i></strong>.</li>
+      </ul>
 
       <p>
         Please be aware that if you are using a public key sourced from a hardware wallet, you will require your seed in
