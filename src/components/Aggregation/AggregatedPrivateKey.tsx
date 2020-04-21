@@ -147,6 +147,16 @@ const AggregatedPrivateKey = () => {
                 <li>The shared private key would be <strong><i>a + b</i></strong>.</li>
               </ul>
             </small>
+
+            { /* prettier-ignore */ }
+            <small className="form-text">
+              This scheme can be easily extended to an <strong>n-out-of-n</strong> scheme as well:
+              For example, if Alice, Bob, and Carol have private keys <strong><i>a</i></strong>, <strong><i>b</i></strong>, and <strong><i>c</i></strong> and corresponding public keys <strong><i>aG</i></strong>, <strong><i>bG</i></strong>, and <strong><i>cG</i></strong>, then:
+              <ul>
+                <li>The shared public key would be <strong><i>(a + b + c)G</i></strong>.</li>
+                <li>The shared private key would be <strong><i>a + b + c</i></strong>.</li>
+              </ul>
+            </small>
           </Col>
         </FormGroup>
       </Form>
