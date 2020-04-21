@@ -7,7 +7,7 @@ import { ECDHPublicKey, ECDHPrivateKey } from './ECDH';
 import { AggregatedPublicKey, AggregatedPrivateKey } from './Aggregation';
 import { ConvertPrivateKey, ConvertPublicKey, ConvertMessage, ConvertTransaction } from './Tools';
 import SMPC from './SMPC/SMPC';
-import TutorialModal, { SLIDE_KEYS, tutorialHasBeenOpened } from './TutorialModal';
+import TutorialModal, { SLIDE_KEYS, tutorialHasBeenOpened } from './Tutorial/TutorialModal';
 
 import './Dashboard.scss';
 
