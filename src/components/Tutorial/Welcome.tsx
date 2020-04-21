@@ -11,13 +11,22 @@ const Welcome = ({ onClickNext }: IProps) => {
       <h3>Welcome!</h3>
 
       <p>
-        This project is created to ease <strong>key exchange and agreement protocols</strong> for Ethereum.{' '}
+        This project is created to ease <strong>key exchange and agreement protocols</strong> for Ethereum.
       </p>
 
       <p>
         It should be used to generate a shared public and private key pair between adversarial counterparties, which can
         be used to open a secure communication channel or effectively act as a 2-out-of-2 multisig (whenever using an
         on-chain multisig smart contract or fully privacy-preserving MPC isn't applicable).
+      </p>
+
+      { /* prettier-ignore */ }
+      <p>
+        These protocols can be easily extended to <strong>n-out-of-n</strong> schemes and can also be used in a
+        hierarchical key sharing way (e.g., a master shared key <strong><i>M</i></strong>{' '}
+        is derived via a <strong>2-out-of-2</strong> combination of keys <strong><i>a</i></strong> and <strong><i>b</i></strong>, while{' '}
+        both <strong><i>a</i></strong> and <strong><i>b</i></strong> are derived via additional <strong>5-out-of-5</strong>{' '}
+        and <strong>3-out-of-3</strong> combinations respectively).
       </p>
 
       <p>The project currently supports the following protocols:</p>
