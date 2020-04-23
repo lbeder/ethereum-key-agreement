@@ -11,11 +11,11 @@ export class BaseKey {
     this.key = BaseKey.keyToBuf(key);
   }
 
-  toString(): string {
+  public toString(): string {
     return `0x${Buffer.from(this.key).toString('hex')}`;
   }
 
-  static keyToBuf(key: RawKey): Buffer {
+  private static keyToBuf(key: RawKey): Buffer {
     const tmp = key;
     if (typeof key === 'string') {
       let str: string = tmp as string;

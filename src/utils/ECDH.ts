@@ -5,7 +5,7 @@ import { PublicKey, RawPublicKey, COMPRESSED_PUBLIC_KEY_LENGTH } from './PublicK
 
 export class ECDH {
   // Derives an ECDH shared public key.
-  static derivePublicKey(publicKey: RawPublicKey, privateKey: RawPrivateKey): PublicKey {
+  public static derivePublicKey(publicKey: RawPublicKey, privateKey: RawPrivateKey): PublicKey {
     // Creates the compressed public key from X and Y values.
     const hashfn = (x: Uint8Array, y: Uint8Array) => {
       const pubKey = new Uint8Array(33);
@@ -26,7 +26,7 @@ export class ECDH {
   }
 
   // Derives an ECDH shared private key.
-  static derivePrivateKey(privateKey1: RawPrivateKey, privateKey2: RawPrivateKey): PrivateKey {
+  public static derivePrivateKey(privateKey1: RawPrivateKey, privateKey2: RawPrivateKey): PrivateKey {
     const tmpPrivateKey = new PrivateKey(privateKey1);
 
     return tmpPrivateKey.mulPrivateKey(privateKey2);

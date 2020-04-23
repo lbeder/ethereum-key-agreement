@@ -17,7 +17,7 @@ export class PrivateKey extends BaseKey {
     }
   }
 
-  static isValid(key: RawPrivateKey): boolean {
+  public static isValid(key: RawPrivateKey): boolean {
     try {
       // tslint:disable-next-line: no-unused-expression
       new PrivateKey(key);
@@ -28,19 +28,19 @@ export class PrivateKey extends BaseKey {
     }
   }
 
-  toPublicKey(): PublicKey {
+  public toPublicKey(): PublicKey {
     const tmpKey = new Uint8Array(this.key);
 
     return new PublicKey(Buffer.from(secp256k1.publicKeyCreate(tmpKey, true)));
   }
 
-  mulPrivateKey(key: RawPrivateKey): PrivateKey {
+  public mulPrivateKey(key: RawPrivateKey): PrivateKey {
     const tmpKey = new Uint8Array(this.key);
 
     return new PrivateKey(Buffer.from(secp256k1.privateKeyTweakMul(tmpKey, new PrivateKey(key).key)));
   }
 
-  addPrivateKey(key: RawPrivateKey): PrivateKey {
+  public addPrivateKey(key: RawPrivateKey): PrivateKey {
     const tmpKey = new Uint8Array(this.key);
 
     return new PrivateKey(Buffer.from(secp256k1.privateKeyTweakAdd(tmpKey, new PrivateKey(key).key)));

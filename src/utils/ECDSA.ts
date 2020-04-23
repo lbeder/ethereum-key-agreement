@@ -6,7 +6,7 @@ import { PrivateKey, RawPrivateKey } from './PrivateKey';
 
 export class ECDSA {
   // Recovers the public key from a signature. The method supports prefixing the message according to EIP712.
-  static recoverFromMessage(message: string, signature: string, prefix: boolean = true): PublicKey | null {
+  public static recoverFromMessage(message: string, signature: string, prefix: boolean = true): PublicKey | null {
     const messageBuf = Buffer.from(message);
     const messageHash = prefix ? hashPersonalMessage(messageBuf) : keccak256(messageBuf);
 
@@ -21,7 +21,7 @@ export class ECDSA {
   }
 
   // Recovers the public key from a signed transaction.
-  static recoverFromSignedTransation(txData: string): PublicKey | null {
+  public static recoverFromSignedTransation(txData: string): PublicKey | null {
     try {
       const rawSignerPublicKey = new Transaction(txData).getSenderPublicKey();
 
@@ -32,7 +32,7 @@ export class ECDSA {
   }
 
   // ECDSA signs a given message. The method supports prefixing the message according to EIP712.
-  static sign(message: string, privateKey: RawPrivateKey, prefix: boolean = true) {
+  public static sign(message: string, privateKey: RawPrivateKey, prefix: boolean = true) {
     const messageBuf = Buffer.from(message);
     const messageHash = prefix ? hashPersonalMessage(messageBuf) : keccak256(messageBuf);
 
@@ -43,7 +43,7 @@ export class ECDSA {
   }
 
   // Verifies ECDSA signature on a given message. The method supports prefixing the message according to EIP712.
-  static verify(message: string, signature: string, publicKey: RawPublicKey, prefix: boolean = true): boolean {
+  public static verify(message: string, signature: string, publicKey: RawPublicKey, prefix: boolean = true): boolean {
     const signerPublicKey = ECDSA.recoverFromMessage(message, signature, prefix);
     const expectedPublicKey = new PublicKey(publicKey).toCompressed();
 

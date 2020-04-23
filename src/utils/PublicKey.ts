@@ -27,7 +27,7 @@ export class PublicKey extends BaseKey {
     this.compressed = keyLength === COMPRESSED_PUBLIC_KEY_LENGTH;
   }
 
-  static isValid(key: RawPublicKey): boolean {
+  public static isValid(key: RawPublicKey): boolean {
     try {
       // tslint:disable-next-line: no-unused-expression
       new PublicKey(key);
@@ -38,7 +38,7 @@ export class PublicKey extends BaseKey {
     }
   }
 
-  toCompressed(): PublicKey {
+  public toCompressed(): PublicKey {
     if (this.compressed) {
       return new PublicKey(this.key);
     }
@@ -49,7 +49,7 @@ export class PublicKey extends BaseKey {
     return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, true)));
   }
 
-  toUncompressed(): PublicKey {
+  public toUncompressed(): PublicKey {
     if (!this.compressed) {
       return new PublicKey(this.key);
     }
@@ -59,18 +59,18 @@ export class PublicKey extends BaseKey {
     return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, false)));
   }
 
-  toAddress(): string {
+  public toAddress(): string {
     const tmpKey = this.toUncompressed();
     const address = keccak256(tmpKey.key).slice(-20);
 
     return `0x${address.toString('hex')}`;
   }
 
-  toChecksumAddress(): string {
+  public toChecksumAddress(): string {
     return toChecksumAddress(this.toAddress());
   }
 
-  addPublicKey(key: RawPublicKey): PublicKey {
+  public addPublicKey(key: RawPublicKey): PublicKey {
     const tmpKey = new Uint8Array(this.key);
 
     return new PublicKey(Buffer.from(secp256k1.publicKeyCombine([tmpKey, new PublicKey(key).key], this.compressed)));
