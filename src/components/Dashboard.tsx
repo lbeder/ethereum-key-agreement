@@ -22,8 +22,8 @@ const Dashboard = () => {
   const onCloseTutorial = () => setTutorial(false);
   const onShowTutorial = () => setTutorial(true);
 
-  const onSelectNavLink = (key: string) => {
-    setEventKey(key);
+  const onSelectNavLink = (key: string | null) => {
+    setEventKey(key || '');
   };
 
   return (
