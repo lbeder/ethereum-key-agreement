@@ -17,7 +17,7 @@ const ConvertTransaction = () => {
   const onSubmit = (event: MouseEvent) => {
     event.preventDefault();
 
-    const pubKey = ECDSA.recoverFromSignedTransation(txData);
+    const pubKey = ECDSA.recoverFromSignedTransaction(txData);
     if (pubKey === null) {
       return;
     }

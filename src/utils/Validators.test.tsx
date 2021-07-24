@@ -10,7 +10,7 @@ describe('isPresent', () => {
 
   ['', '  ', '       '].forEach((str: string) => {
     it(`should return invalid element on "${str}"`, async () => {
-      expect(isPresent(str)).toEqual(<div className="invalid-feedback">Can't be blank</div>);
+      expect(isPresent(str)).to.be.equal(<div className="invalid-feedback">Can't be blank</div>);
     });
   });
 });
@@ -24,7 +24,7 @@ describe('isNumber', () => {
 
   ['', '123a', 'abcd', 'dsfsdfsdfdsf', '100$', '***   12', '   1000'].forEach((num: string) => {
     it(`should return invalid element on ${num}`, async () => {
-      expect(isNumber(num)).toEqual(<div className="invalid-feedback">Not a valid number</div>);
+      expect(isNumber(num)).to.be.equal(<div className="invalid-feedback">Not a valid number</div>);
     });
   });
 });
@@ -38,7 +38,7 @@ describe('isHex', () => {
 
   ['', '123G', 'dsfsdfsdfdsf', '100$', '***   0x12', '   0x1000'].forEach((num: string) => {
     it(`should return invalid element on ${num}`, async () => {
-      expect(isHex(num)).toEqual(<div className="invalid-feedback">Not a valid hexadecimal data</div>);
+      expect(isHex(num)).to.be.equal(<div className="invalid-feedback">Not a valid hexadecimal data</div>);
     });
   });
 });
@@ -71,7 +71,7 @@ describe('isPrivateKey', () => {
     '   1000'
   ].forEach((key: string) => {
     it(`should return invalid element on ${key}`, async () => {
-      expect(isPrivateKey(key)).toEqual(<div className="invalid-feedback">Not a valid private key</div>);
+      expect(isPrivateKey(key)).to.be.equal(<div className="invalid-feedback">Not a valid private key</div>);
     });
   });
 });
@@ -110,7 +110,7 @@ describe('isPublicKey', () => {
     '   1000'
   ].forEach((key: string) => {
     it(`should return invalid element on ${key}`, async () => {
-      expect(isPublicKey(key)).toEqual(<div className="invalid-feedback">Not a valid public key</div>);
+      expect(isPublicKey(key)).to.be.equal(<div className="invalid-feedback">Not a valid public key</div>);
     });
   });
 });
@@ -143,7 +143,7 @@ describe('isValidSignature', () => {
     '   1000'
   ].forEach((sig: string) => {
     it(`should return invalid element on ${sig}`, async () => {
-      expect(isValidSignature(sig)).toEqual(<div className="invalid-feedback">Not a valid signature</div>);
+      expect(isValidSignature(sig)).to.be.equal(<div className="invalid-feedback">Not a valid signature</div>);
     });
   });
 });

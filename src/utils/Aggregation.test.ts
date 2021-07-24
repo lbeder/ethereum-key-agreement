@@ -1,5 +1,11 @@
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
+
 import { PrivateKey } from './PrivateKey';
 import { Aggregation } from './Aggregation';
+
+chai.use(dirtyChai);
+const { expect } = chai;
 
 describe('Aggregation', () => {
   describe('derivePublicKey', () => {
@@ -50,7 +56,7 @@ describe('Aggregation', () => {
       it(`should derive aggregated public key for public keys ${publicKey1} and ${publicKey2}`, async () => {
         const sharedPublicKey = Aggregation.derivePublicKey(publicKey1, publicKey2);
 
-        expect(sharedPublicKey.toString()).toEqual(res);
+        expect(sharedPublicKey.toString()).to.be.equal(res);
       });
     });
   });
@@ -103,22 +109,22 @@ describe('Aggregation', () => {
       it(`should derive aggregated private key for private keys ${privateKey1} and ${privateKey2}`, async () => {
         const sharedPrivateKey = Aggregation.derivePrivateKey(privateKey1, privateKey2);
 
-        expect(sharedPrivateKey.toString()).toEqual(res);
+        expect(sharedPrivateKey.toString()).to.be.equal(res);
       });
 
       it(`should derive aggregated both private and public keys for private keys ${privateKey1} and ${privateKey2}`, async () => {
         const sharedPrivateKey = Aggregation.derivePrivateKey(privateKey1, privateKey2);
 
-        expect(sharedPrivateKey.toString()).toEqual(res);
+        expect(sharedPrivateKey.toString()).to.be.equal(res);
 
         const publicKey1 = new PrivateKey(privateKey1).toPublicKey();
         const publicKey2 = new PrivateKey(privateKey2).toPublicKey();
 
         const sharedPublicKey1 = Aggregation.derivePublicKey(publicKey1, publicKey2);
         const sharedPublicKey2 = Aggregation.derivePublicKey(publicKey2, publicKey1);
-        expect(sharedPublicKey1.toString()).toEqual(sharedPublicKey2.toString());
+        expect(sharedPublicKey1.toString()).to.be.equal(sharedPublicKey2.toString());
 
-        expect(sharedPublicKey1.toString()).toEqual(sharedPrivateKey.toPublicKey().toString());
+        expect(sharedPublicKey1.toString()).to.be.equal(sharedPrivateKey.toPublicKey().toString());
       });
     });
   });

@@ -1,4 +1,9 @@
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
 import { ECDSA } from './ECDSA';
+
+chai.use(dirtyChai);
+const { expect } = chai;
 
 describe('ECDSA', () => {
   describe('recoverFromMessage', () => {
@@ -107,12 +112,12 @@ describe('ECDSA', () => {
       it(`should recover a public from a signature on ${
         prefix ? 'a prefixed' : ''
       } message "${message}" and signature ${signature}`, async () => {
-        expect(ECDSA.recoverFromMessage(message, signature, prefix)?.toString()).toEqual(publicKey);
+        expect(ECDSA.recoverFromMessage(message, signature, prefix)?.toString()).to.be.equal(publicKey);
       });
     });
   });
 
-  describe('recoverFromSignedTransation', () => {
+  describe('recoverFromSignedTransaction', () => {
     [
       {
         txData:
@@ -138,7 +143,7 @@ describe('ECDSA', () => {
       const { txData, publicKey } = spec;
 
       it(`should recover a public from a signed transaction "${txData}"`, async () => {
-        expect(ECDSA.recoverFromSignedTransation(txData)?.toString()).toEqual(publicKey);
+        expect(ECDSA.recoverFromSignedTransaction(txData)?.toString()).to.be.equal(publicKey);
       });
     });
 
@@ -163,7 +168,7 @@ describe('ECDSA', () => {
       const { txData } = spec;
 
       it(`should unable to recover a public from an invalid signed transaction "${txData}"`, async () => {
-        expect(ECDSA.recoverFromSignedTransation(txData)).toBeNull();
+        expect(ECDSA.recoverFromSignedTransaction(txData)).to.be.null();
       });
     });
   });
@@ -272,7 +277,7 @@ describe('ECDSA', () => {
       const { message, signature, privateKey, prefix } = spec;
 
       it(`should generate valid signature on ${prefix ? 'a prefixed' : ''} message "${message}"`, async () => {
-        expect(ECDSA.sign(message, privateKey, prefix)).toEqual(signature);
+        expect(ECDSA.sign(message, privateKey, prefix)).to.be.equal(signature);
       });
     });
   });
@@ -383,7 +388,7 @@ describe('ECDSA', () => {
       it(`should verify signature on ${
         prefix ? 'a prefixed' : ''
       } message "${message}" and signature ${signature}`, async () => {
-        expect(ECDSA.verify(message, signature, publicKey, prefix)).toBeTruthy();
+        expect(ECDSA.verify(message, signature, publicKey, prefix)).to.be.true();
       });
     });
 
@@ -408,13 +413,6 @@ describe('ECDSA', () => {
           '0xd53e1beb5d33520725d03a7067cbb937cf7d7ee3a8d15d76b66e7fae4b60c0f35a3106466982de23e8a7f0da496acb144a1d2f19c780f60a1051c4d0042c3f581c',
         publicKey: '0x0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8',
         prefix: true
-      },
-      {
-        message: 'Hello World!',
-        signature:
-          '0xfde9bab678d45a078d2fd78416c9e4228c9256187e517a8ce35b53f0b58e336116d46eb4ceec47f1881e26d36c6db82d214cdfda97f8f15cdb383572447f59a6',
-        publicKey: '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
-        prefix: false
       },
       {
         message: 'Hello World!',
@@ -468,10 +466,10 @@ describe('ECDSA', () => {
     ].forEach((spec) => {
       const { message, signature, publicKey, prefix } = spec;
 
-      it(`should detect invalid signature on ${
+      it(`should detect invalid signature on${
         prefix ? 'a prefixed' : ''
       } message "${message}" and signature ${signature}`, async () => {
-        expect(ECDSA.verify(message, signature, publicKey, prefix)).toBeFalsy();
+        expect(ECDSA.verify(message, signature, publicKey, prefix)).to.be.false();
       });
     });
   });

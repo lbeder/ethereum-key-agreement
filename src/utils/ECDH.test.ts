@@ -1,5 +1,11 @@
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
+
 import { PrivateKey } from './PrivateKey';
 import { ECDH } from './ECDH';
+
+chai.use(dirtyChai);
+const { expect } = chai;
 
 describe('ECDH', () => {
   describe('derivePublicKey', () => {
@@ -50,7 +56,7 @@ describe('ECDH', () => {
       it(`should derive ECDH public key for public key ${publicKey} and private key ${privateKey}`, async () => {
         const sharedPublicKey = ECDH.derivePublicKey(publicKey, privateKey);
 
-        expect(sharedPublicKey.toString()).toEqual(res);
+        expect(sharedPublicKey.toString()).to.be.equal(res);
       });
     });
   });
@@ -103,22 +109,22 @@ describe('ECDH', () => {
       it(`should derive ECDH private key for private keys ${privateKey1} and ${privateKey2}`, async () => {
         const sharedPrivateKey = ECDH.derivePrivateKey(privateKey1, privateKey2);
 
-        expect(sharedPrivateKey.toString()).toEqual(res);
+        expect(sharedPrivateKey.toString()).to.be.equal(res);
       });
 
       it(`should derive ECDH both private and public keys for private keys ${privateKey1} and ${privateKey2}`, async () => {
         const sharedPrivateKey = ECDH.derivePrivateKey(privateKey1, privateKey2);
 
-        expect(sharedPrivateKey.toString()).toEqual(res);
+        expect(sharedPrivateKey.toString()).to.be.equal(res);
 
         const publicKey1 = new PrivateKey(privateKey1).toPublicKey();
         const publicKey2 = new PrivateKey(privateKey2).toPublicKey();
 
         const sharedPublicKey1 = ECDH.derivePublicKey(publicKey1, privateKey2);
         const sharedPublicKey2 = ECDH.derivePublicKey(publicKey2, privateKey1);
-        expect(sharedPublicKey1.toString()).toEqual(sharedPublicKey2.toString());
+        expect(sharedPublicKey1.toString()).to.be.equal(sharedPublicKey2.toString());
 
-        expect(sharedPublicKey1.toString()).toEqual(sharedPrivateKey.toPublicKey().toString());
+        expect(sharedPublicKey1.toString()).to.be.equal(sharedPrivateKey.toPublicKey().toString());
       });
     });
   });

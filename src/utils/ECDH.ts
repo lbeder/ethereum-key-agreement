@@ -16,12 +16,10 @@ export class ECDH {
       return pubKey;
     };
 
-    const tmpPublicKey = new Uint8Array(new PublicKey(publicKey).key);
+    const tmpPublicKey = new PublicKey(publicKey).key;
 
     return new PublicKey(
-      Buffer.from(
-        ecdh(tmpPublicKey, new PrivateKey(privateKey).key, { hashfn }, Buffer.alloc(COMPRESSED_PUBLIC_KEY_LENGTH))
-      )
+      ecdh(tmpPublicKey, new PrivateKey(privateKey).key, { hashfn }, Buffer.alloc(COMPRESSED_PUBLIC_KEY_LENGTH))
     );
   }
 

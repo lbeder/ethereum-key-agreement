@@ -1,5 +1,5 @@
-import { keccak256, ecsign, ecrecover, toRpcSig, fromRpcSig, hashPersonalMessage } from 'ethereumjs-util';
-import { Transaction } from 'ethereumjs-tx';
+import { keccak256, ecsign, ecrecover, toRpcSig, fromRpcSig, hashPersonalMessage, toBuffer } from 'ethereumjs-util';
+import { Transaction } from '@ethereumjs/tx';
 
 import { PublicKey, RawPublicKey } from './PublicKey';
 import { PrivateKey, RawPrivateKey } from './PrivateKey';
@@ -21,9 +21,10 @@ export class ECDSA {
   }
 
   // Recovers the public key from a signed transaction.
-  public static recoverFromSignedTransation(txData: string): PublicKey | null {
+  public static recoverFromSignedTransaction(txData: string): PublicKey | null {
     try {
-      const rawSignerPublicKey = new Transaction(txData).getSenderPublicKey();
+      const tx = Transaction.fromSerializedTx(toBuffer(txData));
+      const rawSignerPublicKey = tx.getSenderPublicKey();
 
       return new PublicKey(rawSignerPublicKey).toCompressed();
     } catch {
@@ -37,7 +38,7 @@ export class ECDSA {
     const messageHash = prefix ? hashPersonalMessage(messageBuf) : keccak256(messageBuf);
 
     const privKey = new PrivateKey(privateKey);
-    const sig = ecsign(messageHash, privKey.key);
+    const sig = ecsign(messageHash, Buffer.from(privKey.key));
 
     return toRpcSig(sig.v, sig.r, sig.s);
   }
@@ -47,6 +48,6 @@ export class ECDSA {
     const signerPublicKey = ECDSA.recoverFromMessage(message, signature, prefix);
     const expectedPublicKey = new PublicKey(publicKey).toCompressed();
 
-    return signerPublicKey ? signerPublicKey.key.equals(expectedPublicKey.key) : false;
+    return signerPublicKey ? Buffer.from(signerPublicKey.key).equals(Buffer.from(expectedPublicKey.key)) : false;
   }
 }

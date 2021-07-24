@@ -1,4 +1,10 @@
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
+import { BaseKey } from './BaseKey';
 import { PublicKey, COMPRESSED_PUBLIC_KEY_LENGTH, UNCOMPRESSED_PUBLIC_KEY_LENGTH } from './PublicKey';
+
+chai.use(dirtyChai);
+const { expect } = chai;
 
 describe('PublicKey', () => {
   describe('construction', () => {
@@ -6,12 +12,12 @@ describe('PublicKey', () => {
       '0x123',
       '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37ab',
       '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb',
-      Buffer.from('0', 'hex'),
-      Buffer.from('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8ab', 'hex'),
-      Buffer.from('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6', 'hex')
+      BaseKey.hexToUint8Array('00'),
+      BaseKey.hexToUint8Array('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8ab'),
+      BaseKey.hexToUint8Array('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6')
     ].forEach((key) => {
-      it(`should fail on invalid length of ${key.toString('hex')}`, async () => {
-        expect(() => new PublicKey(key)).toThrowError('Invalid key length');
+      it(`should fail on invalid length of ${key.toString()}`, async () => {
+        expect(() => new PublicKey(key)).to.throw('Invalid key length');
       });
     });
 
@@ -23,41 +29,39 @@ describe('PublicKey', () => {
       12345
     ].forEach((key: any) => {
       it(`should fail on invalid type of ${typeof key}`, async () => {
-        expect(() => new PublicKey(key)).toThrowError('Invalid key type');
+        expect(() => new PublicKey(key)).to.throw('Invalid key type');
       });
     });
 
     [
       '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
       '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
-      Buffer.from('0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37', 'hex'),
-      Buffer.from('03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868', 'hex')
+      BaseKey.hexToUint8Array('0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37'),
+      BaseKey.hexToUint8Array('03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868')
     ].forEach((key) => {
-      it(`should construct a compressed public key from ${key.toString('hex')}`, async () => {
+      it(`should construct a compressed public key from ${key.toString()}`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.key).toHaveLength(COMPRESSED_PUBLIC_KEY_LENGTH);
-        expect(publicKey.compressed).toBeTruthy();
+        expect(publicKey.key).to.have.lengthOf(COMPRESSED_PUBLIC_KEY_LENGTH);
+        expect(publicKey.compressed).to.be.true();
       });
     });
 
     [
       '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
       '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
-      Buffer.from(
-        '21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
-        'hex'
+      BaseKey.hexToUint8Array(
+        '21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
       ),
-      Buffer.from(
-        'ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
-        'hex'
+      BaseKey.hexToUint8Array(
+        'ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
       )
     ].forEach((key) => {
-      it(`should construct an uncompressed public key from ${key.toString('hex')}`, async () => {
+      it(`should construct an uncompressed public key from ${key.toString()}`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.key).toHaveLength(UNCOMPRESSED_PUBLIC_KEY_LENGTH);
-        expect(publicKey.compressed).toBeFalsy();
+        expect(publicKey.key).to.have.lengthOf(UNCOMPRESSED_PUBLIC_KEY_LENGTH);
+        expect(publicKey.compressed).to.be.false();
       });
     });
   });
@@ -67,22 +71,22 @@ describe('PublicKey', () => {
       '0x123',
       '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37ab',
       '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb',
-      Buffer.from('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8ab', 'hex'),
-      Buffer.from('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6', 'hex')
+      BaseKey.hexToUint8Array('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6c8ab'),
+      BaseKey.hexToUint8Array('0320d1861be48103c6a1e19592301b69548f651f5129fc857b8f314c070dfce6')
     ].forEach((key) => {
-      it(`should invalidate key ${key.toString('hex')}`, async () => {
-        expect(PublicKey.isValid(key)).toBeFalsy();
+      it(`should invalidate key ${key.toString()}`, async () => {
+        expect(PublicKey.isValid(key)).to.be.false();
       });
     });
 
     [
       '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
       '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
-      Buffer.from('0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37', 'hex'),
-      Buffer.from('03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868', 'hex')
+      BaseKey.hexToUint8Array('0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37'),
+      BaseKey.hexToUint8Array('03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868')
     ].forEach((key) => {
-      it(`should validate key ${key.toString('hex')}`, async () => {
-        expect(PublicKey.isValid(key)).toBeTruthy();
+      it(`should validate key ${key.toString()}`, async () => {
+        expect(PublicKey.isValid(key)).to.be.true();
       });
     });
   });
@@ -98,13 +102,11 @@ describe('PublicKey', () => {
         res: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868'
       },
       {
-        key:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
+        key: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
         res: '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37'
       },
       {
-        key:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
+        key: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
         res: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868'
       }
     ].forEach((spec) => {
@@ -113,7 +115,7 @@ describe('PublicKey', () => {
       it(`should convert key ${key} to a compressed key`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.toCompressed().toString()).toEqual(res);
+        expect(publicKey.toCompressed().toString()).to.be.equal(res);
       });
     });
   });
@@ -122,25 +124,19 @@ describe('PublicKey', () => {
     [
       {
         key: '0x0221277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb37',
-        res:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
+        res: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
       },
       {
         key: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868',
-        res:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
+        res: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
       },
       {
-        key:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
-        res:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
+        key: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
+        res: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
       },
       {
-        key:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
-        res:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
+        key: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
+        res: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
       }
     ].forEach((spec) => {
       const { key, res } = spec;
@@ -148,7 +144,7 @@ describe('PublicKey', () => {
       it(`should convert key ${key} to an uncompressed key`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.toUncompressed().toString()).toEqual(res);
+        expect(publicKey.toUncompressed().toString()).to.be.equal(res);
       });
     });
   });
@@ -164,13 +160,11 @@ describe('PublicKey', () => {
         res: '0x328169f8b6a85206a945f583331f5cae6d824a80'
       },
       {
-        key:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
+        key: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
         res: '0x9396cbf97705df34bf97353e05c89ebf534d624c'
       },
       {
-        key:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
+        key: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
         res: '0x328169f8b6a85206a945f583331f5cae6d824a80'
       }
     ].forEach((spec) => {
@@ -179,7 +173,7 @@ describe('PublicKey', () => {
       it(`should convert key ${key} to address`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.toAddress()).toEqual(res);
+        expect(publicKey.toAddress()).to.be.equal(res);
       });
     });
   });
@@ -195,13 +189,11 @@ describe('PublicKey', () => {
         res: '0x328169f8B6a85206a945F583331f5cAE6d824a80'
       },
       {
-        key:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
+        key: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
         res: '0x9396cBf97705dF34BF97353E05c89ebf534d624c'
       },
       {
-        key:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
+        key: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
         res: '0x328169f8B6a85206a945F583331f5cAE6d824a80'
       }
     ].forEach((spec) => {
@@ -210,7 +202,7 @@ describe('PublicKey', () => {
       it(`should convert key ${key} to address`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.toChecksumAddress()).toEqual(res);
+        expect(publicKey.toChecksumAddress()).to.be.equal(res);
       });
     });
   });
@@ -226,16 +218,12 @@ describe('PublicKey', () => {
         res: '0x03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868'
       },
       {
-        key:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
-        res:
-          '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
+        key: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7',
+        res: '0xec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad28688f34ed6feb3a6402abf27f31ddac0e2ee9ce7506c04583d17ab1ff116d358ad7'
       },
       {
-        key:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
-        res:
-          '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
+        key: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c',
+        res: '0x21277161bff904a10d629078fe77c66abb98ac9b793a108c8b2ce0584aaacb372637d9fd869e6453b4092c82bc963c26efb76bc5e5b9645af8158e7c8d54d13c'
       }
     ].forEach((spec) => {
       const { key, res } = spec;
@@ -243,7 +231,7 @@ describe('PublicKey', () => {
       it(`should convert key ${key} to string`, async () => {
         const publicKey = new PublicKey(key);
 
-        expect(publicKey.toString()).toEqual(res);
+        expect(publicKey.toString()).to.be.equal(res);
       });
     });
   });
@@ -277,8 +265,8 @@ describe('PublicKey', () => {
         const publicKey1 = new PublicKey(key1);
         const publicKey2 = new PublicKey(key2);
 
-        expect(publicKey1.addPublicKey(publicKey2).toString()).toEqual(res);
-        expect(publicKey2.addPublicKey(publicKey1).toString()).toEqual(res);
+        expect(publicKey1.addPublicKey(publicKey2).toString()).to.be.equal(res);
+        expect(publicKey2.addPublicKey(publicKey1).toString()).to.be.equal(res);
       });
     });
   });

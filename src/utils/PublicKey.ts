@@ -3,7 +3,7 @@ import { keccak256, toChecksumAddress } from 'ethereumjs-util';
 
 import { BaseKey } from './BaseKey';
 
-export type RawPublicKey = string | Buffer | PublicKey;
+export type RawPublicKey = string | Uint8Array | PublicKey;
 
 export const COMPRESSED_PUBLIC_KEY_LENGTH = 33;
 export const UNCOMPRESSED_PUBLIC_KEY_LENGTH = 64;
@@ -46,7 +46,7 @@ export class PublicKey extends BaseKey {
     // Uncompress the public key and remove the first 0x04 byte indicating the previous uncompressed form.
     const tmpKey = new Uint8Array([UNCOMPRESSED_PUBLIC_KEY_PREFIX, ...this.key]);
 
-    return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, true)));
+    return new PublicKey(secp256k1.publicKeyConvert(tmpKey, true));
   }
 
   public toUncompressed(): PublicKey {
@@ -56,12 +56,12 @@ export class PublicKey extends BaseKey {
 
     const tmpKey = new Uint8Array(this.key);
 
-    return new PublicKey(Buffer.from(secp256k1.publicKeyConvert(tmpKey, false)));
+    return new PublicKey(secp256k1.publicKeyConvert(tmpKey, false));
   }
 
   public toAddress(): string {
     const tmpKey = this.toUncompressed();
-    const address = keccak256(tmpKey.key).slice(-20);
+    const address = keccak256(Buffer.from(tmpKey.key)).slice(-20);
 
     return `0x${address.toString('hex')}`;
   }
@@ -73,6 +73,6 @@ export class PublicKey extends BaseKey {
   public addPublicKey(key: RawPublicKey): PublicKey {
     const tmpKey = new Uint8Array(this.key);
 
-    return new PublicKey(Buffer.from(secp256k1.publicKeyCombine([tmpKey, new PublicKey(key).key], this.compressed)));
+    return new PublicKey(secp256k1.publicKeyCombine([tmpKey, new PublicKey(key).key], this.compressed));
   }
 }

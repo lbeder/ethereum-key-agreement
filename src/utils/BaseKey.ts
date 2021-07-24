@@ -1,32 +1,45 @@
 export interface IKey {
-  key: Buffer;
+  key: Uint8Array;
 }
 
-export type RawKey = string | Buffer | IKey;
+export type RawKey = string | Uint8Array | IKey;
 
 export class BaseKey {
-  public key: Buffer;
+  public key: Uint8Array;
 
   constructor(key: RawKey) {
-    this.key = BaseKey.keyToBuf(key);
+    this.key = BaseKey.keyToArray(key);
   }
 
   public toString(): string {
     return `0x${Buffer.from(this.key).toString('hex')}`;
   }
 
-  private static keyToBuf(key: RawKey): Buffer {
-    const tmp = key;
-    if (typeof key === 'string') {
-      let str: string = tmp as string;
-      if (str.startsWith('0x')) {
-        str = str.slice(2) || '0';
-      }
-
-      return Buffer.from(str, 'hex');
+  public static hexToUint8Array(hex: string) {
+    let str = hex;
+    if (str.startsWith('0x')) {
+      str = str.slice(2) || '00';
     }
 
-    if (Buffer.isBuffer(key)) {
+    if (str.length % 2 !== 0) {
+      throw new RangeError('Invalid key length');
+    }
+
+    const view = new Uint8Array(str.length / 2);
+
+    for (let i = 0; i < str.length; i += 2) {
+      view[i / 2] = parseInt(str.substring(i, i + 2), 16);
+    }
+
+    return new Uint8Array(view.buffer);
+  }
+
+  private static keyToArray(key: RawKey): Uint8Array {
+    if (typeof key === 'string') {
+      return BaseKey.hexToUint8Array(key);
+    }
+
+    if (key instanceof Uint8Array) {
       return key;
     }
 
