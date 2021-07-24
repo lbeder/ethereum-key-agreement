@@ -1,6 +1,6 @@
 # ethereum-key-agreement
 
-[![Build Status](https://travis-ci.com/lbeder/ethereum-key-agreement.svg?token=RqXzJLB6ziXiVJ1zjt8N&branch=master)](https://travis-ci.com/lbeder/ethereum-key-agreement)
+[![Test](https://github.com/lbeder/ethereum-key-agreement/actions/workflows/workflow.yml/badge.svg)](https://github.com/lbeder/ethereum-key-agreement/actions/workflows/workflow.yml)
 
 A tool for various `secp2561k` key agreement protocols for Ethereum.
 

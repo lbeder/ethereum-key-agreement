@@ -14,7 +14,6 @@
     "build": "react-scripts build",
     "test": "ts-mocha -b -p ./tsconfig.mocha.json src/**/*.test.ts",
     "eject": "react-scripts eject",
-    "lint": "tslint --project tsconfig.json",
     "format": "prettier --check --write src/**/* --config .prettierrc"
   },
   "eslintConfig": {
