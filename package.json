@@ -12,7 +12,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "ts-mocha -b -p ./tsconfig.json src/**/*.test.ts",
+    "test": "ts-mocha -b -p ./tsconfig.mocha.json src/**/*.test.ts",
     "eject": "react-scripts eject",
     "lint": "tslint --project tsconfig.json",
     "format": "prettier --check --write src/**/* --config .prettierrc"
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@ethereumjs/tx": "^3.3.0",
-    "bootstrap": "^5.0.2",
+    "bootstrap": "^4.6.0",
     "date-fns": "^2.23.0",
     "ethereumjs-util": "^7.1.0",
     "node-sass": "^6.0.1",
@@ -45,7 +45,7 @@
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
     "react-scripts": "4.0.3",
-    "react-slick": "^0.28.1",
+    "react-slick": "^0.28.0",
     "react-tooltip": "^4.2.21",
     "react-validation": "^3.0.7",
     "secp256k1": "^4.0.2",
