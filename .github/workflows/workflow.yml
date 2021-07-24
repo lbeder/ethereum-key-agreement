@@ -24,4 +24,4 @@ jobs:
         run: yarn build
 
       - name: Test
-        run: yarn est --watchAll=false
+        run: yarn test --watchAll=false
