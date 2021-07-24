@@ -1,11 +1,7 @@
-import React from 'react';
-
+import { Button, Col, Image, Row } from 'react-bootstrap';
 import { Offline, Online } from 'react-detect-offline';
-import { Row, Col, Image, Button } from 'react-bootstrap';
 import ReactTooltip from 'react-tooltip';
-
 import puzzle from '../images/puzzle.png';
-
 import './Header.scss';
 
 const Header = () => {

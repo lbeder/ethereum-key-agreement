@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Tab, Row, Col, Nav, Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Col, Nav, Row, Tab } from 'react-bootstrap';
 import { HelpCircle } from 'react-feather';
-
-import { PoPProve, PoPVerify } from './PoP';
-import { ECDHPublicKey, ECDHPrivateKey } from './ECDH';
-import { AggregatedPublicKey, AggregatedPrivateKey } from './Aggregation';
-import { ConvertPrivateKey, ConvertPublicKey, ConvertMessage, ConvertTransaction } from './Tools';
-import SMPC from './SMPC/SMPC';
-import TutorialModal, { SLIDE_KEYS, tutorialHasBeenOpened } from './Tutorial/TutorialModal';
-
+import { AggregatedPrivateKey, AggregatedPublicKey } from './Aggregation';
 import './Dashboard.scss';
+import { ECDHPrivateKey, ECDHPublicKey } from './ECDH';
+import { PoPProve, PoPVerify } from './PoP';
+import SMPC from './SMPC/SMPC';
+import { ConvertMessage, ConvertPrivateKey, ConvertPublicKey, ConvertTransaction } from './Tools';
+import TutorialModal, { SLIDE_KEYS, tutorialHasBeenOpened } from './Tutorial/TutorialModal';
 
 const Dashboard = () => {
   const [tutorial, setTutorial] = useState(!tutorialHasBeenOpened());

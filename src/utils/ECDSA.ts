@@ -1,8 +1,7 @@
-import { keccak256, ecsign, ecrecover, toRpcSig, fromRpcSig, hashPersonalMessage, toBuffer } from 'ethereumjs-util';
 import { Transaction } from '@ethereumjs/tx';
-
-import { PublicKey, RawPublicKey } from './PublicKey';
+import { ecrecover, ecsign, fromRpcSig, hashPersonalMessage, keccak256, toBuffer, toRpcSig } from 'ethereumjs-util';
 import { PrivateKey, RawPrivateKey } from './PrivateKey';
+import { PublicKey, RawPublicKey } from './PublicKey';
 
 export class ECDSA {
   // Recovers the public key from a signature. The method supports prefixing the message according to EIP712.

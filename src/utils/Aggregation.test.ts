@@ -1,8 +1,7 @@
 import chai from 'chai';
 import dirtyChai from 'dirty-chai';
-
-import { PrivateKey } from './PrivateKey';
 import { Aggregation } from './Aggregation';
+import { PrivateKey } from './PrivateKey';
 
 chai.use(dirtyChai);
 const { expect } = chai;

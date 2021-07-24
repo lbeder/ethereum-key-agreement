@@ -1,13 +1,11 @@
-import React, { useState, ChangeEvent } from 'react';
-
-import { Row, Col, FormGroup, FormLabel, FormControl, FormCheck, InputGroup } from 'react-bootstrap';
+import { ChangeEvent, useState } from 'react';
+import { Col, FormCheck, FormControl, FormGroup, FormLabel, InputGroup, Row } from 'react-bootstrap';
+import Button from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Textarea from 'react-validation/build/textarea';
-import Button from 'react-validation/build/button';
-
-import { isValidSignature } from '../../utils/Validators';
 import { ECDSA } from '../../utils/ECDSA';
+import { isValidSignature } from '../../utils/Validators';
 import CopyToClipboard from '../CopyToClipboard';
 
 const ConvertMessage = () => {

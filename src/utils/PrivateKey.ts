@@ -1,5 +1,4 @@
 import secp256k1 from 'secp256k1';
-
 import { BaseKey } from './BaseKey';
 import { PublicKey } from './PublicKey';
 

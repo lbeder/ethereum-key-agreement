@@ -1,16 +1,20 @@
-import React from 'react';
-import { isPresent, isNumber, isHex, isPrivateKey, isPublicKey, isValidSignature } from './Validators';
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
+import { isHex, isNumber, isPresent, isPrivateKey, isPublicKey, isValidSignature } from './Validators';
+
+chai.use(dirtyChai);
+const { expect } = chai;
 
 describe('isPresent', () => {
   ['12345', 'sdfsfdsfdsfdsf', '100000', '      a'].forEach((str: string) => {
     it(`should validate "${str}"`, async () => {
-      expect(isPresent(str)).toBeUndefined();
+      expect(isPresent(str)).to.be.undefined();
     });
   });
 
   ['', '  ', '       '].forEach((str: string) => {
     it(`should return invalid element on "${str}"`, async () => {
-      expect(isPresent(str)).to.be.equal(<div className="invalid-feedback">Can't be blank</div>);
+      expect(isPresent(str)).to.be.deep.equal(<div className="invalid-feedback">Can't be blank</div>);
     });
   });
 });
@@ -18,13 +22,13 @@ describe('isPresent', () => {
 describe('isNumber', () => {
   ['12345', '0', '1.1', '100000', '-50.5'].forEach((num: string) => {
     it(`should validate ${num}`, async () => {
-      expect(isNumber(num)).toBeUndefined();
+      expect(isNumber(num)).to.be.undefined();
     });
   });
 
   ['', '123a', 'abcd', 'dsfsdfsdfdsf', '100$', '***   12', '   1000'].forEach((num: string) => {
     it(`should return invalid element on ${num}`, async () => {
-      expect(isNumber(num)).to.be.equal(<div className="invalid-feedback">Not a valid number</div>);
+      expect(isNumber(num)).to.be.deep.equal(<div className="invalid-feedback">Not a valid number</div>);
     });
   });
 });
@@ -32,13 +36,13 @@ describe('isNumber', () => {
 describe('isHex', () => {
   ['12345', '0', '0x12345', '0x0', 'ffff', 'FFFF', '0xFFFF'].forEach((num: string) => {
     it(`should validate ${num}`, async () => {
-      expect(isHex(num)).toBeUndefined();
+      expect(isHex(num)).to.be.undefined();
     });
   });
 
   ['', '123G', 'dsfsdfsdfdsf', '100$', '***   0x12', '   0x1000'].forEach((num: string) => {
     it(`should return invalid element on ${num}`, async () => {
-      expect(isHex(num)).to.be.equal(<div className="invalid-feedback">Not a valid hexadecimal data</div>);
+      expect(isHex(num)).to.be.deep.equal(<div className="invalid-feedback">Not a valid hexadecimal data</div>);
     });
   });
 });
@@ -53,7 +57,7 @@ describe('isPrivateKey', () => {
     '611bedf21d9069610df3f70553783f4e04a8ef1325e15123b1d435cb5bb484bd'
   ].forEach((key: string) => {
     it(`should validate ${key}`, async () => {
-      expect(isPrivateKey(key)).toBeUndefined();
+      expect(isPrivateKey(key)).to.be.undefined();
     });
   });
 
@@ -71,7 +75,7 @@ describe('isPrivateKey', () => {
     '   1000'
   ].forEach((key: string) => {
     it(`should return invalid element on ${key}`, async () => {
-      expect(isPrivateKey(key)).to.be.equal(<div className="invalid-feedback">Not a valid private key</div>);
+      expect(isPrivateKey(key)).to.be.deep.equal(<div className="invalid-feedback">Not a valid private key</div>);
     });
   });
 });
@@ -86,7 +90,7 @@ describe('isPublicKey', () => {
     '03ec93666d9e5beaec73d367d66f118223b9bc7a2ca054ad84ad0b9029a2ad2868'
   ].forEach((key: string) => {
     it(`should validate ${key}`, async () => {
-      expect(isPublicKey(key)).toBeUndefined();
+      expect(isPublicKey(key)).to.be.undefined();
     });
   });
 
@@ -110,7 +114,7 @@ describe('isPublicKey', () => {
     '   1000'
   ].forEach((key: string) => {
     it(`should return invalid element on ${key}`, async () => {
-      expect(isPublicKey(key)).to.be.equal(<div className="invalid-feedback">Not a valid public key</div>);
+      expect(isPublicKey(key)).to.be.deep.equal(<div className="invalid-feedback">Not a valid public key</div>);
     });
   });
 });
@@ -125,15 +129,15 @@ describe('isValidSignature', () => {
     '8b9a004a6e1c29d6a956b8034f06687b3777e5fe4224ea49f73d8e2a5262ff105f2b5ea3575399c9166cf0028d6f28fb1b0866f5e368ee2261c0158aad15aa8f1c'
   ].forEach((sig: string) => {
     it(`should validate ${sig}`, async () => {
-      expect(isValidSignature(sig)).toBeUndefined();
+      expect(isValidSignature(sig)).to.be.undefined();
     });
   });
 
   [
-    '0x8b9a004a6e1c29d6a956b8034f06687b3777e5fe4224ea49f73d8e2a5262ff105f2b5ea3575399c9166cf0028d6f28fb1b0866f5e368ee2261c0158aad15aa8f',
-    '8b9a004a6e1c29d6a956b8034f06687b3777e5fe4224ea49f73d8e2a5262ff105f2b5ea3575399c9166cf0028d6f28fb1b0866f5e368ee2261c0158aad15aa8f',
-    '0xd53e1beb5d33520725d03a7067cbb937cf7d7ee3a8d15d76b66e7fae4b60c0f35a3106466982de23e8a7f0da496acb144a1d2f19c780f60a1051c4d0042c3f581caa',
-    'd53e1beb5d33520725d03a7067cbb937cf7d7ee3a8d15d76b66e7fae4b60c0f35a3106466982de23e8a7f0da496acb144a1d2f19c780f60a1051c4d0042c3f581caa',
+    '0x8b9a004a6e1c29d6a956b8034f06687b3777e5fe4224ea49f73d8e2a5262ff105f2b5ea3575399c9166cf0028d6f28fb1b0866f5e368ee2261c0158aad15aa',
+    '8b9a004a6e1c29d6a956b8034f06687b3777e5fe4224ea49f73d8e2a5262ff105f2b5ea3575399c9166cf0028d6f28fb1b0866f5e368ee2261c0158aad15aa',
+    '0xd53e1beb5d33520725d03a7067cbb937cf7d7ee3a8d15d76b66e7fae4b60c0f35a3106466982de23e8a7f0da496acb144a1d2f19c780f60a1051c4d0042c3f',
+    'd53e1beb5d33520725d03a7067cbb937cf7d7ee3a8d15d76b66e7fae4b60c0f35a3106466982de23e8a7f0da496acb144a1d2f19c780f60a1051c4d0042c3f',
     '',
     '123a',
     'abcd',
@@ -143,7 +147,7 @@ describe('isValidSignature', () => {
     '   1000'
   ].forEach((sig: string) => {
     it(`should return invalid element on ${sig}`, async () => {
-      expect(isValidSignature(sig)).to.be.equal(<div className="invalid-feedback">Not a valid signature</div>);
+      expect(isValidSignature(sig)).to.be.deep.equal(<div className="invalid-feedback">Not a valid signature</div>);
     });
   });
 });

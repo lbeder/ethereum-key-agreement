@@ -1,12 +1,10 @@
-import React, { useState, ChangeEvent } from 'react';
-
-import { Row, Col, FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap';
+import { ChangeEvent, useState } from 'react';
+import { Col, FormControl, FormGroup, FormLabel, InputGroup, Row } from 'react-bootstrap';
+import Button from 'react-validation/build/button';
 import Form from 'react-validation/build/form';
 import Textarea from 'react-validation/build/textarea';
-import Button from 'react-validation/build/button';
-
-import { isHex } from '../../utils/Validators';
 import { ECDSA } from '../../utils/ECDSA';
+import { isHex } from '../../utils/Validators';
 import CopyToClipboard from '../CopyToClipboard';
 
 const ConvertTransaction = () => {

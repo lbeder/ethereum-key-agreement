@@ -1,7 +1,5 @@
-import React from 'react';
-import validator from 'validator';
 import { fromRpcSig } from 'ethereumjs-util';
-
+import validator from 'validator';
 import { PrivateKey } from './PrivateKey';
 import { PublicKey } from './PublicKey';
 

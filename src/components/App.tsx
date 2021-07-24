@@ -1,11 +1,7 @@
-import React from 'react';
-
-import Header from './Header';
-import Dashboard from './Dashboard';
-
-import './App.scss';
-
 import 'typeface-roboto-mono';
+import './App.scss';
+import Dashboard from './Dashboard';
+import Header from './Header';
 
 const App = () => {
   return (

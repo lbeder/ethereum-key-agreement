@@ -1,6 +1,5 @@
-import secp256k1 from 'secp256k1';
 import { keccak256, toChecksumAddress } from 'ethereumjs-util';
-
+import secp256k1 from 'secp256k1';
 import { BaseKey } from './BaseKey';
 
 export type RawPublicKey = string | Uint8Array | PublicKey;

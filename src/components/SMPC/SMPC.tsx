@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Row, Col, FormGroup } from 'react-bootstrap';
+import { Col, FormGroup, Row } from 'react-bootstrap';
 import Form from 'react-validation/build/form';
 
 const SMPC = () => {

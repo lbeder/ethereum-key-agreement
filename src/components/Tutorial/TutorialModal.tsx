@@ -1,17 +1,14 @@
-import React, { useRef } from 'react';
-import { Modal, ModalProps, Container, Row, Col, Image } from 'react-bootstrap';
+import { useRef } from 'react';
+import { Col, Container, Image, Modal, ModalProps, Row } from 'react-bootstrap';
 import Slider from 'react-slick';
-
-import Welcome from './Welcome';
-import PoP from './PoP';
-import ECDH from './ECDH';
-import Aggregated from './Aggregated';
-import Tools from './Tools';
-import SMPC from './SMPC';
-
 import puzzle from '../../images/puzzle-l.png';
-
+import Aggregated from './Aggregated';
+import ECDH from './ECDH';
+import PoP from './PoP';
+import SMPC from './SMPC';
+import Tools from './Tools';
 import './TutorialModal.scss';
+import Welcome from './Welcome';
 
 export interface TutorialModalProps extends ModalProps {
   slide: string;

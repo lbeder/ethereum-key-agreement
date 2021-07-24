@@ -1,5 +1,4 @@
-import React, { MouseEvent } from 'react';
-
+import { MouseEvent } from 'react';
 import { Button } from 'react-bootstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Copy } from 'react-feather';

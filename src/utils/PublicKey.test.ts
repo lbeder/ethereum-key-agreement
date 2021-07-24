@@ -1,7 +1,7 @@
 import chai from 'chai';
 import dirtyChai from 'dirty-chai';
 import { BaseKey } from './BaseKey';
-import { PublicKey, COMPRESSED_PUBLIC_KEY_LENGTH, UNCOMPRESSED_PUBLIC_KEY_LENGTH } from './PublicKey';
+import { COMPRESSED_PUBLIC_KEY_LENGTH, PublicKey, UNCOMPRESSED_PUBLIC_KEY_LENGTH } from './PublicKey';
 
 chai.use(dirtyChai);
 const { expect } = chai;

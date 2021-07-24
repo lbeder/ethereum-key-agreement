@@ -1,7 +1,6 @@
 import { ecdh } from 'secp256k1';
-
 import { PrivateKey, RawPrivateKey } from './PrivateKey';
-import { PublicKey, RawPublicKey, COMPRESSED_PUBLIC_KEY_LENGTH } from './PublicKey';
+import { COMPRESSED_PUBLIC_KEY_LENGTH, PublicKey, RawPublicKey } from './PublicKey';
 
 export class ECDH {
   // Derives an ECDH shared public key.
