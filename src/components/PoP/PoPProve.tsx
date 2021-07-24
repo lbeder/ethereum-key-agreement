@@ -22,32 +22,30 @@ const PoPProve = () => {
     const element = target as HTMLInputElement;
     const value = element.value;
 
-    setPrivateKey(value);
-
-    updateData(value);
+    updateData(value, challenge);
   };
 
   const onChangeChallenge = ({ target }: ChangeEvent) => {
     const element = target as HTMLInputElement;
     const value = element.value;
 
-    setChallenge(value);
-
-    updateData(privateKey);
+    updateData(privateKey, value);
   };
 
-  const updateData = (privKey: string) => {
-    if (!PrivateKey.isValid(privKey)) {
+  const updateData = (newPrivKey: string, newChallenge: string) => {
+    if (!PrivateKey.isValid(newPrivKey)) {
       return;
     }
 
-    const pubKey = new PrivateKey(privKey).toPublicKey().toString();
+    const pubKey = new PrivateKey(newPrivKey).toPublicKey().toString();
     const timestamp = format(new Date(), 'yyyy-MMM-dd');
-    let msg = `I herby certify that on ${timestamp} I owned the corresponding private key for public key ${pubKey}.`;
-    if (challenge.length > 0) {
-      msg = `${msg}\n\nI acknowledge the received "${challenge}" challenge.`;
+    let msg = `I herby certify that on ${timestamp} I owned the corresponding private key for the public key ${pubKey}`;
+    if (newChallenge.length > 0) {
+      msg = `${msg}\n\nI acknowledge the received "${newChallenge}" as a challenge`;
     }
 
+    setPrivateKey(newPrivKey);
+    setChallenge(newChallenge);
     setPublicKey(pubKey);
     setMessage(msg);
   };
@@ -121,7 +119,7 @@ const PoPProve = () => {
           </Col>
           <Col md={9}>
             <InputGroup>
-              <FormControl as="textarea" rows={4} value={message} readOnly={true} />
+              <FormControl as="textarea" rows={6} value={message} readOnly={true} />
               <InputGroup.Append>
                 <CopyToClipboard text={message} />
               </InputGroup.Append>
